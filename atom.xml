@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.kaoso.top/"/>
-  <updated>2019-06-10T19:39:48.545Z</updated>
+  <updated>2019-06-10T19:53:45.090Z</updated>
   <id>http://blog.kaoso.top/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>机器学习应用领域及案例整理</title>
+    <link href="http://blog.kaoso.top/2019/06/04/ml_app_sum/"/>
+    <id>http://blog.kaoso.top/2019/06/04/ml_app_sum/</id>
+    <published>2019-06-03T16:00:00.000Z</published>
+    <updated>2019-06-10T19:53:45.090Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://blog.kaoso.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="人工智能" scheme="http://blog.kaoso.top/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+      <category term="技术应用" scheme="http://blog.kaoso.top/tags/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>论文投稿指南</title>
@@ -471,34 +493,6 @@
       <category term="Tensorflow" scheme="http://blog.kaoso.top/tags/Tensorflow/"/>
     
       <category term="深度学习" scheme="http://blog.kaoso.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据库与服务器使用扫盲 - MySQL &amp; MongoDB &amp; Nginx &amp; Tomcat</title>
-    <link href="http://blog.kaoso.top/2018/08/10/database_configuration/"/>
-    <id>http://blog.kaoso.top/2018/08/10/database_configuration/</id>
-    <published>2018-08-09T16:00:00.000Z</published>
-    <updated>2019-06-10T18:44:00.195Z</updated>
-    
-    <summary type="html">
-    
-      The article has been encrypted, please enter your password to view.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="指南" scheme="http://blog.kaoso.top/categories/%E6%8C%87%E5%8D%97/"/>
-    
-    
-      <category term="MySQL" scheme="http://blog.kaoso.top/tags/MySQL/"/>
-    
-      <category term="MongoDB" scheme="http://blog.kaoso.top/tags/MongoDB/"/>
-    
-      <category term="Nginx" scheme="http://blog.kaoso.top/tags/Nginx/"/>
-    
-      <category term="Tomcat" scheme="http://blog.kaoso.top/tags/Tomcat/"/>
-    
-      <category term="安装配置" scheme="http://blog.kaoso.top/tags/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
     
   </entry>
   
