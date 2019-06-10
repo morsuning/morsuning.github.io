@@ -1,10 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://blog.kaoso.top/2018/05/02/setup_linux/</loc>
-    <lastmod>2019-06-04</lastmod>
+    <loc>http://blog.kaoso.top/2019/04/25/java_develop/</loc>
+    <lastmod>2019-06-10</lastmod>
   </url>  <url>
-    <loc>http://blog.kaoso.top/2018/04/07/model-encrypt/</loc>
-    <lastmod>2019-06-04</lastmod>
+    <loc>http://blog.kaoso.top/2018/08/10/database_configuration/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/11/17/setup_macos/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/05/08/setup_vim/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/10/09/linux_knowledge/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/05/02/setup_linux/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/10/19/setup_develop_tools/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/11/04/python_skill/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/07/14/java_skill/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/09/28/spring_datasource/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/09/27/spring_bean/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/08/17/tensorflow_introduction/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/10/15/python_env/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2016/12/06/bibliography_computer/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2016/11/04/bibliography/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/08/20/python_modules/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/06/28/python_coding/</loc>
+    <lastmod>2019-06-10</lastmod>
   </url>
 </urlset>
