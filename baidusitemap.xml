@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.kaoso.top/2018/06/04/ml_app_sum/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/11/04/python_skill/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/07/14/java_skill/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/07/03/cpp_skill/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2019/05/09/paper_contributing/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2019/01/15/paper_writing/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/11/07/paper_reading/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/12/06/mindword_lieandlietrueh/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/11/26/mindword_youdontkonw/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/11/24/mindword_freeword/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/11/23/mindword_camel/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/12/29/mindword_three_people_story/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2017/12/15/sayworld_ai_1/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2017/12/16/sayworld_ai_2/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2017/11/20/sayworld_blueprint/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2017/12/17/sayworld_ai_3/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2019/04/03/java_hashmap/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
     <loc>http://blog.kaoso.top/2019/04/25/java_develop/</loc>
     <lastmod>2019-06-10</lastmod>
   </url>  <url>
@@ -8,9 +59,6 @@
     <lastmod>2019-06-10</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2018/11/17/setup_macos/</loc>
-    <lastmod>2019-06-10</lastmod>
-  </url>  <url>
-    <loc>http://blog.kaoso.top/2018/07/14/java_skill/</loc>
     <lastmod>2019-06-10</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2018/09/27/spring_bean/</loc>
@@ -23,9 +71,6 @@
     <lastmod>2019-06-10</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2018/10/19/setup_develop_tools/</loc>
-    <lastmod>2019-06-10</lastmod>
-  </url>  <url>
-    <loc>http://blog.kaoso.top/2018/11/04/python_skill/</loc>
     <lastmod>2019-06-10</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2018/10/15/python_env/</loc>

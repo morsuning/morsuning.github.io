@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.kaoso.top/"/>
-  <updated>2019-06-10T18:47:40.107Z</updated>
+  <updated>2019-06-10T19:39:48.545Z</updated>
   <id>http://blog.kaoso.top/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>论文投稿指南</title>
+    <link href="http://blog.kaoso.top/2019/05/09/paper_contributing/"/>
+    <id>http://blog.kaoso.top/2019/05/09/paper_contributing/</id>
+    <published>2019-05-08T16:00:00.000Z</published>
+    <updated>2019-06-10T19:39:48.545Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="学术" scheme="http://blog.kaoso.top/categories/%E5%AD%A6%E6%9C%AF/"/>
+    
+    
+      <category term="科研基础" scheme="http://blog.kaoso.top/tags/%E7%A7%91%E7%A0%94%E5%9F%BA%E7%A1%80/"/>
+    
+      <category term="论文投稿" scheme="http://blog.kaoso.top/tags/%E8%AE%BA%E6%96%87%E6%8A%95%E7%A8%BF/"/>
+    
+  </entry>
   
   <entry>
     <title>Java 开发技术综述</title>
@@ -45,6 +67,162 @@
   </entry>
   
   <entry>
+    <title>JDK12 HashMap 源码阅读笔记</title>
+    <link href="http://blog.kaoso.top/2019/04/03/java_hashmap/"/>
+    <id>http://blog.kaoso.top/2019/04/03/java_hashmap/</id>
+    <published>2019-04-02T16:00:00.000Z</published>
+    <updated>2019-06-10T19:12:58.121Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://blog.kaoso.top/categories/Java/"/>
+    
+    
+      <category term="Java开发" scheme="http://blog.kaoso.top/tags/Java%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="源码阅读" scheme="http://blog.kaoso.top/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+      <category term="HashMap" scheme="http://blog.kaoso.top/tags/HashMap/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>论文写作指南</title>
+    <link href="http://blog.kaoso.top/2019/01/15/paper_writing/"/>
+    <id>http://blog.kaoso.top/2019/01/15/paper_writing/</id>
+    <published>2019-01-14T16:00:00.000Z</published>
+    <updated>2019-06-10T19:38:24.731Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="学术" scheme="http://blog.kaoso.top/categories/%E5%AD%A6%E6%9C%AF/"/>
+    
+    
+      <category term="科研基础" scheme="http://blog.kaoso.top/tags/%E7%A7%91%E7%A0%94%E5%9F%BA%E7%A1%80/"/>
+    
+      <category term="论文写作" scheme="http://blog.kaoso.top/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>“三个人”的故事</title>
+    <link href="http://blog.kaoso.top/2018/12/29/mindword_three_people_story/"/>
+    <id>http://blog.kaoso.top/2018/12/29/mindword_three_people_story/</id>
+    <published>2018-12-28T16:00:00.000Z</published>
+    <updated>2019-06-10T19:26:43.210Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="心言" scheme="http://blog.kaoso.top/categories/%E5%BF%83%E8%A8%80/"/>
+    
+    
+      <category term="随笔" scheme="http://blog.kaoso.top/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="思考" scheme="http://blog.kaoso.top/tags/%E6%80%9D%E8%80%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Lie and lie truth</title>
+    <link href="http://blog.kaoso.top/2018/12/06/mindword_lieandlietrueh/"/>
+    <id>http://blog.kaoso.top/2018/12/06/mindword_lieandlietrueh/</id>
+    <published>2018-12-05T16:00:00.000Z</published>
+    <updated>2019-06-10T19:33:28.228Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="心言" scheme="http://blog.kaoso.top/categories/%E5%BF%83%E8%A8%80/"/>
+    
+    
+      <category term="随笔" scheme="http://blog.kaoso.top/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="思考" scheme="http://blog.kaoso.top/tags/%E6%80%9D%E8%80%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>胡思乱语</title>
+    <link href="http://blog.kaoso.top/2018/11/26/mindword_youdontkonw/"/>
+    <id>http://blog.kaoso.top/2018/11/26/mindword_youdontkonw/</id>
+    <published>2018-11-25T16:00:00.000Z</published>
+    <updated>2019-06-10T19:31:32.380Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="心言" scheme="http://blog.kaoso.top/categories/%E5%BF%83%E8%A8%80/"/>
+    
+    
+      <category term="随笔" scheme="http://blog.kaoso.top/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="思考" scheme="http://blog.kaoso.top/tags/%E6%80%9D%E8%80%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>闲言</title>
+    <link href="http://blog.kaoso.top/2018/11/24/mindword_freeword/"/>
+    <id>http://blog.kaoso.top/2018/11/24/mindword_freeword/</id>
+    <published>2018-11-23T16:00:00.000Z</published>
+    <updated>2019-06-10T19:29:32.325Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="心言" scheme="http://blog.kaoso.top/categories/%E5%BF%83%E8%A8%80/"/>
+    
+    
+      <category term="随笔" scheme="http://blog.kaoso.top/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="思考" scheme="http://blog.kaoso.top/tags/%E6%80%9D%E8%80%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>骆驼</title>
+    <link href="http://blog.kaoso.top/2018/11/23/mindword_camel/"/>
+    <id>http://blog.kaoso.top/2018/11/23/mindword_camel/</id>
+    <published>2018-11-22T16:00:00.000Z</published>
+    <updated>2019-06-10T19:28:14.188Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="心言" scheme="http://blog.kaoso.top/categories/%E5%BF%83%E8%A8%80/"/>
+    
+    
+      <category term="随笔" scheme="http://blog.kaoso.top/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="思考" scheme="http://blog.kaoso.top/tags/%E6%80%9D%E8%80%83/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MacOS 使用入门通 - 常用软件及配置分享 &amp; 常识</title>
     <link href="http://blog.kaoso.top/2018/11/17/setup_macos/"/>
     <id>http://blog.kaoso.top/2018/11/17/setup_macos/</id>
@@ -71,11 +249,35 @@
   </entry>
   
   <entry>
-    <title>精炼 Python - 常用技巧</title>
+    <title>论文阅读指南</title>
+    <link href="http://blog.kaoso.top/2018/11/07/paper_reading/"/>
+    <id>http://blog.kaoso.top/2018/11/07/paper_reading/</id>
+    <published>2018-11-06T16:00:00.000Z</published>
+    <updated>2019-06-10T19:37:20.155Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="学术" scheme="http://blog.kaoso.top/categories/%E5%AD%A6%E6%9C%AF/"/>
+    
+    
+      <category term="科研基础" scheme="http://blog.kaoso.top/tags/%E7%A7%91%E7%A0%94%E5%9F%BA%E7%A1%80/"/>
+    
+      <category term="论文阅读" scheme="http://blog.kaoso.top/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
+    
+      <category term="文献检索" scheme="http://blog.kaoso.top/tags/%E6%96%87%E7%8C%AE%E6%A3%80%E7%B4%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>精炼 Python</title>
     <link href="http://blog.kaoso.top/2018/11/04/python_skill/"/>
     <id>http://blog.kaoso.top/2018/11/04/python_skill/</id>
     <published>2018-11-03T16:00:00.000Z</published>
-    <updated>2019-06-10T18:45:10.676Z</updated>
+    <updated>2019-06-10T19:43:25.271Z</updated>
     
     <summary type="html">
     
@@ -87,8 +289,6 @@
     
     
       <category term="使用技巧" scheme="http://blog.kaoso.top/tags/%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
-    
-      <category term="Python" scheme="http://blog.kaoso.top/tags/Python/"/>
     
       <category term="Python基础知识" scheme="http://blog.kaoso.top/tags/Python%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
@@ -188,9 +388,9 @@
       <category term="Java" scheme="http://blog.kaoso.top/categories/Java/"/>
     
     
-      <category term="Java" scheme="http://blog.kaoso.top/tags/Java/"/>
-    
       <category term="基础知识" scheme="http://blog.kaoso.top/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="Java" scheme="http://blog.kaoso.top/tags/Java/"/>
     
       <category term="Spring框架" scheme="http://blog.kaoso.top/tags/Spring%E6%A1%86%E6%9E%B6/"/>
     
@@ -214,9 +414,9 @@
       <category term="Java" scheme="http://blog.kaoso.top/categories/Java/"/>
     
     
-      <category term="Java" scheme="http://blog.kaoso.top/tags/Java/"/>
-    
       <category term="基础知识" scheme="http://blog.kaoso.top/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="Java" scheme="http://blog.kaoso.top/tags/Java/"/>
     
       <category term="Spring框架" scheme="http://blog.kaoso.top/tags/Spring%E6%A1%86%E6%9E%B6/"/>
     
@@ -299,162 +499,6 @@
       <category term="Tomcat" scheme="http://blog.kaoso.top/tags/Tomcat/"/>
     
       <category term="安装配置" scheme="http://blog.kaoso.top/tags/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java 拾遗</title>
-    <link href="http://blog.kaoso.top/2018/07/14/java_skill/"/>
-    <id>http://blog.kaoso.top/2018/07/14/java_skill/</id>
-    <published>2018-07-13T16:00:00.000Z</published>
-    <updated>2019-06-10T18:46:59.894Z</updated>
-    
-    <summary type="html">
-    
-      The article has been encrypted, please enter your password to view.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="http://blog.kaoso.top/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="http://blog.kaoso.top/tags/Java/"/>
-    
-      <category term="使用技巧" scheme="http://blog.kaoso.top/tags/%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
-    
-      <category term="Java基础知识" scheme="http://blog.kaoso.top/tags/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python 中字符串，数值，二进制流，比特流及各种编码之间的关系</title>
-    <link href="http://blog.kaoso.top/2018/06/28/python_coding/"/>
-    <id>http://blog.kaoso.top/2018/06/28/python_coding/</id>
-    <published>2018-06-27T16:00:00.000Z</published>
-    <updated>2019-06-10T18:43:41.021Z</updated>
-    
-    <summary type="html">
-    
-      The article has been encrypted, please enter your password to view.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://blog.kaoso.top/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="http://blog.kaoso.top/tags/Python/"/>
-    
-      <category term="学习笔记" scheme="http://blog.kaoso.top/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>开发效率指南(1) - 日渐沉迷 Vim</title>
-    <link href="http://blog.kaoso.top/2018/05/08/setup_vim/"/>
-    <id>http://blog.kaoso.top/2018/05/08/setup_vim/</id>
-    <published>2018-05-07T16:00:00.000Z</published>
-    <updated>2019-06-10T18:47:21.735Z</updated>
-    
-    <summary type="html">
-    
-      The article has been encrypted, please enter your password to view.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="指南" scheme="http://blog.kaoso.top/categories/%E6%8C%87%E5%8D%97/"/>
-    
-    
-      <category term="安装配置" scheme="http://blog.kaoso.top/tags/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
-    
-      <category term="使用技巧" scheme="http://blog.kaoso.top/tags/%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
-    
-      <category term="开发工具" scheme="http://blog.kaoso.top/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Vim" scheme="http://blog.kaoso.top/tags/Vim/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux 玩家的备忘录(1) - 安装配置美化优化排错篇</title>
-    <link href="http://blog.kaoso.top/2018/05/02/setup_linux/"/>
-    <id>http://blog.kaoso.top/2018/05/02/setup_linux/</id>
-    <published>2018-05-01T16:00:00.000Z</published>
-    <updated>2019-06-10T18:42:05.222Z</updated>
-    
-    <summary type="html">
-    
-      The article has been encrypted, please enter your password to view.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://blog.kaoso.top/categories/Linux/"/>
-    
-    
-      <category term="安装配置" scheme="http://blog.kaoso.top/tags/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
-    
-      <category term="Linux" scheme="http://blog.kaoso.top/tags/Linux/"/>
-    
-      <category term="Ubuntu" scheme="http://blog.kaoso.top/tags/Ubuntu/"/>
-    
-      <category term="Kali" scheme="http://blog.kaoso.top/tags/Kali/"/>
-    
-      <category term="CentOS" scheme="http://blog.kaoso.top/tags/CentOS/"/>
-    
-      <category term="效率" scheme="http://blog.kaoso.top/tags/%E6%95%88%E7%8E%87/"/>
-    
-      <category term="生产环境" scheme="http://blog.kaoso.top/tags/%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【持续更新】【归档】书单分享 - 计算机</title>
-    <link href="http://blog.kaoso.top/2016/12/06/bibliography_computer/"/>
-    <id>http://blog.kaoso.top/2016/12/06/bibliography_computer/</id>
-    <published>2016-12-05T16:00:00.000Z</published>
-    <updated>2019-06-10T18:44:46.621Z</updated>
-    
-    <summary type="html">
-    
-      The article has been encrypted, please enter your password to view.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="分享" scheme="http://blog.kaoso.top/categories/%E5%88%86%E4%BA%AB/"/>
-    
-    
-      <category term="书单" scheme="http://blog.kaoso.top/tags/%E4%B9%A6%E5%8D%95/"/>
-    
-      <category term="分享" scheme="http://blog.kaoso.top/tags/%E5%88%86%E4%BA%AB/"/>
-    
-      <category term="读书" scheme="http://blog.kaoso.top/tags/%E8%AF%BB%E4%B9%A6/"/>
-    
-      <category term="计算机书籍" scheme="http://blog.kaoso.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%A6%E7%B1%8D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【持续更新】【归档】书单分享 - 日常</title>
-    <link href="http://blog.kaoso.top/2016/11/04/bibliography/"/>
-    <id>http://blog.kaoso.top/2016/11/04/bibliography/</id>
-    <published>2016-11-03T16:00:00.000Z</published>
-    <updated>2019-06-10T18:44:37.067Z</updated>
-    
-    <summary type="html">
-    
-      The article has been encrypted, please enter your password to view.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="分享" scheme="http://blog.kaoso.top/categories/%E5%88%86%E4%BA%AB/"/>
-    
-    
-      <category term="书单" scheme="http://blog.kaoso.top/tags/%E4%B9%A6%E5%8D%95/"/>
-    
-      <category term="分享" scheme="http://blog.kaoso.top/tags/%E5%88%86%E4%BA%AB/"/>
-    
-      <category term="读书" scheme="http://blog.kaoso.top/tags/%E8%AF%BB%E4%B9%A6/"/>
-    
-      <category term="生活" scheme="http://blog.kaoso.top/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
