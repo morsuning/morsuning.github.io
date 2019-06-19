@@ -65,7 +65,7 @@
     <link href="http://blog.kaoso.top/2019/04/25/java_develop/"/>
     <id>http://blog.kaoso.top/2019/04/25/java_develop/</id>
     <published>2019-04-24T16:00:00.000Z</published>
-    <updated>2019-06-10T18:47:40.107Z</updated>
+    <updated>2019-06-15T06:07:28.361Z</updated>
     
     <summary type="html">
     
@@ -75,8 +75,6 @@
     
       <category term="Java" scheme="http://blog.kaoso.top/categories/Java/"/>
     
-    
-      <category term="安装配置" scheme="http://blog.kaoso.top/tags/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
     
       <category term="Java开发" scheme="http://blog.kaoso.top/tags/Java%E5%BC%80%E5%8F%91/"/>
     
@@ -262,11 +260,11 @@
     
       <category term="安装配置" scheme="http://blog.kaoso.top/tags/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
     
+      <category term="MacOS" scheme="http://blog.kaoso.top/tags/MacOS/"/>
+    
       <category term="效率" scheme="http://blog.kaoso.top/tags/%E6%95%88%E7%8E%87/"/>
     
       <category term="生产环境" scheme="http://blog.kaoso.top/tags/%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83/"/>
-    
-      <category term="MacOS" scheme="http://blog.kaoso.top/tags/MacOS/"/>
     
   </entry>
   
