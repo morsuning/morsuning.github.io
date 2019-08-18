@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.kaoso.top/about/index.html</loc>
+    <loc>http://blog.kaoso.top/2019/04/25/java_develop/</loc>
     
-    <lastmod>2019-08-18T06:59:24.025Z</lastmod>
+    <lastmod>2019-08-18T07:59:51.415Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.kaoso.top/2019/04/25/java_develop/</loc>
+    <loc>http://blog.kaoso.top/about/index.html</loc>
     
-    <lastmod>2019-06-15T06:07:28.361Z</lastmod>
+    <lastmod>2019-08-18T06:59:24.025Z</lastmod>
     
   </url>
   
@@ -247,6 +247,13 @@
   </url>
   
   <url>
+    <loc>http://blog.kaoso.top/books/index.html</loc>
+    
+    <lastmod>2018-11-23T14:58:07.398Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.kaoso.top/categories/index.html</loc>
     
     <lastmod>2018-11-23T14:58:07.398Z</lastmod>
@@ -255,13 +262,6 @@
   
   <url>
     <loc>http://blog.kaoso.top/links/index.html</loc>
-    
-    <lastmod>2018-11-23T14:58:07.398Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/books/index.html</loc>
     
     <lastmod>2018-11-23T14:58:07.398Z</lastmod>
     
