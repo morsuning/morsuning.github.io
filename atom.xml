@@ -39,6 +39,30 @@
   </entry>
   
   <entry>
+    <title>未来的中美，世界的未来</title>
+    <link href="http://blog.kaoso.top/2019/10/08/cnus_and_world/"/>
+    <id>http://blog.kaoso.top/2019/10/08/cnus_and_world/</id>
+    <published>2019-10-07T16:00:00.000Z</published>
+    <updated>2019-10-14T17:17:40.116Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="世言" scheme="http://blog.kaoso.top/categories/%E4%B8%96%E8%A8%80/"/>
+    
+    
+      <category term="思考" scheme="http://blog.kaoso.top/tags/%E6%80%9D%E8%80%83/"/>
+    
+      <category term="未来" scheme="http://blog.kaoso.top/tags/%E6%9C%AA%E6%9D%A5/"/>
+    
+      <category term="随笔" scheme="http://blog.kaoso.top/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
     <title>数据挖掘实践</title>
     <link href="http://blog.kaoso.top/2019/09/21/DM_action/"/>
     <id>http://blog.kaoso.top/2019/09/21/DM_action/</id>
@@ -76,9 +100,9 @@
       <category term="心言" scheme="http://blog.kaoso.top/categories/%E5%BF%83%E8%A8%80/"/>
     
     
-      <category term="成长" scheme="http://blog.kaoso.top/tags/%E6%88%90%E9%95%BF/"/>
-    
       <category term="思考" scheme="http://blog.kaoso.top/tags/%E6%80%9D%E8%80%83/"/>
+    
+      <category term="成长" scheme="http://blog.kaoso.top/tags/%E6%88%90%E9%95%BF/"/>
     
   </entry>
   
@@ -124,9 +148,9 @@
     
       <category term="机器学习" scheme="http://blog.kaoso.top/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="深度学习" scheme="http://blog.kaoso.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
       <category term="算法" scheme="http://blog.kaoso.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="深度学习" scheme="http://blog.kaoso.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -404,9 +428,9 @@
     
       <category term="效率" scheme="http://blog.kaoso.top/tags/%E6%95%88%E7%8E%87/"/>
     
-      <category term="MacOS" scheme="http://blog.kaoso.top/tags/MacOS/"/>
-    
       <category term="生产环境" scheme="http://blog.kaoso.top/tags/%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83/"/>
+    
+      <category term="MacOS" scheme="http://blog.kaoso.top/tags/MacOS/"/>
     
   </entry>
   
@@ -453,32 +477,6 @@
       <category term="使用技巧" scheme="http://blog.kaoso.top/tags/%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
     
       <category term="Python基础知识" scheme="http://blog.kaoso.top/tags/Python%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>开发效率指南(1) - VSCode &amp; IntelliJ IDEA &amp; PyCharm</title>
-    <link href="http://blog.kaoso.top/2018/10/19/setup_develop_tools/"/>
-    <id>http://blog.kaoso.top/2018/10/19/setup_develop_tools/</id>
-    <published>2018-10-18T16:00:00.000Z</published>
-    <updated>2019-06-10T18:45:27.911Z</updated>
-    
-    <summary type="html">
-    
-      The article has been encrypted, please enter your password to view.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="指南" scheme="http://blog.kaoso.top/categories/%E6%8C%87%E5%8D%97/"/>
-    
-    
-      <category term="安装配置" scheme="http://blog.kaoso.top/tags/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
-    
-      <category term="VSCode" scheme="http://blog.kaoso.top/tags/VSCode/"/>
-    
-      <category term="IDEA" scheme="http://blog.kaoso.top/tags/IDEA/"/>
-    
-      <category term="开发工具" scheme="http://blog.kaoso.top/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
