@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.kaoso.top/"/>
-  <updated>2019-10-14T16:59:26.745Z</updated>
+  <updated>2019-11-23T16:58:03.568Z</updated>
   <id>http://blog.kaoso.top/</id>
   
   <author>
@@ -17,11 +17,59 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>快速预览（二）：Java Web</title>
+    <link href="http://blog.kaoso.top/2019/11/23/java_web/"/>
+    <id>http://blog.kaoso.top/2019/11/23/java_web/</id>
+    <published>2019-11-22T16:00:00.000Z</published>
+    <updated>2019-11-23T16:58:03.568Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="环境搭建" scheme="http://blog.kaoso.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="Java" scheme="http://blog.kaoso.top/tags/Java/"/>
+    
+      <category term="Java 开发" scheme="http://blog.kaoso.top/tags/Java-%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="Java Web" scheme="http://blog.kaoso.top/tags/Java-Web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>快速预览（一）：Hadoop 集群搭建与 MapReduce 运行</title>
+    <link href="http://blog.kaoso.top/2019/11/10/hadoop_and_mapreduce/"/>
+    <id>http://blog.kaoso.top/2019/11/10/hadoop_and_mapreduce/</id>
+    <published>2019-11-09T16:00:00.000Z</published>
+    <updated>2019-11-23T16:54:18.675Z</updated>
+    
+    <summary type="html">
+    
+      The article has been encrypted, please enter your password to view.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="环境搭建" scheme="http://blog.kaoso.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="Hadoop" scheme="http://blog.kaoso.top/tags/Hadoop/"/>
+    
+      <category term="大数据" scheme="http://blog.kaoso.top/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="Java" scheme="http://blog.kaoso.top/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>算法必备手册</title>
     <link href="http://blog.kaoso.top/2019/10/14/algorithm_manual/"/>
     <id>http://blog.kaoso.top/2019/10/14/algorithm_manual/</id>
     <published>2019-10-13T16:00:00.000Z</published>
-    <updated>2019-10-14T16:59:26.745Z</updated>
+    <updated>2019-11-23T16:18:21.551Z</updated>
     
     <summary type="html">
     
@@ -67,7 +115,7 @@
     <link href="http://blog.kaoso.top/2019/09/21/DM_action/"/>
     <id>http://blog.kaoso.top/2019/09/21/DM_action/</id>
     <published>2019-09-20T16:00:00.000Z</published>
-    <updated>2019-10-14T17:01:21.943Z</updated>
+    <updated>2019-11-23T17:17:17.077Z</updated>
     
     <summary type="html">
     
@@ -409,11 +457,11 @@
   </entry>
   
   <entry>
-    <title>MacOS 使用入门通 - 常用软件及配置分享 &amp; 常识</title>
+    <title>MacOS 使用入门 - 常用软件及配置分享 &amp; 常识</title>
     <link href="http://blog.kaoso.top/2018/11/17/setup_macos/"/>
     <id>http://blog.kaoso.top/2018/11/17/setup_macos/</id>
     <published>2018-11-16T16:00:00.000Z</published>
-    <updated>2019-06-10T18:47:10.509Z</updated>
+    <updated>2019-11-23T16:58:57.630Z</updated>
     
     <summary type="html">
     
@@ -431,52 +479,6 @@
       <category term="生产环境" scheme="http://blog.kaoso.top/tags/%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83/"/>
     
       <category term="MacOS" scheme="http://blog.kaoso.top/tags/MacOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>论文阅读指南</title>
-    <link href="http://blog.kaoso.top/2018/11/07/paper_reading/"/>
-    <id>http://blog.kaoso.top/2018/11/07/paper_reading/</id>
-    <published>2018-11-06T16:00:00.000Z</published>
-    <updated>2019-06-10T19:37:20.155Z</updated>
-    
-    <summary type="html">
-    
-      The article has been encrypted, please enter your password to view.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="学术" scheme="http://blog.kaoso.top/categories/%E5%AD%A6%E6%9C%AF/"/>
-    
-    
-      <category term="科研基础" scheme="http://blog.kaoso.top/tags/%E7%A7%91%E7%A0%94%E5%9F%BA%E7%A1%80/"/>
-    
-      <category term="论文阅读" scheme="http://blog.kaoso.top/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
-    
-      <category term="文献检索" scheme="http://blog.kaoso.top/tags/%E6%96%87%E7%8C%AE%E6%A3%80%E7%B4%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>精炼 Python</title>
-    <link href="http://blog.kaoso.top/2018/11/04/python_skill/"/>
-    <id>http://blog.kaoso.top/2018/11/04/python_skill/</id>
-    <published>2018-11-03T16:00:00.000Z</published>
-    <updated>2019-06-10T19:43:25.271Z</updated>
-    
-    <summary type="html">
-    
-      The article has been encrypted, please enter your password to view.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="http://blog.kaoso.top/categories/Python/"/>
-    
-    
-      <category term="使用技巧" scheme="http://blog.kaoso.top/tags/%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
-    
-      <category term="Python基础知识" scheme="http://blog.kaoso.top/tags/Python%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   

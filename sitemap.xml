@@ -2,6 +2,69 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.kaoso.top/2019/09/21/DM_action/</loc>
+    
+    <lastmod>2019-11-23T17:17:17.077Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2017/12/17/sayworld_ai_3/</loc>
+    
+    <lastmod>2019-11-23T17:05:50.985Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2017/12/16/sayworld_ai_2/</loc>
+    
+    <lastmod>2019-11-23T17:05:41.805Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2018/11/17/setup_macos/</loc>
+    
+    <lastmod>2019-11-23T16:58:57.630Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2019/11/23/java_web/</loc>
+    
+    <lastmod>2019-11-23T16:58:03.568Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2019/11/10/hadoop_and_mapreduce/</loc>
+    
+    <lastmod>2019-11-23T16:54:18.675Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2016/11/04/bibliography/</loc>
+    
+    <lastmod>2019-11-23T16:22:47.131Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2016/12/06/bibliography_computer/</loc>
+    
+    <lastmod>2019-11-23T16:21:02.525Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
+    
+    <lastmod>2019-11-23T16:18:21.551Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.kaoso.top/about/index.html</loc>
     
     <lastmod>2019-10-14T17:50:54.698Z</lastmod>
@@ -19,20 +82,6 @@
     <loc>http://blog.kaoso.top/2019/09/05/DM_notebook/</loc>
     
     <lastmod>2019-10-14T17:02:48.929Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/09/21/DM_action/</loc>
-    
-    <lastmod>2019-10-14T17:01:21.943Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
-    
-    <lastmod>2019-10-14T16:59:26.745Z</lastmod>
     
   </url>
   
@@ -156,23 +205,9 @@
   </url>
   
   <url>
-    <loc>http://blog.kaoso.top/2017/12/16/sayworld_ai_2/</loc>
-    
-    <lastmod>2019-06-10T19:22:38.636Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.kaoso.top/2017/11/20/sayworld_blueprint/</loc>
     
     <lastmod>2019-06-10T19:22:30.176Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2017/12/17/sayworld_ai_3/</loc>
-    
-    <lastmod>2019-06-10T19:19:53.590Z</lastmod>
     
   </url>
   
@@ -191,23 +226,9 @@
   </url>
   
   <url>
-    <loc>http://blog.kaoso.top/2018/11/17/setup_macos/</loc>
-    
-    <lastmod>2019-06-10T18:47:10.509Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.kaoso.top/2018/09/27/spring_bean/</loc>
     
     <lastmod>2019-06-10T18:46:25.425Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/09/28/spring_datasource/</loc>
-    
-    <lastmod>2019-06-10T18:46:23.296Z</lastmod>
     
   </url>
   
@@ -229,20 +250,6 @@
     <loc>http://blog.kaoso.top/2018/10/15/python_env/</loc>
     
     <lastmod>2019-06-10T18:44:58.135Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2016/12/06/bibliography_computer/</loc>
-    
-    <lastmod>2019-06-10T18:44:46.621Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2016/11/04/bibliography/</loc>
-    
-    <lastmod>2019-06-10T18:44:37.067Z</lastmod>
     
   </url>
   
