@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://blog.kaoso.top/2019/09/21/DM_action/</loc>
-    <lastmod>2019-12-02</lastmod>
-  </url>  <url>
     <loc>http://blog.kaoso.top/2019/11/27/knowledge_system/</loc>
+    <lastmod>2019-12-13</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2018/07/03/cpp_skill/</loc>
+    <lastmod>2019-12-05</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2019/09/21/DM_action/</loc>
     <lastmod>2019-12-02</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
@@ -62,9 +65,6 @@
     <lastmod>2019-06-10</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2018/07/14/java_skill/</loc>
-    <lastmod>2019-06-10</lastmod>
-  </url>  <url>
-    <loc>http://blog.kaoso.top/2018/07/03/cpp_skill/</loc>
     <lastmod>2019-06-10</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2019/05/09/paper_contributing/</loc>
