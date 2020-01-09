@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.kaoso.top/2018/05/02/setup_linux/</loc>
+    
+    <lastmod>2020-01-09T13:20:16.830Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
     
     <lastmod>2020-01-06T16:29:56.186Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://blog.kaoso.top/2019/09/21/DM_action/</loc>
     
     <lastmod>2019-12-02T13:41:18.275Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/05/02/setup_linux/</loc>
-    
-    <lastmod>2019-11-27T14:58:59.264Z</lastmod>
     
   </url>
   

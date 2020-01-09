@@ -54,9 +54,9 @@
       <category term="环境搭建" scheme="http://blog.kaoso.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     
     
-      <category term="Java 开发" scheme="http://blog.kaoso.top/tags/Java-%E5%BC%80%E5%8F%91/"/>
-    
       <category term="Java" scheme="http://blog.kaoso.top/tags/Java/"/>
+    
+      <category term="Java 开发" scheme="http://blog.kaoso.top/tags/Java-%E5%BC%80%E5%8F%91/"/>
     
       <category term="Java Web" scheme="http://blog.kaoso.top/tags/Java-Web/"/>
     
@@ -78,11 +78,11 @@
       <category term="环境搭建" scheme="http://blog.kaoso.top/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     
     
-      <category term="Java" scheme="http://blog.kaoso.top/tags/Java/"/>
-    
       <category term="Hadoop" scheme="http://blog.kaoso.top/tags/Hadoop/"/>
     
       <category term="大数据" scheme="http://blog.kaoso.top/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="Java" scheme="http://blog.kaoso.top/tags/Java/"/>
     
   </entry>
   
@@ -216,9 +216,9 @@
       <category term="机器学习" scheme="http://blog.kaoso.top/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="算法" scheme="http://blog.kaoso.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="机器学习" scheme="http://blog.kaoso.top/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="算法" scheme="http://blog.kaoso.top/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="深度学习" scheme="http://blog.kaoso.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
@@ -242,13 +242,13 @@
     
       <category term="使用技巧" scheme="http://blog.kaoso.top/tags/%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
     
+      <category term="效率" scheme="http://blog.kaoso.top/tags/%E6%95%88%E7%8E%87/"/>
+    
       <category term="基础知识" scheme="http://blog.kaoso.top/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     
       <category term="人工智能" scheme="http://blog.kaoso.top/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
       <category term="Python" scheme="http://blog.kaoso.top/tags/Python/"/>
-    
-      <category term="效率" scheme="http://blog.kaoso.top/tags/%E6%95%88%E7%8E%87/"/>
     
   </entry>
   
@@ -454,9 +454,9 @@
     
       <category term="效率" scheme="http://blog.kaoso.top/tags/%E6%95%88%E7%8E%87/"/>
     
-      <category term="MacOS" scheme="http://blog.kaoso.top/tags/MacOS/"/>
-    
       <category term="生产环境" scheme="http://blog.kaoso.top/tags/%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83/"/>
+    
+      <category term="MacOS" scheme="http://blog.kaoso.top/tags/MacOS/"/>
     
   </entry>
   
