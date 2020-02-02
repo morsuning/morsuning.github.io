@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.kaoso.top/"/>
-  <updated>2019-12-13T15:56:23.233Z</updated>
+  <updated>2020-01-09T14:32:15.962Z</updated>
   <id>http://blog.kaoso.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://blog.kaoso.top/2019/11/27/knowledge_system/"/>
     <id>http://blog.kaoso.top/2019/11/27/knowledge_system/</id>
     <published>2019-11-26T16:00:00.000Z</published>
-    <updated>2019-12-13T15:56:23.233Z</updated>
+    <updated>2020-01-09T14:32:15.962Z</updated>
     
     <summary type="html">
     
@@ -242,9 +242,9 @@
     
       <category term="使用技巧" scheme="http://blog.kaoso.top/tags/%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
     
-      <category term="效率" scheme="http://blog.kaoso.top/tags/%E6%95%88%E7%8E%87/"/>
-    
       <category term="基础知识" scheme="http://blog.kaoso.top/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="效率" scheme="http://blog.kaoso.top/tags/%E6%95%88%E7%8E%87/"/>
     
       <category term="人工智能" scheme="http://blog.kaoso.top/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
