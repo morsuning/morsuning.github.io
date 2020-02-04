@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
+    
+    <lastmod>2020-02-04T15:24:08.209Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.kaoso.top/2018/05/02/setup_linux/</loc>
     
-    <lastmod>2020-02-01T09:58:31.570Z</lastmod>
+    <lastmod>2020-02-02T01:47:37.361Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>http://blog.kaoso.top/2019/11/27/knowledge_system/</loc>
     
     <lastmod>2020-01-09T14:32:15.962Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
-    
-    <lastmod>2020-01-06T16:29:56.186Z</lastmod>
     
   </url>
   
@@ -289,14 +289,14 @@
   </url>
   
   <url>
-    <loc>http://blog.kaoso.top/links/index.html</loc>
+    <loc>http://blog.kaoso.top/categories/index.html</loc>
     
     <lastmod>2018-11-23T14:58:07.398Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.kaoso.top/categories/index.html</loc>
+    <loc>http://blog.kaoso.top/links/index.html</loc>
     
     <lastmod>2018-11-23T14:58:07.398Z</lastmod>
     

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
+    <lastmod>2020-02-04</lastmod>
+  </url>  <url>
     <loc>http://blog.kaoso.top/2018/05/02/setup_linux/</loc>
-    <lastmod>2020-02-01</lastmod>
+    <lastmod>2020-02-02</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2019/11/27/knowledge_system/</loc>
     <lastmod>2020-01-09</lastmod>
-  </url>  <url>
-    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
-    <lastmod>2020-01-06</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2018/07/03/cpp_skill/</loc>
     <lastmod>2019-12-05</lastmod>
