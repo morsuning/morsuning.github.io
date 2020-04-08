@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://blog.kaoso.top/2019/08/23/common_ML_algorithms_implementation/</loc>
-    <lastmod>2020-02-14</lastmod>
+    <loc>http://blog.kaoso.top/2019/11/27/knowledge_system/</loc>
+    <lastmod>2020-04-08</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2020/04/05/think-in-covid19/</loc>
+    <lastmod>2020-04-07</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2019/10/08/cnus_and_world/</loc>
+    <lastmod>2020-04-07</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
+    <lastmod>2020-02-18</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2020/02/05/microservice_brfintroduction_action/</loc>
+    <lastmod>2020-02-15</lastmod>
+  </url>  <url>
+    <loc>http://blog.kaoso.top/2019/08/23/common_ML_algorithms_implementation/</loc>
     <lastmod>2020-02-14</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2019/09/21/DM_action/</loc>
@@ -19,17 +31,8 @@
     <loc>http://blog.kaoso.top/2016/11/04/bibliography/</loc>
     <lastmod>2020-02-14</lastmod>
   </url>  <url>
-    <loc>http://blog.kaoso.top/2020/02/05/microservice_brfintroduction_action/</loc>
-    <lastmod>2020-02-14</lastmod>
-  </url>  <url>
-    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
-    <lastmod>2020-02-14</lastmod>
-  </url>  <url>
     <loc>http://blog.kaoso.top/2018/05/02/setup_linux/</loc>
     <lastmod>2020-02-02</lastmod>
-  </url>  <url>
-    <loc>http://blog.kaoso.top/2019/11/27/knowledge_system/</loc>
-    <lastmod>2020-01-09</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2018/10/19/setup_develop_tools/</loc>
     <lastmod>2019-11-26</lastmod>

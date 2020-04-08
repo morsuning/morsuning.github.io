@@ -2,16 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.kaoso.top/2019/08/23/common_ML_algorithms_implementation/</loc>
+    <loc>http://blog.kaoso.top/2019/11/27/knowledge_system/</loc>
     
-    <lastmod>2020-02-14T14:10:20.327Z</lastmod>
+    <lastmod>2020-04-08T17:29:20.759Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2020/04/05/think-in-covid19/</loc>
+    
+    <lastmod>2020-04-07T12:36:22.843Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.kaoso.top/2019/10/08/cnus_and_world/</loc>
     
-    <lastmod>2020-02-14T13:59:16.151Z</lastmod>
+    <lastmod>2020-04-07T12:30:59.470Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
+    
+    <lastmod>2020-02-18T09:37:45.838Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2020/02/05/microservice_brfintroduction_action/</loc>
+    
+    <lastmod>2020-02-15T13:28:01.908Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.kaoso.top/2019/08/23/common_ML_algorithms_implementation/</loc>
+    
+    <lastmod>2020-02-14T14:10:20.327Z</lastmod>
     
   </url>
   
@@ -44,30 +72,9 @@
   </url>
   
   <url>
-    <loc>http://blog.kaoso.top/2020/02/05/microservice_brfintroduction_action/</loc>
-    
-    <lastmod>2020-02-14T13:11:03.056Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
-    
-    <lastmod>2020-02-14T13:00:32.804Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.kaoso.top/2018/05/02/setup_linux/</loc>
     
     <lastmod>2020-02-02T01:47:37.361Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/11/27/knowledge_system/</loc>
-    
-    <lastmod>2020-01-09T14:32:15.962Z</lastmod>
     
   </url>
   
@@ -289,7 +296,7 @@
   </url>
   
   <url>
-    <loc>http://blog.kaoso.top/links/index.html</loc>
+    <loc>http://blog.kaoso.top/books/index.html</loc>
     
     <lastmod>2018-11-23T14:58:07.398Z</lastmod>
     
@@ -303,7 +310,7 @@
   </url>
   
   <url>
-    <loc>http://blog.kaoso.top/books/index.html</loc>
+    <loc>http://blog.kaoso.top/links/index.html</loc>
     
     <lastmod>2018-11-23T14:58:07.398Z</lastmod>
     
