@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
+    <lastmod>2020-09-20</lastmod>
+  </url>  <url>
     <loc>http://blog.kaoso.top/2016/12/06/bibliography_computer/</loc>
     <lastmod>2020-05-18</lastmod>
   </url>  <url>
@@ -12,9 +15,6 @@
   </url>  <url>
     <loc>http://blog.kaoso.top/2019/10/08/cnus_and_world/</loc>
     <lastmod>2020-04-07</lastmod>
-  </url>  <url>
-    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
-    <lastmod>2020-02-18</lastmod>
   </url>  <url>
     <loc>http://blog.kaoso.top/2020/02/05/microservice_brfintroduction_action/</loc>
     <lastmod>2020-02-15</lastmod>
