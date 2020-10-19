@@ -2,282 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.kaoso.top/2019/10/14/algorithm_manual/</loc>
+    <loc>http://blog.kaoso.top/2020/10/19/1/</loc>
     
-    <lastmod>2020-09-20T10:20:27.787Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2016/12/06/bibliography_computer/</loc>
-    
-    <lastmod>2020-05-18T17:30:23.860Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/11/27/knowledge_system/</loc>
-    
-    <lastmod>2020-04-17T20:12:38.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2020/04/05/think-in-covid19/</loc>
-    
-    <lastmod>2020-04-07T12:36:22.843Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/10/08/cnus_and_world/</loc>
-    
-    <lastmod>2020-04-07T12:30:59.470Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2020/02/05/microservice_brfintroduction_action/</loc>
-    
-    <lastmod>2020-02-15T13:28:01.908Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/08/23/common_ML_algorithms_implementation/</loc>
-    
-    <lastmod>2020-02-14T14:10:20.327Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/09/21/DM_action/</loc>
-    
-    <lastmod>2020-02-14T13:17:08.556Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/07/03/cpp_skill/</loc>
-    
-    <lastmod>2020-02-14T13:15:58.723Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2016/11/04/bibliography/</loc>
-    
-    <lastmod>2020-02-14T13:13:00.817Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/05/02/setup_linux/</loc>
-    
-    <lastmod>2020-02-02T01:47:37.361Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/10/19/setup_develop_tools/</loc>
-    
-    <lastmod>2019-11-26T17:35:39.384Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2017/12/17/sayworld_ai_3/</loc>
-    
-    <lastmod>2019-11-23T17:05:50.985Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2017/12/16/sayworld_ai_2/</loc>
-    
-    <lastmod>2019-11-23T17:05:41.805Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/11/17/setup_macos/</loc>
-    
-    <lastmod>2019-11-23T16:58:57.630Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/11/23/java_web/</loc>
-    
-    <lastmod>2019-11-23T16:58:03.568Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/11/10/hadoop_and_mapreduce/</loc>
-    
-    <lastmod>2019-11-23T16:54:18.675Z</lastmod>
+    <lastmod>2020-10-19T12:54:59.185Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.kaoso.top/about/index.html</loc>
     
-    <lastmod>2019-10-14T17:50:54.698Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/09/05/DM_notebook/</loc>
-    
-    <lastmod>2019-10-14T17:02:48.929Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/08/13/python_ai_lib_introduction/</loc>
-    
-    <lastmod>2019-10-14T16:58:29.945Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/09/12/growup_timeline/</loc>
-    
-    <lastmod>2019-10-14T16:45:08.322Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/04/25/java_develop/</loc>
-    
-    <lastmod>2019-08-18T07:59:51.415Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/06/04/ml_app_sum/</loc>
-    
-    <lastmod>2019-06-10T19:53:45.090Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/11/04/python_skill/</loc>
-    
-    <lastmod>2019-06-10T19:43:25.271Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/07/14/java_skill/</loc>
-    
-    <lastmod>2019-06-10T19:42:57.543Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/12/06/mindword_lieandlietrueh/</loc>
-    
-    <lastmod>2019-06-10T19:33:28.228Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/11/26/mindword_youdontkonw/</loc>
-    
-    <lastmod>2019-06-10T19:31:32.380Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/11/24/mindword_freeword/</loc>
-    
-    <lastmod>2019-06-10T19:29:32.325Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/11/23/mindword_camel/</loc>
-    
-    <lastmod>2019-06-10T19:28:14.188Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/12/29/mindword_three_people_story/</loc>
-    
-    <lastmod>2019-06-10T19:26:43.210Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2017/12/15/sayworld_ai_1/</loc>
-    
-    <lastmod>2019-06-10T19:22:39.941Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2017/11/20/sayworld_blueprint/</loc>
-    
-    <lastmod>2019-06-10T19:22:30.176Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2019/04/03/java_hashmap/</loc>
-    
-    <lastmod>2019-06-10T19:12:58.121Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/05/08/setup_vim/</loc>
-    
-    <lastmod>2019-06-10T18:47:21.735Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/09/27/spring_bean/</loc>
-    
-    <lastmod>2019-06-10T18:46:25.425Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/08/17/tensorflow_introduction/</loc>
-    
-    <lastmod>2019-06-10T18:45:45.075Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/10/15/python_env/</loc>
-    
-    <lastmod>2019-06-10T18:44:58.135Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/08/20/python_modules/</loc>
-    
-    <lastmod>2019-06-10T18:44:27.780Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/08/10/database_configuration/</loc>
-    
-    <lastmod>2019-06-10T18:44:00.195Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.kaoso.top/2018/10/09/linux_knowledge/</loc>
-    
-    <lastmod>2019-06-10T18:42:25.731Z</lastmod>
+    <lastmod>2020-10-19T12:50:38.040Z</lastmod>
     
   </url>
   
@@ -296,14 +30,14 @@
   </url>
   
   <url>
-    <loc>http://blog.kaoso.top/books/index.html</loc>
+    <loc>http://blog.kaoso.top/categories/index.html</loc>
     
     <lastmod>2018-11-23T14:58:07.398Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.kaoso.top/categories/index.html</loc>
+    <loc>http://blog.kaoso.top/books/index.html</loc>
     
     <lastmod>2018-11-23T14:58:07.398Z</lastmod>
     
