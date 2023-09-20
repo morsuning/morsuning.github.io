@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>morsuning&#39;s Blog</title>
+        <link>http://morsuning.github.io/</link>
+        <description>morsuning&#39;s porsonal blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Thu, 31 Aug 2023 17:45:38 &#43;0800</lastBuildDate>
+            <atom:link href="http://morsuning.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>你好</title>
+    <link>http://morsuning.github.io/posts/first_post/</link>
+    <pubDate>Thu, 31 Aug 2023 17:45:38 &#43;0800</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/first_post/</guid>
+    <description><![CDATA[标题 我的第一篇文章 哈哈]]></description>
+</item>
+</channel>
+</rss>
