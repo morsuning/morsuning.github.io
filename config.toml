@@ -2,6 +2,8 @@ baseURL = "http://morsuning.github.io/"
 title = "morsuning's Blog"
 theme = "LoveIt"
 
+publishDir = "docs"
+
 # 网站语言, 仅在这里 CN 大写 ["en", "zh-CN", "fr", "pl", ...]
 languageCode = "zh-CN"
 # 语言名称 ["English", "简体中文", "Français", "Polski", ...]
@@ -483,7 +485,7 @@ enableEmoji = true
     images = []
     # 出版者信息
     [params.page.seo.publisher]
-      name = ""
+      name = "morsuning"
       logoUrl = ""
 
 # LoveIt 新增 | 0.2.5 TypeIt 配置
