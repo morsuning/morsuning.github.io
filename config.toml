@@ -121,9 +121,9 @@ enableEmoji = true
     # LoveIt 新增 | 0.2.0 是否显示版权信息
     copyright = true
     # LoveIt 新增 | 0.2.0 是否显示作者
-    author = true
+    author = false
     # 网站创立年份
-    since = 2019
+    since = 2018
     # ICP 备案信息，仅在中国使用 (支持 HTML 格式)
     icp = ""
     # 许可协议信息 (支持 HTML 格式)
@@ -150,7 +150,7 @@ enableEmoji = true
   # LoveIt 新增 | 0.2.0 应用图标配置
   [params.app]
     # 当添加到 iOS 主屏幕或者 Android 启动器时的标题, 覆盖默认标题
-    title = "我的网站"
+    title = "morsuning's Blog"
     # 是否隐藏网站图标资源链接
     noFavicon = false
     # 更现代的 SVG 网站图标, 可替代旧的 .png 和 .ico 文件
@@ -218,10 +218,10 @@ enableEmoji = true
   [params.social]
     GitHub = "morsuning"
     Linkedin = ""
-    Twitter = "xxxx"
-    Instagram = "xxxx"
-    Facebook = "xxxx"
-    Telegram = "xxxx"
+    Twitter = "morsuning"
+    Instagram = ""
+    Facebook = "morsuning"
+    Telegram = ""
     Medium = ""
     Gitlab = ""
     Youtubelegacy = ""
@@ -260,7 +260,7 @@ enableEmoji = true
     Skype = ""
     Whatsapp = ""
     Zhihu = ""
-    Douban = ""
+    Douban = "kaoso"
     Angellist = ""
     Slidershare = ""
     Jsfiddle = ""
@@ -299,7 +299,7 @@ enableEmoji = true
   # LoveIt 新增 | 0.2.0 是否在搜索结果中隐藏一篇文章
   hiddenFromSearch = false
   # LoveIt 新增 | 0.2.0 是否使用 twemoji
-  twemoji = false
+  twemoji = true
   # 是否使用 lightgallery
   lightgallery = false
   # LoveIt 新增 | 0.2.0 是否使用 ruby 扩展语法
@@ -501,7 +501,7 @@ enableEmoji = true
 
 # 网站验证代码，用于 Google/Bing/Yandex/Pinterest/Baidu
 [params.verification]
-  google = ""
+  google = "t-SejsMxzsjyn2lHmDr1CGq7A99OHg7n6auhjWhaViI"
   bing = ""
   yandex = ""
   pinterest = ""
@@ -516,7 +516,7 @@ enableEmoji = true
 
 # LoveIt 新增 | 0.2.0 网站分析配置
 [params.analytics]
-  enable = false
+  enable = true
 
 [outputs]
 home = ["HTML", "RSS", "JSON"]
