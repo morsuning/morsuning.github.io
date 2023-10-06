@@ -1,12 +1,10 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>morsuning&#39;s Blog</title>
-        <link>http://morsuning.github.io/</link>
-        <description>morsuning&#39;s porsonal blog</description>
+        <title>基础 - Category - morsuning&#39;s Blog</title>
+        <link>http://morsuning.github.io/categories/%E5%9F%BA%E7%A1%80/</link>
+        <description>基础 - Category - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</lastBuildDate>
-            <atom:link href="http://morsuning.github.io/index.xml" rel="self" type="application/rss+xml" />
-        <item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</lastBuildDate><atom:link href="http://morsuning.github.io/categories/%E5%9F%BA%E7%A1%80/" rel="self" type="application/rss+xml" /><item>
     <title>存储领域的概念</title>
     <link>http://morsuning.github.io/posts/storage_concept/</link>
     <pubDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</pubDate>
