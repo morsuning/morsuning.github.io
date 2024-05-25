@@ -4,7 +4,6 @@
 
 致力于将成体系化的知识，分享给大家
 
-
 ```json
 {
     "Name": "morsuning",
@@ -15,7 +14,7 @@
 
     "Education": "Master, NJU",
 
-    "Profession": "System & Storage & Cloud Native; Go & Rust & C++ & Python & JS",
+    "Profession": "Distributed System & Storage & Cloud Native; Go & Rust & C++ & Python & JS",
 
     "Email": "morsuning@gmail.com",
 

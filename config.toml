@@ -39,7 +39,7 @@ enableEmoji = true
     name = "文章"
     url = "/posts/"
     # 当你将鼠标悬停在此菜单链接上时, 将显示的标题
-    title = "所有文章"
+    title = ""
   [[menu.main]]
     weight = 2
     identifier = "tags"
@@ -47,7 +47,7 @@ enableEmoji = true
     post = ""
     name = "标签"
     url = "/tags/"
-    title = "文章标签"
+    title = ""
   [[menu.main]]
     weight = 3
     identifier = "categories"
@@ -55,7 +55,7 @@ enableEmoji = true
     post = ""
     name = "分类"
     url = "/categories/"
-    title = "文章分类"
+    title = ""
   [[menu.main]]
     weight = 4
     identifier = "about"
@@ -63,7 +63,7 @@ enableEmoji = true
     post = ""
     name = "关于"
     url = "/about/"
-    title = "关于我"
+    title = ""
 
 # Hugo 解析文档的配置
 [markup]
@@ -225,7 +225,7 @@ enableEmoji = true
       # LoveIt 更改 | 0.2.7 主页显示的网站标题 (支持 HTML 格式)
       title = "morsuning"
       # 主页显示的网站副标题 (允许 HTML 格式)
-      subtitle = "Go&Rust, Distributed System, Storage and Cloud Native"
+      subtitle = ""
       # 是否为副标题显示打字机动画
       typeit = true
       # 是否显示社交账号
@@ -243,11 +243,11 @@ enableEmoji = true
 
   # 作者的社交信息设置
   [params.social]
-    GitHub = "morsuning"
+    GitHub = ""
     Linkedin = ""
-    Twitter = "morsuning"
+    Twitter = ""
     Instagram = ""
-    Facebook = "morsuning"
+    Facebook = ""
     Telegram = ""
     Medium = ""
     Gitlab = ""
@@ -287,7 +287,7 @@ enableEmoji = true
     Skype = ""
     Whatsapp = ""
     Zhihu = ""
-    Douban = "kaoso"
+    Douban = ""
     Angellist = ""
     Slidershare = ""
     Jsfiddle = ""
@@ -316,7 +316,7 @@ enableEmoji = true
     HackTheBox = ""
     RootMe= ""
     Phone = ""
-    Email = "morsuning@gmail.com"
+    Email = ""
     RSS = true # LoveIt 新增 | 0.2.0
 
 # LoveIt 更改 | 0.2.0 文章页面全局配置
@@ -384,14 +384,14 @@ enableEmoji = true
     fullscreen = true
   # LoveIt 更改 | 0.2.0 文章页面的分享信息设置
   [params.page.share]
-    enable = true
+    enable = false
     Twitter = true
     Facebook = true
     Linkedin = false
     Whatsapp = false
     Pinterest = false
     Tumblr = false
-    HackerNews = true
+    HackerNews = false
     Reddit = false
     VK = false
     Buffer = false
@@ -514,7 +514,6 @@ enableEmoji = true
     [params.page.seo.publisher]
       name = "morsuning"
       logoUrl = ""
-
 # LoveIt 新增 | 0.2.5 TypeIt 配置
 [params.typeit]
   # 每一步的打字速度 (单位是毫秒)
@@ -525,7 +524,6 @@ enableEmoji = true
   cursorChar = "|"
   # 打字结束之后光标的持续时间 (单位是毫秒, "-1" 代表无限大)
   duration = -1
-
 # 网站验证代码，用于 Google/Bing/Yandex/Pinterest/Baidu
 [params.verification]
   google = "t-SejsMxzsjyn2lHmDr1CGq7A99OHg7n6auhjWhaViI"
@@ -533,14 +531,12 @@ enableEmoji = true
   yandex = ""
   pinterest = ""
   baidu = ""
-
 # LoveIt 新增 | 0.2.10 网站 SEO 配置
 [params.seo]
   # 图片 URL
   image = ""
   # 缩略图 URL
   thumbnailUrl = ""
-
 # LoveIt 新增 | 0.2.0 网站分析配置
 [params.analytics]
   enable = true
@@ -568,88 +564,152 @@ enableEmoji = true
   page = ["HTML", "MarkDown"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
-  taxonomyTerm = ["HTML"]
 
-  [languages.zh-cn]
-    weight = 2
-    languageCode = "zh-CN"
-    languageName = "简体中文"
-    hasCJKLanguage = true
-    copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
-    [languages.zh-cn.menu]
-      [[languages.zh-cn.menu.main]]
-        weight = 1
-        identifier = "posts"
-        pre = ""
-        post = ""
-        name = "所有文章"
-        url = "/posts/"
-        title = ""
-      [[languages.zh-cn.menu.main]]
-        weight = 2
-        identifier = "tags"
-        pre = ""
-        post = ""
-        name = "标签"
-        url = "/tags/"
-        title = ""
-      [[languages.zh-cn.menu.main]]
-        weight = 3
-        identifier = "categories"
-        pre = ""
-        post = ""
-        name = "分类"
-        url = "/categories/"
-        title = ""
-      [[languages.zh-cn.menu.main]]
-        weight = 5
-        identifier = "about"
-        pre = ""
-        post = ""
-        name = "关于"
-        url = "/about/"
-        title = ""
-      [[languages.zh-cn.menu.main]]
-        weight = 6
-        identifier = "github"
-        pre = "<i class='fab fa-github fa-fw' aria-hidden='true'></i>"
-        post = ""
-        name = ""
-        url = "https://github.com/morsuning"
-        title = "GitHub"
-    [languages.zh-cn.params]
-      [languages.zh-cn.params.search]
+[languages.zh-cn]
+  weight = 2
+  languageCode = "zh-CN"
+  languageName = "简体中文"
+  hasCJKLanguage = true
+  copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
+  [languages.zh-cn.menu]
+    [[languages.zh-cn.menu.main]]
+      weight = 1
+      identifier = "posts"
+      pre = ""
+      post = ""
+      name = "所有文章"
+      url = "/posts/"
+      title = ""
+    [[languages.zh-cn.menu.main]]
+      weight = 2
+      identifier = "tags"
+      pre = ""
+      post = ""
+      name = "标签"
+      url = "/tags/"
+      title = ""
+    [[languages.zh-cn.menu.main]]
+      weight = 3
+      identifier = "categories"
+      pre = ""
+      post = ""
+      name = "分类"
+      url = "/categories/"
+      title = ""
+    [[languages.zh-cn.menu.main]]
+      weight = 5
+      identifier = "about"
+      pre = ""
+      post = ""
+      name = "关于"
+      url = "/about/"
+      title = ""
+    [[languages.zh-cn.menu.main]]
+      weight = 6
+      identifier = "github"
+      pre = "<i class='fab fa-github fa-fw' aria-hidden='true'></i>"
+      post = ""
+      name = ""
+      url = "https://github.com/morsuning"
+      title = "GitHub"
+  [languages.zh-cn.params]
+    [languages.zh-cn.params.search]
+      enable = true
+      type = "algolia"
+      contentLength = 4000
+      placeholder = ""
+      maxResultLength = 10
+      snippetLength = 50
+      highlightTag = "em"
+      absoluteURL = false
+      [languages.zh-cn.params.search.algolia]
+        index = "index.zh-cn"
+        appID = "PASDMWALPK"
+        searchKey = "b42948e51daaa93df92381c8e2ac0f93"
+    [languages.zh-cn.params.home]
+      rss = 10
+      [languages.zh-cn.params.home.profile]
         enable = true
-        type = "algolia"
-        contentLength = 4000
-        placeholder = ""
-        maxResultLength = 10
-        snippetLength = 50
-        highlightTag = "em"
-        absoluteURL = false
-        [languages.zh-cn.params.search.algolia]
-          index = "index.zh-cn"
-          appID = "PASDMWALPK"
-          searchKey = "b42948e51daaa93df92381c8e2ac0f93"
-      [languages.zh-cn.params.home]
-        rss = 10
-        [languages.zh-cn.params.home.profile]
-          enable = true
-          gravatarEmail = ""
-          avatarURL = "/images/avatar.png"
-          title = ""
-          subtitle = "一个简洁、优雅且高效的 Hugo 主题"
-          typeit = true
-          social = true
-          disclaimer = ""
-      [languages.zh-cn.params.social]
-        GitHub = "xxxx"
-        Weibo = "xxxx"
-        Steam = "xxxx"
-        Zhihu = "xxxx"
-        Douban = "xxxx"
-        Devto = "xxxx"
-        Bilibili = "xxxx"
-        Email = "xxxx@xxxx.com"
-        Phone = "555-555-555"
-        RSS = true
+        gravatarEmail = ""
+        avatarURL = "/images/avatar.png"
+        title = ""
+        subtitle = "Distributed System & Storage & Cloud Native | Go & Rust & C++ & Python & JS | e/acc, Reader, Geeker, Visitor, Programmer"
+        typeit = true
+        social = true
+        disclaimer = ""
+    [languages.zh-cn.params.social]
+          GitHub = "morsuning"
+          Linkedin = ""
+          Twitter = "morsuning"
+          Instagram = "matesunoa"
+          Facebook = "morsuning"
+          Telegram = ""
+          Medium = ""
+          Gitlab = ""
+          Youtubelegacy = ""
+          Youtubecustom = ""
+          Youtubechannel = ""
+          Tumblr = ""
+          Quora = ""
+          Keybase = ""
+          Pinterest = ""
+          Reddit = ""
+          Codepen = ""
+          FreeCodeCamp = ""
+          Bitbucket = ""
+          Stackoverflow = ""
+          Weibo = ""
+          Odnoklassniki = ""
+          VK = ""
+          Flickr = ""
+          Xing = ""
+          Snapchat = ""
+          Soundcloud = ""
+          Spotify = ""
+          Bandcamp = ""
+          Paypal = ""
+          Fivehundredpx = ""
+          Mix = ""
+          Goodreads = ""
+          Lastfm = ""
+          Foursquare = ""
+          Hackernews = ""
+          Kickstarter = ""
+          Patreon = ""
+          Steam = ""
+          Twitch = ""
+          Strava = ""
+          Skype = ""
+          Whatsapp = ""
+          Zhihu = ""
+          Douban = "kaoso"
+          Angellist = ""
+          Slidershare = ""
+          Jsfiddle = ""
+          Deviantart = ""
+          Behance = ""
+          Dribbble = ""
+          Wordpress = ""
+          Vine = ""
+          Googlescholar = ""
+          Researchgate = ""
+          Mastodon = ""
+          Thingiverse = ""
+          Devto = ""
+          Gitea = ""
+          XMPP = ""
+          Matrix = ""
+          Bilibili = ""
+          Discord = ""
+          DiscordInvite = ""
+          Lichess = ""
+          ORCID = ""
+          Pleroma = ""
+          Kaggle = ""
+          MediaWiki= ""
+          Plume = ""
+          HackTheBox = ""
+          RootMe= ""
+          Phone = ""
+          Email = "morsuning@gmail.com"
+          RSS = true # LoveIt 新增 | 0.2.0
