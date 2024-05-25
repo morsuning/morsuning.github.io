@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>云原生的5W1H - morsuning&#39;s Blog</title><meta name="Description" content="morsuning&#39;s porsonal blog"><meta property="og:title" content="云原生的5W1H" />
-<meta property="og:description" content="云原生分享 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&g" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://morsuning.github.io/posts/talk_about_cloud_native/" />
-<meta property="og:image" content="http://morsuning.github.io/logo.png"/>
-<meta property="article:published_time" content="2022-09-20T15:58:26+08:00" />
-<meta property="article:modified_time" content="2022-09-20T21:56:37+08:00" /><meta property="og:site_name" content="morsuning&#39;s Blog" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://morsuning.github.io/logo.png"/>
+        <title>云原生的5W1H - morsuning&#39;s Blog</title><meta name="Description" content="morsuning&#39;s porsonal blog"><meta property="og:url" content="http://localhost:1313/posts/talk_about_cloud_native/">
+  <meta property="og:site_name" content="morsuning&#39;s Blog">
+  <meta property="og:title" content="云原生的5W1H">
+  <meta property="og:description" content="云原生分享 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&amp;g">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-09-20T15:58:26+08:00">
+    <meta property="article:modified_time" content="2023-10-06T22:51:50+08:00">
+    <meta property="article:tag" content="云原生">
+    <meta property="article:tag" content="Kubernetes">
+    <meta property="article:tag" content="Docker">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
 
-<meta name="twitter:title" content="云原生的5W1H"/>
-<meta name="twitter:description" content="云原生分享 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&g"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="云原生的5W1H">
+  <meta name="twitter:description" content="云原生分享 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&amp;g">
+      <meta name="twitter:site" content="@morsuning">
 <meta name="application-name" content="morsuning&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="morsuning&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://morsuning.github.io/posts/talk_about_cloud_native/" /><link rel="next" href="http://morsuning.github.io/posts/storage_concept/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><meta name="google-site-verification" content="t-SejsMxzsjyn2lHmDr1CGq7A99OHg7n6auhjWhaViI" /><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/talk_about_cloud_native/" /><link rel="next" href="http://localhost:1313/posts/storage_concept/storage_concept/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="t-SejsMxzsjyn2lHmDr1CGq7A99OHg7n6auhjWhaViI" /><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,9 +36,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/morsuning.github.io\/posts\/talk_about_cloud_native\/"
+            "@id": "http:\/\/localhost:1313\/posts\/talk_about_cloud_native\/"
         },"genre": "posts","keywords": "云原生, Kubernetes, Docker","wordcount":  2715 ,
-        "url": "http:\/\/morsuning.github.io\/posts\/talk_about_cloud_native\/","datePublished": "2022-09-20T15:58:26+08:00","dateModified": "2022-09-20T21:56:37+08:00","publisher": {
+        "url": "http:\/\/localhost:1313\/posts\/talk_about_cloud_native\/","datePublished": "2022-09-20T15:58:26+08:00","dateModified": "2023-10-06T22:51:50+08:00","license": "moursuning All Right Reserved, 转载请注明原作者","publisher": {
             "@type": "Organization",
             "name": "morsuning"},"author": {
                 "@type": "Person",
@@ -227,36 +234,36 @@ CNCF(简介、对cncf landscape的介绍);</p>
 <p>CNCF 成立于 2015 年，旨在应对大量采用云原生系统的组织和服务。CNCF 是由 Linux 基金会创建的项目，是一个开源软件基金会，旨在促进云原生技术的采用。CNCF 拥有超过 400 名成员，包括公共云提供商、企业软件公司和技术初创公司。微软、甲骨文、VMware、英特尔是 CNCF 的一些白金会员。</p>
 <p>CNCF 的存在是为了确保云原生技术可访问、可用且可靠。它培育了一个致力于 Kubernetes、Prometheus 和 CoreDNS 等项目的社区，同时支持构建可持续环境的组织，这些环境在微服务架构中编排容器。</p>
 <p>landscape介绍</p>
-<p><a href="https://landscape.cncf.io/">https://landscape.cncf.io/</a></p>
+<p><a href="https://landscape.cncf.io/" target="_blank" rel="noopener noreffer ">https://landscape.cncf.io/</a></p>
 <p>组合一个典型的云原生架构</p>
 <h1 id="如何评估云原生能力">如何评估云原生能力</h1>
 <p>CMMI</p>
 <p>云原生的未来</p>
 <h1 id="参考资料--推荐阅读">参考资料 &amp; 推荐阅读</h1>
-<p><a href="https://www.infoq.cn/article/Fl9i3xgdklYR9xO5ryDc?source=app_share">https://www.infoq.cn/article/Fl9i3xgdklYR9xO5ryDc?source=app_share</a></p>
+<p><a href="https://www.infoq.cn/article/Fl9i3xgdklYR9xO5ryDc?source=app_share" target="_blank" rel="noopener noreffer ">https://www.infoq.cn/article/Fl9i3xgdklYR9xO5ryDc?source=app_share</a></p>
 <p>云原生：</p>
 <p>深入剖析Kubernetes</p>
 <p>云原生.Boris Scholl 等.2020</p>
 <p>Design Patterns for container-based distributed systems.Brendan Burns 容器设计模式</p>
 <p>云原生应用设计模式https://xie.infoq.cn/article/3c64971c8aa06fec5e00b463b</p>
-<p><a href="https://ost.51cto.com/posts/13985">https://ost.51cto.com/posts/13985</a></p>
+<p><a href="https://ost.51cto.com/posts/13985" target="_blank" rel="noopener noreffer ">https://ost.51cto.com/posts/13985</a></p>
 <p>DevOps：</p>
 <p>凤凰项目</p>
 <p>DevOps实践指南</p>
 <p>微服务：</p>
 <p>微服务设计模式</p>
-<p>Martin Fowler Microservices <a href="https://martinfowler.com/articles/microservices.html">https://martinfowler.com/articles/microservices.html</a></p>
+<p>Martin Fowler Microservices <a href="https://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener noreffer ">https://martinfowler.com/articles/microservices.html</a></p>
 <p>企业IT架构转型之道：阿里巴巴中台战略思想与架构实战</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2022-09-20</span>
+                <span>Updated on 2023-10-06</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://morsuning.github.io/posts/talk_about_cloud_native/" data-title="云原生的5W1H" data-via="morsuning" data-hashtags="云原生,Kubernetes,Docker"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://morsuning.github.io/posts/talk_about_cloud_native/" data-hashtag="云原生"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://morsuning.github.io/posts/talk_about_cloud_native/" data-title="云原生的5W1H"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://morsuning.github.io/posts/talk_about_cloud_native/" data-title="云原生的5W1H"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://morsuning.github.io/posts/talk_about_cloud_native/" data-title="云原生的5W1H"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/talk_about_cloud_native/" data-title="云原生的5W1H" data-via="morsuning" data-hashtags="云原生,Kubernetes,Docker"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/talk_about_cloud_native/" data-hashtag="云原生"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/posts/talk_about_cloud_native/" data-title="云原生的5W1H"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -269,11 +276,11 @@ CNCF(简介、对cncf landscape的介绍);</p>
     </div>
 
     <div class="post-nav">
-            <a href="/posts/storage_concept/" class="next" rel="next" title="存储领域的概念">存储领域的概念<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+            <a href="/posts/storage_concept/storage_concept/" class="next" rel="next" title="存储领域的概念">存储领域的概念<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2018 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2018 - 2024</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
@@ -282,5 +289,5 @@ CNCF(简介、对cncf landscape的介绍);</p>
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.d5092a1e0b78bb72d42009815fb9c18a930ce42aeea87444fafc535e0506e833.js" integrity="sha256-1QkqHgt4u3LUIAmBX7nBipMM5CruqHRE+vxTXgUG6DM="></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

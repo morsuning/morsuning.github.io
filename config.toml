@@ -4,6 +4,8 @@ theme = "LoveIt"
 
 publishDir = "docs"
 
+# 设置默认的语言 ["en", "zh-cn", "fr", "pl", ...]
+defaultContentLanguage = "zh-cn"
 # 网站语言, 仅在这里 CN 大写 ["en", "zh-CN", "fr", "pl", ...]
 languageCode = "zh-CN"
 # 语言名称 ["English", "简体中文", "Français", "Polski", ...]
@@ -12,11 +14,11 @@ languageName = "简体中文"
 hasCJKLanguage = true
 
 # 默认每页列表显示的文章数目
-paginate = 7
+paginate = 6
 # 谷歌分析代号 [UA-XXXXXXXX-X]
 googleAnalytics = ""
 # 版权描述，仅仅用于 SEO
-copyright = ""
+copyright = "moursuning All Right Reserved, 转载请注明原作者"
 
 # 是否使用 robots.txt
 enableRobotsTXT = true
@@ -67,8 +69,33 @@ enableEmoji = true
 [markup]
   # 语法高亮设置 (https://gohugo.io/content-management/syntax-highlighting)
   [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    lineNumbersInTable = true
+    # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
     # false 是必要的设置 (https://github.com/dillonzq/LoveIt/issues/158)
     noClasses = false
+  # Goldmark is from Hugo 0.60 the default library used for Markdown
+  # Goldmark 是 Hugo 0.60 以来的默认 Markdown 解析库
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    [markup.goldmark.renderer]
+      # whether to use HTML tags directly in the document
+      # 是否在文档中直接使用 HTML 标签
+      unsafe = true
+  # Table Of Contents settings
+  # 目录设置
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 6
 
 [author]
   name = "morsuning"
@@ -79,7 +106,7 @@ enableEmoji = true
   # 网站默认主题样式 ["auto", "light", "dark"]
   defaultTheme = "auto"
   # 公共 git 仓库路径，仅在 enableGitInfo 设为 true 时有效
-  gitRepo = ""
+  gitRepo = "https://github.com/morsuning/morsuning.github.io"
   # LoveIt 新增 | 0.1.1 哪种哈希函数用来 SRI, 为空时表示不使用 SRI
   # ["sha256", "sha384", "sha512", "md5"]
   fingerprint = "sha256"
@@ -198,7 +225,7 @@ enableEmoji = true
       # LoveIt 更改 | 0.2.7 主页显示的网站标题 (支持 HTML 格式)
       title = "morsuning"
       # 主页显示的网站副标题 (允许 HTML 格式)
-      subtitle = "A Go Developer"
+      subtitle = "Go&Rust, Distributed System, Storage and Cloud Native"
       # 是否为副标题显示打字机动画
       typeit = true
       # 是否显示社交账号
@@ -369,11 +396,11 @@ enableEmoji = true
     VK = false
     Buffer = false
     Xing = false
-    Line = true
+    Line = false
     Instapaper = false
     Pocket = false
     Flipboard = false
-    Weibo = true
+    Weibo = false
     Blogger = false
     Baidu = false
     Odnoklassniki = false
@@ -518,5 +545,111 @@ enableEmoji = true
 [params.analytics]
   enable = true
 
+# 网站地图配置
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+# 用于输出 Markdown 格式文档的设置
+[mediaTypes]
+  [mediaTypes."text/plain"]
+    suffixes = ["md"]
+
+# 用于输出 Markdown 格式文档的设置
+[outputFormats.MarkDown]
+  mediaType = "text/plain"
+  isPlainText = true
+  isHTML = false
+
+# 用于 Hugo 输出文档的设置
 [outputs]
-home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML", "MarkDown"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML"]
+
+  [languages.zh-cn]
+    weight = 2
+    languageCode = "zh-CN"
+    languageName = "简体中文"
+    hasCJKLanguage = true
+    copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
+    [languages.zh-cn.menu]
+      [[languages.zh-cn.menu.main]]
+        weight = 1
+        identifier = "posts"
+        pre = ""
+        post = ""
+        name = "所有文章"
+        url = "/posts/"
+        title = ""
+      [[languages.zh-cn.menu.main]]
+        weight = 2
+        identifier = "tags"
+        pre = ""
+        post = ""
+        name = "标签"
+        url = "/tags/"
+        title = ""
+      [[languages.zh-cn.menu.main]]
+        weight = 3
+        identifier = "categories"
+        pre = ""
+        post = ""
+        name = "分类"
+        url = "/categories/"
+        title = ""
+      [[languages.zh-cn.menu.main]]
+        weight = 5
+        identifier = "about"
+        pre = ""
+        post = ""
+        name = "关于"
+        url = "/about/"
+        title = ""
+      [[languages.zh-cn.menu.main]]
+        weight = 6
+        identifier = "github"
+        pre = "<i class='fab fa-github fa-fw' aria-hidden='true'></i>"
+        post = ""
+        name = ""
+        url = "https://github.com/morsuning"
+        title = "GitHub"
+    [languages.zh-cn.params]
+      [languages.zh-cn.params.search]
+        enable = true
+        type = "algolia"
+        contentLength = 4000
+        placeholder = ""
+        maxResultLength = 10
+        snippetLength = 50
+        highlightTag = "em"
+        absoluteURL = false
+        [languages.zh-cn.params.search.algolia]
+          index = "index.zh-cn"
+          appID = "PASDMWALPK"
+          searchKey = "b42948e51daaa93df92381c8e2ac0f93"
+      [languages.zh-cn.params.home]
+        rss = 10
+        [languages.zh-cn.params.home.profile]
+          enable = true
+          gravatarEmail = ""
+          avatarURL = "/images/avatar.png"
+          title = ""
+          subtitle = "一个简洁、优雅且高效的 Hugo 主题"
+          typeit = true
+          social = true
+          disclaimer = ""
+      [languages.zh-cn.params.social]
+        GitHub = "xxxx"
+        Weibo = "xxxx"
+        Steam = "xxxx"
+        Zhihu = "xxxx"
+        Douban = "xxxx"
+        Devto = "xxxx"
+        Bilibili = "xxxx"
+        Email = "xxxx@xxxx.com"
+        Phone = "555-555-555"
+        RSS = true
