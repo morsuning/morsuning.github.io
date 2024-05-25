@@ -2,7 +2,7 @@ baseURL = "http://morsuning.github.io/"
 title = "morsuning's Blog"
 theme = "LoveIt"
 
-publishDir = "docs"
+publishDir = "./"
 
 # 设置默认的语言 ["en", "zh-cn", "fr", "pl", ...]
 defaultContentLanguage = "zh-cn"

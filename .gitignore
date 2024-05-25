@@ -1,9 +1,11 @@
 .DS_Store
 .vscode
 .hugo_build.lock
+config.toml
 resources
 layouts
 data
 archetypes
 content
 themes
+static
