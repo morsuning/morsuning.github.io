@@ -2,4 +2,9 @@
 .vscode
 *.log
 .hugo_build.lock
-.resources
+resources
+layouts
+data
+archetypes
+content
+themes
