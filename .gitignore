@@ -1,6 +1,5 @@
 .DS_Store
 .vscode
-*.log
 .hugo_build.lock
 resources
 layouts
