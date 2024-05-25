@@ -2,15 +2,15 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://localhost:1313/categories/</loc><lastmod>2022-09-20T21:56:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/</loc><lastmod>2023-09-20T22:15:04&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/posts/</loc><lastmod>2022-09-20T21:56:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/tags/</loc><lastmod>2022-09-20T21:56:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/tags/%E5%AD%98%E5%82%A8/</loc><lastmod>2022-09-20T21:56:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/posts/storage_concept/storage_concept/</loc><lastmod>2022-09-20T21:56:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/categories/%E5%9F%BA%E7%A1%80/</loc><lastmod>2022-09-20T21:56:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/tags/docker/</loc><lastmod>2022-09-20T21:56:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/tags/kubernetes/</loc><lastmod>2022-09-20T21:56:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/</loc><lastmod>2022-09-20T21:56:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/posts/talk_about_cloud_native/talk_about_cloud_native/</loc><lastmod>2022-09-20T21:56:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://localhost:1313/about/</loc><lastmod>2023-09-20T22:15:04&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
+            <loc>http://morsuning.github.io/categories/</loc><lastmod>2024-05-25T12:25:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/</loc><lastmod>2024-05-25T13:52:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/posts/</loc><lastmod>2024-05-25T12:25:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/tags/</loc><lastmod>2024-05-25T12:25:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/tags/%E5%AD%98%E5%82%A8/</loc><lastmod>2024-05-25T12:25:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/posts/storage_concept/storage_concept/</loc><lastmod>2024-05-25T12:25:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/categories/%E5%9F%BA%E7%A1%80/</loc><lastmod>2024-05-25T12:25:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/tags/docker/</loc><lastmod>2024-05-25T12:25:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/tags/kubernetes/</loc><lastmod>2024-05-25T12:25:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/</loc><lastmod>2024-05-25T12:25:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/posts/talk_about_cloud_native/talk_about_cloud_native/</loc><lastmod>2024-05-25T12:25:16&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://morsuning.github.io/about/</loc><lastmod>2024-05-25T13:52:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url></urlset>

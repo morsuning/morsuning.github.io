@@ -1,39 +1,39 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - 标签 - morsuning&#39;s Blog</title>
-        <link>http://localhost:1313/tags/</link>
+        <link>http://morsuning.github.io/tags/</link>
         <description>Tags - 标签 - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</lastBuildDate><atom:link href="http://morsuning.github.io/tags/" rel="self" type="application/rss+xml" /><item>
     <title>存储</title>
-    <link>http://localhost:1313/tags/%E5%AD%98%E5%82%A8/</link>
+    <link>http://morsuning.github.io/tags/%E5%AD%98%E5%82%A8/</link>
     <pubDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/tags/%E5%AD%98%E5%82%A8/</guid>
+    <guid>http://morsuning.github.io/tags/%E5%AD%98%E5%82%A8/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Docker</title>
-    <link>http://localhost:1313/tags/docker/</link>
+    <link>http://morsuning.github.io/tags/docker/</link>
     <pubDate>Tue, 20 Sep 2022 15:58:26 &#43;0800</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/tags/docker/</guid>
+    <guid>http://morsuning.github.io/tags/docker/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Kubernetes</title>
-    <link>http://localhost:1313/tags/kubernetes/</link>
+    <link>http://morsuning.github.io/tags/kubernetes/</link>
     <pubDate>Tue, 20 Sep 2022 15:58:26 &#43;0800</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/tags/kubernetes/</guid>
+    <guid>http://morsuning.github.io/tags/kubernetes/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>云原生</title>
-    <link>http://localhost:1313/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/</link>
+    <link>http://morsuning.github.io/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/</link>
     <pubDate>Tue, 20 Sep 2022 15:58:26 &#43;0800</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/</guid>
+    <guid>http://morsuning.github.io/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>
