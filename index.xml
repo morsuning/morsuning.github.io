@@ -4,23 +4,39 @@
         <link>http://morsuning.github.io/</link>
         <description>morsuning&#39;s porsonal blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</lastBuildDate>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="http://morsuning.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Kubernetes 存储实现原理及简单示例</title>
+    <link>http://morsuning.github.io/posts/kubernetes-csi-introduce/kubernetes-csi-introduce/</link>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/kubernetes-csi-introduce/kubernetes-csi-introduce/</guid>
+    <description><![CDATA[1 Kubernetes存储相关概念及实现原理 1.1 PV &amp; PVC 概念 Kubernetes定义了PV（PersistentVolume）与PVC（Pers]]></description>
+</item>
+<item>
+    <title>记一次文件系统性能测试</title>
+    <link>http://morsuning.github.io/posts/record-once-file-system-performance-test/record-once-file-system-performance-test/</link>
+    <pubDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/record-once-file-system-performance-test/record-once-file-system-performance-test/</guid>
+    <description><![CDATA[记录一次视频监控场景下对文件系统进行性能测试及简单调优的过程及思路，相关内容已脱敏 1 性能分析方法 可通过日志和检测工具来监控基于fuse实现的]]></description>
+</item>
+<item>
     <title>存储领域的概念</title>
-    <link>http://morsuning.github.io/posts/storage_concept/storage_concept/</link>
+    <link>http://morsuning.github.io/posts/storage-concept/storage-concept/</link>
     <pubDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</pubDate>
     <author>morsuning</author>
-    <guid>http://morsuning.github.io/posts/storage_concept/storage_concept/</guid>
+    <guid>http://morsuning.github.io/posts/storage-concept/storage-concept/</guid>
     <description><![CDATA[这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域计算、存储和网络中的存储 存储架构 存储方式 存储介质 分布式存储 存储访问协议 Linux]]></description>
 </item>
 <item>
     <title>云原生的5W1H</title>
-    <link>http://morsuning.github.io/posts/talk_about_cloud_native/talk_about_cloud_native/</link>
+    <link>http://morsuning.github.io/posts/talk-about-cloud-native/talk-about-cloud-native/</link>
     <pubDate>Tue, 20 Sep 2022 15:58:26 &#43;0800</pubDate>
     <author>morsuning</author>
-    <guid>http://morsuning.github.io/posts/talk_about_cloud_native/talk_about_cloud_native/</guid>
-    <description><![CDATA[云原生分享 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&g]]></description>
+    <guid>http://morsuning.github.io/posts/talk-about-cloud-native/talk-about-cloud-native/</guid>
+    <description><![CDATA[云原生漫谈 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&g]]></description>
 </item>
 </channel>
 </rss>

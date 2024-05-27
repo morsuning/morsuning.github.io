@@ -2,7 +2,7 @@
 
 一个不懂计算机，编程和软件工程的人
 
-致力于将成体系化的知识，分享给大家
+写 Blog 是为了分享成体系化的知识
 
 ```json
 {
@@ -14,7 +14,7 @@
 
     "Education": "Master, NJU",
 
-    "Profession": "Distributed System & Storage & Cloud Native; Go & Rust & C++ & Python & JS",
+    "Profession": "Distributed System & Storage & Cloud Native; Go & Rust & C++ & Python",
 
     "Email": "morsuning@gmail.com",
 
