@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>CSI - 标签 - morsuning&#39;s Blog</title>
-        <link>http://localhost:1313/tags/csi/</link>
+        <link>http://morsuning.github.io/tags/csi/</link>
         <description>CSI - 标签 - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/csi/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/tags/csi/" rel="self" type="application/rss+xml" /><item>
     <title>Kubernetes 存储实现原理及简单示例</title>
-    <link>http://localhost:1313/posts/kubernetes-csi-introduce/kubernetes-csi-introduce/</link>
+    <link>http://morsuning.github.io/posts/kubernetes-csi-introduce/post/</link>
     <pubDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/posts/kubernetes-csi-introduce/kubernetes-csi-introduce/</guid>
+    <guid>http://morsuning.github.io/posts/kubernetes-csi-introduce/post/</guid>
     <description><![CDATA[1 Kubernetes存储相关概念及实现原理 1.1 PV &amp; PVC 概念 Kubernetes定义了PV（PersistentVolume）与PVC（Pers]]></description>
 </item>
 </channel>
