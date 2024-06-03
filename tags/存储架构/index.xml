@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>存储架构 - 标签 - morsuning&#39;s Blog</title>
-        <link>http://morsuning.github.io/tags/%E5%AD%98%E5%82%A8%E6%9E%B6%E6%9E%84/</link>
+        <link>http://localhost:1313/tags/%E5%AD%98%E5%82%A8%E6%9E%B6%E6%9E%84/</link>
         <description>存储架构 - 标签 - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</lastBuildDate><atom:link href="http://morsuning.github.io/tags/%E5%AD%98%E5%82%A8%E6%9E%B6%E6%9E%84/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%AD%98%E5%82%A8%E6%9E%B6%E6%9E%84/" rel="self" type="application/rss+xml" /><item>
     <title>存储领域的概念</title>
-    <link>http://morsuning.github.io/posts/storage-concept/post/</link>
+    <link>http://localhost:1313/posts/storage-concept/post/</link>
     <pubDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</pubDate>
     <author>morsuning</author>
-    <guid>http://morsuning.github.io/posts/storage-concept/post/</guid>
+    <guid>http://localhost:1313/posts/storage-concept/post/</guid>
     <description><![CDATA[这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域计算、存储和网络中的存储 存储架构 存储方式 存储介质 分布式存储 存储访问协议 Linux]]></description>
 </item>
 </channel>

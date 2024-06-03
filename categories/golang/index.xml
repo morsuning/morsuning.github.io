@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Golang - 分类 - morsuning&#39;s Blog</title>
+        <link>http://localhost:1313/categories/golang/</link>
+        <description>Golang - 分类 - morsuning&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 21 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/categories/golang/" rel="self" type="application/rss+xml" /><item>
+    <title>Go错误处理最佳实践</title>
+    <link>http://localhost:1313/posts/go-error-handling-best-practice/posts/</link>
+    <pubDate>Wed, 21 Jun 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/posts/go-error-handling-best-practice/posts/</guid>
+    <description><![CDATA[Golang错误处理机制panic和recover简要介绍 使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然]]></description>
+</item>
+</channel>
+</rss>
