@@ -4,7 +4,15 @@
         <link>http://morsuning.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
         <description>软件工程 - 分类 - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 21 Oct 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 12 Apr 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>简述软件过程改进</title>
+    <link>http://morsuning.github.io/posts/briefly-software-process-improvement/post/</link>
+    <pubDate>Mon, 12 Apr 2021 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/briefly-software-process-improvement/post/</guid>
+    <description><![CDATA[——在CMMI中引入敏捷 1 CMMI概述 80年代早期，在SEI的资助下美国空军成立了一项研究来分析为什么许多软件合同都会超出工期和预算。由此得]]></description>
+</item>
+<item>
     <title>简述软件工程的历史演变</title>
     <link>http://morsuning.github.io/posts/historical-evolution-of-software-engineering/post/</link>
     <pubDate>Wed, 21 Oct 2020 00:00:00 &#43;0000</pubDate>

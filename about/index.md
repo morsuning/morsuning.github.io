@@ -2,7 +2,7 @@
 
 一个不懂计算机，编程和软件工程的人
 
-写 Blog 是为了分享成体系化的知识，真心希望你能少走一些弯路
+写 Blog 是为了分享成体系化的知识
 
 ```json
 {
@@ -21,3 +21,4 @@
     "Description": "Don't want to miss the wonderfulness of the world.",
 }
 ```
+

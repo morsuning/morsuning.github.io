@@ -53,6 +53,14 @@
     <description><![CDATA[云原生漫谈 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&g]]></description>
 </item>
 <item>
+    <title>简述软件过程改进</title>
+    <link>http://morsuning.github.io/posts/briefly-software-process-improvement/post/</link>
+    <pubDate>Mon, 12 Apr 2021 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/briefly-software-process-improvement/post/</guid>
+    <description><![CDATA[——在CMMI中引入敏捷 1 CMMI概述 80年代早期，在SEI的资助下美国空军成立了一项研究来分析为什么许多软件合同都会超出工期和预算。由此得]]></description>
+</item>
+<item>
     <title>《软件管理沉思录》 - 读书笔记</title>
     <link>http://morsuning.github.io/posts/reading-note-meditations-on-software-management/post/</link>
     <pubDate>Tue, 22 Dec 2020 00:00:00 &#43;0000</pubDate>
@@ -75,14 +83,6 @@
     <author>morsuning</author>
     <guid>http://morsuning.github.io/posts/reading-note-hacker-and-painters/post/</guid>
     <description><![CDATA[内容已过时，《黑客与画家》的核心是计算机，程序员与创业 一直以来，对“黑客”这个词总是充满了神秘的想象，本科阶段学习了《信息安全》这门课以后，]]></description>
-</item>
-<item>
-    <title>简述软件工程的历史演变</title>
-    <link>http://morsuning.github.io/posts/historical-evolution-of-software-engineering/post/</link>
-    <pubDate>Wed, 21 Oct 2020 00:00:00 &#43;0000</pubDate>
-    <author>morsuning</author>
-    <guid>http://morsuning.github.io/posts/historical-evolution-of-software-engineering/post/</guid>
-    <description><![CDATA[软件工程的历史演变要从软件发展，软件过程的发展和软件工程管理这三个角度去说。一方面，随着软件的快速发展，出现了许许多多越来越难以解决的问题，]]></description>
 </item>
 </channel>
 </rss>
