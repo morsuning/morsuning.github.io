@@ -1,58 +1,90 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>morsuning&#39;s Blog</title>
-        <link>http://localhost:1313/</link>
+        <link>http://morsuning.github.io/</link>
         <description>morsuning&#39;s porsonal blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
             <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</lastBuildDate>
-            <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+            <atom:link href="http://morsuning.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>记一次CPU占用过高问题定位</title>
-    <link>http://localhost:1313/posts/record-once-investigat-high-cpu-ccupancy/post/</link>
+    <link>http://morsuning.github.io/posts/record-once-investigat-high-cpu-ccupancy/post/</link>
     <pubDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/posts/record-once-investigat-high-cpu-ccupancy/post/</guid>
+    <guid>http://morsuning.github.io/posts/record-once-investigat-high-cpu-ccupancy/post/</guid>
     <description><![CDATA[记录一次对象存储在曙光服务器（Hygon CPU）上CPU占用异常问题的定位过程，相关信息已脱敏 环境说明 CPU规格：每个服务器2 * Hygon C86 7380 32-Core Pr]]></description>
 </item>
 <item>
     <title>Kubernetes 存储实现原理及简单示例</title>
-    <link>http://localhost:1313/posts/kubernetes-csi-introduce/post/</link>
+    <link>http://morsuning.github.io/posts/kubernetes-csi-introduce/post/</link>
     <pubDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/posts/kubernetes-csi-introduce/post/</guid>
+    <guid>http://morsuning.github.io/posts/kubernetes-csi-introduce/post/</guid>
     <description><![CDATA[1 Kubernetes存储相关概念及实现原理 1.1 PV &amp; PVC 概念 Kubernetes定义了PV（PersistentVolume）与PVC（Pers]]></description>
 </item>
 <item>
     <title>记一次文件系统性能测试</title>
-    <link>http://localhost:1313/posts/record-once-file-system-performance-test/post/</link>
+    <link>http://morsuning.github.io/posts/record-once-file-system-performance-test/post/</link>
     <pubDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/posts/record-once-file-system-performance-test/post/</guid>
+    <guid>http://morsuning.github.io/posts/record-once-file-system-performance-test/post/</guid>
     <description><![CDATA[记录一次视频监控场景下对文件系统进行性能测试及简单调优的过程及思路，相关内容已脱敏 1 性能分析方法 可通过日志和检测工具来监控基于fuse实现的]]></description>
 </item>
 <item>
     <title>存储领域的概念</title>
-    <link>http://localhost:1313/posts/storage-concept/post/</link>
+    <link>http://morsuning.github.io/posts/storage-concept/post/</link>
     <pubDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/posts/storage-concept/post/</guid>
+    <guid>http://morsuning.github.io/posts/storage-concept/post/</guid>
     <description><![CDATA[这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域计算、存储和网络中的存储 存储架构 存储方式 存储介质 分布式存储 存储访问协议 Linux]]></description>
 </item>
 <item>
     <title>Go错误处理最佳实践</title>
-    <link>http://localhost:1313/posts/go-error-handling-best-practice/posts/</link>
+    <link>http://morsuning.github.io/posts/go-error-handling-best-practice/posts/</link>
     <pubDate>Wed, 21 Jun 2023 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/posts/go-error-handling-best-practice/posts/</guid>
+    <guid>http://morsuning.github.io/posts/go-error-handling-best-practice/posts/</guid>
     <description><![CDATA[一 Golang错误处理机制panic和recover简要介绍 使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，]]></description>
 </item>
 <item>
     <title>云原生的5W1H</title>
-    <link>http://localhost:1313/posts/talk-about-cloud-native/post/</link>
+    <link>http://morsuning.github.io/posts/talk-about-cloud-native/post/</link>
     <pubDate>Tue, 20 Sep 2022 15:58:26 &#43;0800</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/posts/talk-about-cloud-native/post/</guid>
+    <guid>http://morsuning.github.io/posts/talk-about-cloud-native/post/</guid>
     <description><![CDATA[云原生漫谈 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&g]]></description>
+</item>
+<item>
+    <title>《软件管理沉思录》 - 读书笔记</title>
+    <link>http://morsuning.github.io/posts/reading-note-meditations-on-software-management/post/</link>
+    <pubDate>Tue, 22 Dec 2020 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/reading-note-meditations-on-software-management/post/</guid>
+    <description><![CDATA[《软件管理沉思录》是一本介绍SEI项目管理、人际沟通和团队协作的要诀。不论读者是软件开发者抑或是管理者，都能够从这本书中挖掘到价值。 本书分为]]></description>
+</item>
+<item>
+    <title>《人件》 - 读书笔记</title>
+    <link>http://morsuning.github.io/posts/reading-note-humanware/post/</link>
+    <pubDate>Fri, 20 Nov 2020 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/reading-note-humanware/post/</guid>
+    <description><![CDATA[在对失败的软件开发项目的分析中，人们倾向于将与人相关的失败因素归结于政治而不深入研究，这是一种误区，而本书中Tom DeMarco和Timot]]></description>
+</item>
+<item>
+    <title>《黑客与画家》 - 读书笔记</title>
+    <link>http://morsuning.github.io/posts/reading-note-hacker-and-painters/post/</link>
+    <pubDate>Mon, 26 Oct 2020 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/reading-note-hacker-and-painters/post/</guid>
+    <description><![CDATA[内容已过时，《黑客与画家》的核心是计算机，程序员与创业 一直以来，对“黑客”这个词总是充满了神秘的想象，本科阶段学习了《信息安全》这门课以后，]]></description>
+</item>
+<item>
+    <title>简述软件工程的历史演变</title>
+    <link>http://morsuning.github.io/posts/historical-evolution-of-software-engineering/post/</link>
+    <pubDate>Wed, 21 Oct 2020 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/historical-evolution-of-software-engineering/post/</guid>
+    <description><![CDATA[软件工程的历史演变要从软件发展，软件过程的发展和软件工程管理这三个角度去说。一方面，随着软件的快速发展，出现了许许多多越来越难以解决的问题，]]></description>
 </item>
 </channel>
 </rss>

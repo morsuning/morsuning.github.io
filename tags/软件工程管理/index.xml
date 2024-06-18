@@ -1,0 +1,32 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>软件工程管理 - 标签 - morsuning&#39;s Blog</title>
+        <link>http://morsuning.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/</link>
+        <description>软件工程管理 - 标签 - morsuning&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 22 Dec 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="self" type="application/rss+xml" /><item>
+    <title>《软件管理沉思录》 - 读书笔记</title>
+    <link>http://morsuning.github.io/posts/reading-note-meditations-on-software-management/post/</link>
+    <pubDate>Tue, 22 Dec 2020 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/reading-note-meditations-on-software-management/post/</guid>
+    <description><![CDATA[《软件管理沉思录》是一本介绍SEI项目管理、人际沟通和团队协作的要诀。不论读者是软件开发者抑或是管理者，都能够从这本书中挖掘到价值。 本书分为]]></description>
+</item>
+<item>
+    <title>《人件》 - 读书笔记</title>
+    <link>http://morsuning.github.io/posts/reading-note-humanware/post/</link>
+    <pubDate>Fri, 20 Nov 2020 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/reading-note-humanware/post/</guid>
+    <description><![CDATA[在对失败的软件开发项目的分析中，人们倾向于将与人相关的失败因素归结于政治而不深入研究，这是一种误区，而本书中Tom DeMarco和Timot]]></description>
+</item>
+<item>
+    <title>《人月神话》 - 读书笔记</title>
+    <link>http://morsuning.github.io/posts/reading-note-the-mythical-man-month/post/</link>
+    <pubDate>Sat, 26 Sep 2020 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/reading-note-the-mythical-man-month/post/</guid>
+    <description><![CDATA[很显然，作为一名技术人员，阅读一本不能提供任何技术的“管理学”书籍，首先需要的是耐心，需要的是那种想明白这样一本书到底是存在什么价值才会被奉]]></description>
+</item>
+</channel>
+</rss>

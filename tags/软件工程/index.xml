@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>软件工程 - 标签 - morsuning&#39;s Blog</title>
+        <link>http://localhost:1313/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
+        <description>软件工程 - 标签 - morsuning&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 21 Oct 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>简述软件工程的历史演变</title>
+    <link>http://localhost:1313/posts/historical-evolution-of-software-engineering/post/</link>
+    <pubDate>Wed, 21 Oct 2020 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/posts/historical-evolution-of-software-engineering/post/</guid>
+    <description><![CDATA[软件工程的历史演变要从软件发展，软件过程的发展和软件工程管理这三个角度去说。一方面，随着软件的快速发展，出现了许许多多越来越难以解决的问题，]]></description>
+</item>
+</channel>
+</rss>

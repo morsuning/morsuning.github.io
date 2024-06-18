@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>对象存储 - 标签 - morsuning&#39;s Blog</title>
-        <link>http://localhost:1313/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</link>
+        <link>http://morsuning.github.io/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</link>
         <description>对象存储 - 标签 - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/" rel="self" type="application/rss+xml" /><item>
     <title>记一次CPU占用过高问题定位</title>
-    <link>http://localhost:1313/posts/record-once-investigat-high-cpu-ccupancy/post/</link>
+    <link>http://morsuning.github.io/posts/record-once-investigat-high-cpu-ccupancy/post/</link>
     <pubDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/posts/record-once-investigat-high-cpu-ccupancy/post/</guid>
+    <guid>http://morsuning.github.io/posts/record-once-investigat-high-cpu-ccupancy/post/</guid>
     <description><![CDATA[记录一次对象存储在曙光服务器（Hygon CPU）上CPU占用异常问题的定位过程，相关信息已脱敏 环境说明 CPU规格：每个服务器2 * Hygon C86 7380 32-Core Pr]]></description>
 </item>
 </channel>
