@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>分享 - 分类 - morsuning&#39;s Blog</title>
+        <link>http://morsuning.github.io/categories/%E5%88%86%E4%BA%AB/</link>
+        <description>分享 - 分类 - morsuning&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 11 May 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/categories/%E5%88%86%E4%BA%AB/" rel="self" type="application/rss+xml" /><item>
+    <title>MacOS 开发软件及 Shell 配置推荐</title>
+    <link>http://morsuning.github.io/posts/macos-software-recommand/post/</link>
+    <pubDate>Sat, 11 May 2024 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/macos-software-recommand/post/</guid>
+    <description><![CDATA[常用软件 软件来源 macwk 学习版MacOS软件下载 Mac App Store 苹果官方应用商店，方便下载、卸载、更新和付费 Homebrew MacOS软件包管理器，通常用来安装开源软件 各]]></description>
+</item>
+</channel>
+</rss>

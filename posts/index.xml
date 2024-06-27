@@ -4,7 +4,15 @@
         <link>http://morsuning.github.io/posts/</link>
         <description>所有文章 | morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 11 May 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>MacOS 开发软件及 Shell 配置推荐</title>
+    <link>http://morsuning.github.io/posts/macos-software-recommand/post/</link>
+    <pubDate>Sat, 11 May 2024 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://morsuning.github.io/posts/macos-software-recommand/post/</guid>
+    <description><![CDATA[常用软件 软件来源 macwk 学习版MacOS软件下载 Mac App Store 苹果官方应用商店，方便下载、卸载、更新和付费 Homebrew MacOS软件包管理器，通常用来安装开源软件 各]]></description>
+</item>
+<item>
     <title>记一次CPU占用过高问题定位</title>
     <link>http://morsuning.github.io/posts/record-once-investigat-high-cpu-ccupancy/post/</link>
     <pubDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</pubDate>
@@ -75,14 +83,6 @@
     <author>morsuning</author>
     <guid>http://morsuning.github.io/posts/reading-note-humanware/post/</guid>
     <description><![CDATA[在对失败的软件开发项目的分析中，人们倾向于将与人相关的失败因素归结于政治而不深入研究，这是一种误区，而本书中Tom DeMarco和Timot]]></description>
-</item>
-<item>
-    <title>《黑客与画家》 - 读书笔记</title>
-    <link>http://morsuning.github.io/posts/reading-note-hacker-and-painters/post/</link>
-    <pubDate>Mon, 26 Oct 2020 00:00:00 &#43;0000</pubDate>
-    <author>morsuning</author>
-    <guid>http://morsuning.github.io/posts/reading-note-hacker-and-painters/post/</guid>
-    <description><![CDATA[内容已过时，《黑客与画家》的核心是计算机，程序员与创业 一直以来，对“黑客”这个词总是充满了神秘的想象，本科阶段学习了《信息安全》这门课以后，]]></description>
 </item>
 </channel>
 </rss>

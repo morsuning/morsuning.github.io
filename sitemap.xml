@@ -2,11 +2,15 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://morsuning.github.io/categories/</loc><lastmod>2023-12-21T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://morsuning.github.io/tags/cpu/</loc><lastmod>2023-12-21T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://morsuning.github.io/categories/</loc><lastmod>2024-05-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://morsuning.github.io/tags/macos/</loc><lastmod>2024-05-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://morsuning.github.io/posts/macos-software-recommand/post/</loc><lastmod>2024-05-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://morsuning.github.io/</loc><lastmod>2024-05-25T20:08:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://morsuning.github.io/posts/</loc><lastmod>2023-12-21T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://morsuning.github.io/tags/</loc><lastmod>2023-12-21T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://morsuning.github.io/posts/</loc><lastmod>2024-05-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://morsuning.github.io/tags/shell/</loc><lastmod>2024-05-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://morsuning.github.io/tags/</loc><lastmod>2024-05-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://morsuning.github.io/categories/%E5%88%86%E4%BA%AB/</loc><lastmod>2024-05-11T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://morsuning.github.io/tags/cpu/</loc><lastmod>2023-12-21T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://morsuning.github.io/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</loc><lastmod>2023-12-21T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://morsuning.github.io/posts/record-once-investigat-high-cpu-ccupancy/post/</loc><lastmod>2023-12-21T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://morsuning.github.io/categories/%E9%97%AE%E9%A2%98/</loc><lastmod>2023-12-21T00:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
