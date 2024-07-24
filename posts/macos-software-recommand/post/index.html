@@ -42,7 +42,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/morsuning.github.io\/posts\/macos-software-recommand\/post\/"
-        },"genre": "posts","keywords": "MacOS, Shell","wordcount":  2038 ,
+        },"genre": "posts","keywords": "MacOS, Shell","wordcount":  2063 ,
         "url": "http:\/\/morsuning.github.io\/posts\/macos-software-recommand\/post\/","datePublished": "2024-05-11T00:00:00+00:00","dateModified": "2024-05-11T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "morsuning"},"author": {
@@ -116,7 +116,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MacOS 开发软件及 Shell 配置推荐</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/morsuning" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>morsuning</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>分享</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-05-11">2024-05-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2038 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-05-11">2024-05-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2063 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -239,12 +239,8 @@
 </div>
 </div><p>只要访问过某个目录直接 j 目录 即可跳转到该目录</p>
 <ul>
-<li>
-<p>extract (oh-my-zsh内置)一个命令解压所有文件 x &lt;文件名&gt; 即可解压该文件</p>
-</li>
-<li>
-<p>zsh-syntax-highlighting 语法高亮插件</p>
-</li>
+<li>extract (oh-my-zsh内置)一个命令解压所有文件 x &lt;文件名&gt; 即可解压该文件</li>
+<li>zsh-syntax-highlighting 语法高亮插件</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -394,9 +390,15 @@
 </span><span class="lnt">124
 </span><span class="lnt">125
 </span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># If you come from bash you might have to change your $PATH.</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># If you come from bash you might have to change your $PATH.</span>
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/env/bin:<span class="nv">$HOME</span>/.local/bin:/usr/local/bin:/opt/homebrew/bin:<span class="nv">$PATH</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Homebrew mirror</span>
@@ -522,6 +524,10 @@
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">tgz</span><span class="o">=</span><span class="s1">&#39;tar -xzvf&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">zip</span><span class="o">=</span><span class="s1">&#39;unzip&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">bz2</span><span class="o">=</span><span class="s1">&#39;tar -xjvf&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Source global definitions</span>
+</span></span><span class="line"><span class="cl">s2c <span class="o">()</span> <span class="o">{</span> scp <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> <span class="si">${</span><span class="nv">SSH_CLIENT</span><span class="p">%% *</span><span class="si">}</span>:~/<span class="p">;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">c2s <span class="o">()</span> <span class="o">{</span> scp <span class="si">${</span><span class="nv">SSH_CLIENT</span><span class="p">%% *</span><span class="si">}</span>:<span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> .<span class="p">;</span> <span class="o">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">

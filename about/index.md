@@ -16,11 +16,11 @@
 
     "Education": "Master, NJU",
 
-    "Profession": "System;Storage & Cloud Native; Go & Rust & C++ & Python",
+    "Profession": "System: Storage & Cloud Native; Go & Rust & C/C++ & Python",
 
     "Email": "morsuning at gmail dot com",
 
-    "Description": "Don't want to miss the wonderfulness of the world.",
+    "Description": "Don't want to miss the wonderfulness of the world",
 }
 ```
 

@@ -1,6 +1,5 @@
 # MacOS 开发软件及 Shell 配置推荐
 
-
 ## 常用软件
 
 ### 软件来源
@@ -72,6 +71,7 @@ playcover 运行未在Mac App Store上架的ios应用
 UTM | Parallels Desktop 虚拟机软件
 
 Quick Look 插件: 选中文件，按空格预览
+
 - QuicklookStephen - 查看未知拓展名的纯文本文件 brew install --cask qlstephen
 - QLMarkdown - 空格键预览 Markdown 文本效果 - brew install --cask qlmarkdown
 
@@ -120,6 +120,7 @@ tmux 终端复用
 cloc 代码行数统计命令行工具
 
 **proxychains-ng** 终端命令行下代理神器，可以让指定的命令走设置好的代理，内网渗透、科学上网必备工具 brew install proxychains-ng 配置文件: /usr/local/etc/proxychains.conf
+
 - proxychains4 curl https://www.google.com.hk 通过代理访问
 - proxychains4 -q /bin/zsh 开启zsh全局代理
 - 配置文件最后一行配置示例: http 127.0.0.1 7897
@@ -130,7 +131,8 @@ cloc 代码行数统计命令行工具
 使用当前MacOS下体验最佳终端Warp，搭配MacOS自带的zsh及其配置框架oh-my-zsh
 
 先依次安装
-1. oh-my-zsh: zsh配置框架 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" 
+
+1. oh-my-zsh: zsh配置框架 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 2. brew: 包管理工具
 
 ### 配置oh-my-zsh
@@ -156,7 +158,6 @@ python3 install.py;
 只要访问过某个目录直接 j 目录 即可跳转到该目录
 
 - extract (oh-my-zsh内置)一个命令解压所有文件 x <文件名> 即可解压该文件
-
 - zsh-syntax-highlighting 语法高亮插件
 
 ```jsx
@@ -172,6 +173,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/z
 **最终的参考.zshrc文件**
 
 ```bash
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/env/bin:$HOME/.local/bin:/usr/local/bin:/opt/homebrew/bin:$PATH
 
@@ -298,6 +300,9 @@ alias -s gz='tar -xzvf'
 alias -s tgz='tar -xzvf'
 alias -s zip='unzip'
 alias -s bz2='tar -xjvf'
-```
 
+# Source global definitions
+s2c () { scp "$@" ${SSH_CLIENT%% *}:~/; }
+c2s () { scp ${SSH_CLIENT%% *}:"$@" .; }
+```
 

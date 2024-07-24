@@ -625,3 +625,11 @@ spec:
   storageClassName: nfs-csi
 ```
 
+## 3 Reference
+
+[https://github.com/container-storage-interface/spec/blob/master/spec.md](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+
+[https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#api-overview](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#api-overview)
+
+[https://kubernetes-csi.github.io/docs/introduction.html](https://kubernetes-csi.github.io/docs/introduction.html)
+

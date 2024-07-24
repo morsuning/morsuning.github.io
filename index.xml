@@ -44,7 +44,7 @@
     <pubDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</pubDate>
     <author>morsuning</author>
     <guid>http://morsuning.github.io/posts/storage-concept/post/</guid>
-    <description><![CDATA[这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域计算、存储和网络中的存储 存储架构 存储方式 存储介质 分布式存储 存储访问协议 Linux]]></description>
+    <description><![CDATA[本文的目标是以一篇文章的篇幅，介绍存储领域的各种概念以及他们是用来解决什么需求的 这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域]]></description>
 </item>
 <item>
     <title>Go错误处理最佳实践</title>
