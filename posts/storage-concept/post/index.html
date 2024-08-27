@@ -44,7 +44,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/morsuning.github.io\/posts\/storage-concept\/post\/"
-        },"genre": "posts","keywords": "存储架构, 存储介质, 存储访问协议, 文件系统","wordcount":  321 ,
+        },"genre": "posts","keywords": "存储架构, 存储介质, 存储访问协议, 文件系统","wordcount":  347 ,
         "url": "http:\/\/morsuning.github.io\/posts\/storage-concept\/post\/","datePublished": "2023-09-15T21:40:47+08:00","dateModified": "2022-09-20T21:56:37+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "morsuning"},"author": {
@@ -118,7 +118,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">存储领域的概念</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/morsuning" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>morsuning</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AD%98%E5%82%A8/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>存储</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-09-15">2023-09-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 321 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-09-15">2023-09-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 347 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -129,27 +129,28 @@
             </div><div class="content" id="content"><p>本文的目标是以一篇文章的篇幅，介绍存储领域的各种概念以及他们是用来解决什么需求的</p>
 <p>这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域计算、存储和网络中的存储</p>
 <h1 id="存储架构">存储架构</h1>
+<p>jbod san nas</p>
+<p>数据冗余技术 ecc纠删码 多副本</p>
+<p>SDS</p>
 <h1 id="存储方式">存储方式</h1>
+<p>分布式存储类型 对象存储，块存储，文件存储</p>
+<p>集中式存储，分布式存储https://www.zhihu.com/question/343713625</p>
 <h1 id="存储介质">存储介质</h1>
-<h1 id="分布式存储">分布式存储</h1>
+<p>存储介质 ssd hdd scm</p>
+<h1 id="硬件支持技术">硬件支持技术</h1>
+<p>nvme-of  fiber iSCSI</p>
+<p>RDMA</p>
+<p>SPDK</p>
 <h1 id="存储访问协议">存储访问协议</h1>
+<p>网络文件系统及接口 NFS CIFS SMB HDFS Lustre POSIX</p>
+<p>存储访问协议 Amazon S3协议 <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html" target="_blank" rel="noopener noreffer ">https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html</a></p>
 <h1 id="linux文件系统">Linux文件系统</h1>
-<h1 id="云原生存储">云原生存储</h1>
-<p>学习下存储相关概念 sds
-存储方式 集中式存储，分布式存储https://www.zhihu.com/question/343713625
-存储介质 ssd hdd scm
-分布式存储类型 对象存储，块存储，文件存储
-存储访问协议 Amazon S3协议 <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html" target="_blank" rel="noopener noreffer ">https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html</a> nvme-of协议
-Linux文件系统类型 磁盘文件系统 内存文件系统 网络文件系统
-文件系统及接口 NFS CIFS SMB HDFS Lustre POSIX
-数据冗余技术
-存储项目 minIO Ceph daos JuiceFS</p>
-<p>存储与云原生融合</p>
-<p>存储监控和管理
-etcd
-prometheus
-*tidb
-如果要接触，学习下chaos mesh</p>
+<p>Linux文件系统类型 磁盘文件系统 内存文件系统 网络文件系统</p>
+<h1 id="存储系统监控和管理">存储系统监控和管理</h1>
+<p>存储系统监控和管理</p>
+<h1 id="典型存储项目">典型存储项目</h1>
+<p>存储项目 minIO Ceph daos JuiceFS</p>
+<p>从一个通常的具有计算机使用经验的人展开，存储方式，存储介质，文件系统，访问协议sds</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
