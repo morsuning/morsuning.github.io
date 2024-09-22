@@ -10,7 +10,14 @@
     <pubDate>Sat, 11 May 2024 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
     <guid>http://morsuning.github.io/posts/macos-software-recommand/post/</guid>
-    <description><![CDATA[常用软件 软件来源 macwk 学习版MacOS软件下载 Mac App Store 苹果官方应用商店，方便下载、卸载、更新和付费 Homebrew MacOS软件包管理器，通常用来安装开源软件 各]]></description>
+    <description><![CDATA[<h2 id="常用软件">常用软件</h2>
+<h3 id="软件来源">软件来源</h3>
+<p><a href="https://macwk.cn/" target="_blank" rel="noopener noreffer ">macwk</a> 学习版MacOS软件下载</p>
+<p>Mac App Store 苹果官方应用商店，方便下载、卸载、更新和付费</p>
+<p>Homebrew MacOS软件包管理器，通常用来安装开源软件</p>
+<p>各软件官方网站</p>
+<h3 id="必备软件">必备软件</h3>
+<p><a href="https://github.com/milanvarady/Applite" target="_blank" rel="noopener noreffer ">applite</a> brew GUI 建议在此安装推荐的软件和任何brew安装的软件，方便管理</p>]]></description>
 </item>
 </channel>
 </rss>

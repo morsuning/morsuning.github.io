@@ -7,7 +7,8 @@
         <title>Kubernetes 存储实现原理及简单示例 - morsuning&#39;s Blog</title><meta name="Description" content="morsuning&#39;s porsonal blog"><meta property="og:url" content="http://morsuning.github.io/posts/kubernetes-csi-introduce/post/">
   <meta property="og:site_name" content="morsuning&#39;s Blog">
   <meta property="og:title" content="Kubernetes 存储实现原理及简单示例">
-  <meta property="og:description" content="1 Kubernetes存储相关概念及实现原理 1.1 PV &amp; PVC 概念 Kubernetes定义了PV（PersistentVolume）与PVC（Pers">
+  <meta property="og:description" content="1 Kubernetes存储相关概念及实现原理 1.1 PV &amp; PVC 概念
+Kubernetes定义了PV（PersistentVolume）与PVC（PersistentVolumeClaim）这两个概念让用户使用持久化存储，是在用户与存储服务提供者之间添加的一个中间层。">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -22,7 +23,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="http://morsuning.github.io/logo.png">
   <meta name="twitter:title" content="Kubernetes 存储实现原理及简单示例">
-  <meta name="twitter:description" content="1 Kubernetes存储相关概念及实现原理 1.1 PV &amp; PVC 概念 Kubernetes定义了PV（PersistentVolume）与PVC（Pers">
+  <meta name="twitter:description" content="1 Kubernetes存储相关概念及实现原理 1.1 PV &amp; PVC 概念
+Kubernetes定义了PV（PersistentVolume）与PVC（PersistentVolumeClaim）这两个概念让用户使用持久化存储，是在用户与存储服务提供者之间添加的一个中间层。">
       <meta name="twitter:site" content="@morsuning">
 <meta name="application-name" content="morsuning&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="morsuning&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><script type="text/javascript">
@@ -298,55 +300,55 @@
 </div>
 </div><p>PV和PVC的生命周期如下表所示</p>
 <table>
-<thead>
-<tr>
-<th>操作</th>
-<th>PV 状态</th>
-<th>PVC 状态</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>创建 PV</td>
-<td>Available</td>
-<td>-</td>
-</tr>
-<tr>
-<td>创建 PVC</td>
-<td>Available</td>
-<td>Pending</td>
-</tr>
-<tr>
-<td></td>
-<td>Bound</td>
-<td>Bound</td>
-</tr>
-<tr>
-<td>删除 PV</td>
-<td>-/Terminating</td>
-<td>Lost/Bound</td>
-</tr>
-<tr>
-<td>重新创建 PV</td>
-<td>Bound</td>
-<td>Bound</td>
-</tr>
-<tr>
-<td>删除 PVC</td>
-<td>Released</td>
-<td>-</td>
-</tr>
-<tr>
-<td>后端存储不可用</td>
-<td>Failed</td>
-<td>-</td>
-</tr>
-<tr>
-<td>删除 PV 的 claimRef</td>
-<td>Available</td>
-<td>-</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">操作</th>
+          <th style="text-align: left">PV 状态</th>
+          <th style="text-align: left">PVC 状态</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">创建 PV</td>
+          <td style="text-align: left">Available</td>
+          <td style="text-align: left">-</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">创建 PVC</td>
+          <td style="text-align: left">Available</td>
+          <td style="text-align: left">Pending</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"></td>
+          <td style="text-align: left">Bound</td>
+          <td style="text-align: left">Bound</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">删除 PV</td>
+          <td style="text-align: left">-/Terminating</td>
+          <td style="text-align: left">Lost/Bound</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">重新创建 PV</td>
+          <td style="text-align: left">Bound</td>
+          <td style="text-align: left">Bound</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">删除 PVC</td>
+          <td style="text-align: left">Released</td>
+          <td style="text-align: left">-</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">后端存储不可用</td>
+          <td style="text-align: left">Failed</td>
+          <td style="text-align: left">-</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">删除 PV 的 claimRef</td>
+          <td style="text-align: left">Available</td>
+          <td style="text-align: left">-</td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>PV生命周期</strong></p>
 <ol>

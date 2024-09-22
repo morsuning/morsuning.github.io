@@ -10,7 +10,11 @@
     <pubDate>Wed, 21 Jun 2023 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
     <guid>http://morsuning.github.io/posts/go-error-handling-best-practice/posts/</guid>
-    <description><![CDATA[一 Golang错误处理机制panic和recover简要介绍 使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，]]></description>
+    <description><![CDATA[<h2 id="一-golang错误处理机制panic和recover简要介绍">一 Golang错误处理机制panic和recover简要介绍</h2>
+<ul>
+<li>使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然后将panic抛向上一层，直至程序crash。但是也可以使用被defer的recover函数来捕获异常阻止程序的崩溃，recover只有被defer后才是有意义的</li>
+</ul>
+<p>使用示例：</p>]]></description>
 </item>
 </channel>
 </rss>

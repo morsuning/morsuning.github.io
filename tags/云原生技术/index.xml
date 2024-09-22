@@ -10,7 +10,15 @@
     <pubDate>Tue, 20 Sep 2022 15:58:26 &#43;0800</pubDate>
     <author>morsuning</author>
     <guid>http://morsuning.github.io/posts/talk-about-cloud-native/post/</guid>
-    <description><![CDATA[云原生漫谈 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&g]]></description>
+    <description><![CDATA[<h1 id="云原生漫谈">云原生漫谈</h1>
+<blockquote>
+<p>云原生的5w1h，what，why，where，how，who  when -&gt; anytime
+云原生概念(定义、优势、总结);
+云原生技术领域介绍：容器-&gt;容器编排-&gt;服务治理(简要介绍代表技术Docker、Kubernetes、Istio和Linkerd)、微服务架构 &amp; Serverless架构、DevOps &amp; 可观测性;
+Kubernetes简介(如何满足12-Factor)、架构及开发方式;
+应用的现代化改造思路;
+云原生时代下的团队(对新出现一些岗位和名词的解释);
+CNCF(简介、对cncf landscape的介绍);</p>]]></description>
 </item>
 </channel>
 </rss>

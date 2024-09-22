@@ -16,7 +16,7 @@
 
     "Education": "Master, NJU",
 
-    "Profession": "System: Storage; Go & Rust & C/C++ & Python",
+    "Profession": "System; Go & Java & Rust & Python",
 
     "Email": "morsuning at gmail dot com",
 

@@ -10,7 +10,9 @@
     <pubDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
     <guid>http://morsuning.github.io/posts/record-once-file-system-performance-test/post/</guid>
-    <description><![CDATA[记录一次视频监控场景下对文件系统进行性能测试及简单调优的过程及思路，相关内容已脱敏 1 性能分析方法 可通过日志和检测工具来监控基于fuse实现的]]></description>
+    <description><![CDATA[<p>记录一次视频监控场景下对文件系统进行性能测试及简单调优的过程及思路，相关内容已脱敏</p>
+<h2 id="1-性能分析方法">1 性能分析方法</h2>
+<p>可通过日志和检测工具来监控基于fuse实现的用户态文件系统性能</p>]]></description>
 </item>
 </channel>
 </rss>

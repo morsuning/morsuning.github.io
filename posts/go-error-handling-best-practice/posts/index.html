@@ -7,7 +7,7 @@
         <title>Go错误处理最佳实践 - morsuning&#39;s Blog</title><meta name="Description" content="morsuning&#39;s porsonal blog"><meta property="og:url" content="http://morsuning.github.io/posts/go-error-handling-best-practice/posts/">
   <meta property="og:site_name" content="morsuning&#39;s Blog">
   <meta property="og:title" content="Go错误处理最佳实践">
-  <meta property="og:description" content="一 Golang错误处理机制panic和recover简要介绍 使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，">
+  <meta property="og:description" content="一 Golang错误处理机制panic和recover简要介绍 使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然后将panic抛向上一层，直至程序crash。但是也可以使用被defer的recover函数来捕获异常阻止程序的崩溃，recover只有被defer后才是有意义的 使用示例：">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="http://morsuning.github.io/logo.png">
   <meta name="twitter:title" content="Go错误处理最佳实践">
-  <meta name="twitter:description" content="一 Golang错误处理机制panic和recover简要介绍 使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，">
+  <meta name="twitter:description" content="一 Golang错误处理机制panic和recover简要介绍 使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然后将panic抛向上一层，直至程序crash。但是也可以使用被defer的recover函数来捕获异常阻止程序的崩溃，recover只有被defer后才是有意义的 使用示例：">
       <meta name="twitter:site" content="@morsuning">
 <meta name="application-name" content="morsuning&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="morsuning&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><script type="text/javascript">
