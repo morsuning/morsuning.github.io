@@ -1,42 +1,42 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>读书笔记 - Category - morsuning&#39;s Blog</title>
-        <link>http://localhost:1313/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+        <link>http://morsuning.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
         <description>读书笔记 - Category - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Tue, 22 Dec 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Tue, 22 Dec 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
     <title>《软件管理沉思录》 - 读书笔记</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://morsuning.github.io/post/</link>
     <pubDate>Tue, 22 Dec 2020 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/post/</guid>
+    <guid>http://morsuning.github.io/post/</guid>
     <description><![CDATA[<p>《软件管理沉思录》是一本介绍SEI项目管理、人际沟通和团队协作的要诀。不论读者是软件开发者抑或是管理者，都能够从这本书中挖掘到价值。</p>
 <p>本书分为四个部分，分别介绍了项目管理，团队管理，与上级沟通和自我管理。</p>]]></description>
 </item>
 <item>
     <title>《人件》 - 读书笔记</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://morsuning.github.io/post/</link>
     <pubDate>Fri, 20 Nov 2020 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/post/</guid>
+    <guid>http://morsuning.github.io/post/</guid>
     <description><![CDATA[<p>在对失败的软件开发项目的分析中，人们倾向于将与人相关的失败因素归结于政治而不深入研究，这是一种误区，而本书中Tom DeMarco和Timothy Lister两位大师用严谨的科学实验和辛辣尖锐的解剖一步步为我们揭开知识经济下管理中的这种误区，与《人月神话》中给出一些成功的实践和准确的论断不同，《人件》更想给读者以警醒，激发对人的因素的思考。</p>]]></description>
 </item>
 <item>
     <title>《黑客与画家》 - 读书笔记</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://morsuning.github.io/post/</link>
     <pubDate>Mon, 26 Oct 2020 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/post/</guid>
+    <guid>http://morsuning.github.io/post/</guid>
     <description><![CDATA[<blockquote>
 <p>内容已过时，《黑客与画家》的核心是计算机，程序员与创业</p></blockquote>
 <p>一直以来，对“黑客”这个词总是充满了神秘的想象，本科阶段学习了《信息安全》这门课以后，对“黑客”的工作自以为算是有了一些初步的认识，怀着这样的心情，阅读了《黑客与画家》这本书，本以为会了解到更多的我所以为的“黑客”的工作，却没想到，这本书带给我的不仅仅是对已深深印在脑海中的概念的推倒重建，更多的是引发我对很多以前从没想过的问题的全新思考，这些思考带给我不一样的新的视角去看待其他事情，我想这就是阅读的意义所在吧。</p>]]></description>
 </item>
 <item>
     <title>《人月神话》 - 读书笔记</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://morsuning.github.io/post/</link>
     <pubDate>Sat, 26 Sep 2020 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/post/</guid>
+    <guid>http://morsuning.github.io/post/</guid>
     <description><![CDATA[<p>很显然，作为一名技术人员，阅读一本不能提供任何技术的“管理学”书籍，首先需要的是耐心，需要的是那种想明白这样一本书到底是存在什么价值才会被奉为经典的好奇心。同时我也希望我能在阅读这样一部已经想读了好多年的经典书籍后能给自己留下一些有用的东西，因此我力图在这篇读书笔记中保留我学习到的知识、对本书的思考与评价和我自己的一些观点。</p>]]></description>
 </item>
 </channel>

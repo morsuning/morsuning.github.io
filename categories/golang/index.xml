@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Golang - Category - morsuning&#39;s Blog</title>
-        <link>http://localhost:1313/categories/golang/</link>
+        <link>http://morsuning.github.io/categories/golang/</link>
         <description>Golang - Category - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Wed, 21 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/categories/golang/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Wed, 21 Jun 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/categories/golang/" rel="self" type="application/rss+xml" /><item>
     <title>Go错误处理最佳实践</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>http://morsuning.github.io/posts/</link>
     <pubDate>Wed, 21 Jun 2023 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/posts/</guid>
+    <guid>http://morsuning.github.io/posts/</guid>
     <description><![CDATA[<h2 id="一-golang错误处理机制panic和recover简要介绍">一 Golang错误处理机制panic和recover简要介绍</h2>
 <ul>
 <li>使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然后将panic抛向上一层，直至程序crash。但是也可以使用被defer的recover函数来捕获异常阻止程序的崩溃，recover只有被defer后才是有意义的</li>

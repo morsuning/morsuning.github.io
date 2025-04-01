@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>创业 - Tag - morsuning&#39;s Blog</title>
-        <link>http://localhost:1313/tags/%E5%88%9B%E4%B8%9A/</link>
+        <link>http://morsuning.github.io/tags/%E5%88%9B%E4%B8%9A/</link>
         <description>创业 - Tag - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Mon, 26 Oct 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%88%9B%E4%B8%9A/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Mon, 26 Oct 2020 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/tags/%E5%88%9B%E4%B8%9A/" rel="self" type="application/rss+xml" /><item>
     <title>《黑客与画家》 - 读书笔记</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://morsuning.github.io/post/</link>
     <pubDate>Mon, 26 Oct 2020 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/post/</guid>
+    <guid>http://morsuning.github.io/post/</guid>
     <description><![CDATA[<blockquote>
 <p>内容已过时，《黑客与画家》的核心是计算机，程序员与创业</p></blockquote>
 <p>一直以来，对“黑客”这个词总是充满了神秘的想象，本科阶段学习了《信息安全》这门课以后，对“黑客”的工作自以为算是有了一些初步的认识，怀着这样的心情，阅读了《黑客与画家》这本书，本以为会了解到更多的我所以为的“黑客”的工作，却没想到，这本书带给我的不仅仅是对已深深印在脑海中的概念的推倒重建，更多的是引发我对很多以前从没想过的问题的全新思考，这些思考带给我不一样的新的视角去看待其他事情，我想这就是阅读的意义所在吧。</p>]]></description>

@@ -1,42 +1,42 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>软件工程管理 - Tag - morsuning&#39;s Blog</title>
-        <link>http://localhost:1313/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/</link>
+        <link>http://morsuning.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/</link>
         <description>软件工程管理 - Tag - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Mon, 12 Apr 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Mon, 12 Apr 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="self" type="application/rss+xml" /><item>
     <title>简述软件过程改进</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://morsuning.github.io/post/</link>
     <pubDate>Mon, 12 Apr 2021 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/post/</guid>
+    <guid>http://morsuning.github.io/post/</guid>
     <description><![CDATA[<p>——在CMMI中引入敏捷</p>
 <h2 id="1-cmmi概述">1 CMMI概述</h2>
 <p>80年代早期，在SEI的资助下美国空军成立了一项研究来分析为什么许多软件合同都会超出工期和预算。由此得出的结论是：糟糕的过程。CMM&amp;CMMI也因此产生。CMMI的中文名称是能力成熟度模型，是一个过程改进方法和模型，它为组织提供了实现高效的软件交付过程所必需的基本元素，关注通过切实改进过程域的成熟度，实现过程改进的目标。它可以用来指导一个项目、一个部门甚至整个组织的过程改进。CMMI能帮助我们整合以往各自为政的组织功能，建立过程改进的目标与优先级，指导我们进行质量改进，还提供了评价现有过程的参照点，最关键的一点是，它提供了过程改进的线路图，目前最主要的用途是评价一个组织的组织级能力。</p>]]></description>
 </item>
 <item>
     <title>《软件管理沉思录》 - 读书笔记</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://morsuning.github.io/post/</link>
     <pubDate>Tue, 22 Dec 2020 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/post/</guid>
+    <guid>http://morsuning.github.io/post/</guid>
     <description><![CDATA[<p>《软件管理沉思录》是一本介绍SEI项目管理、人际沟通和团队协作的要诀。不论读者是软件开发者抑或是管理者，都能够从这本书中挖掘到价值。</p>
 <p>本书分为四个部分，分别介绍了项目管理，团队管理，与上级沟通和自我管理。</p>]]></description>
 </item>
 <item>
     <title>《人件》 - 读书笔记</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://morsuning.github.io/post/</link>
     <pubDate>Fri, 20 Nov 2020 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/post/</guid>
+    <guid>http://morsuning.github.io/post/</guid>
     <description><![CDATA[<p>在对失败的软件开发项目的分析中，人们倾向于将与人相关的失败因素归结于政治而不深入研究，这是一种误区，而本书中Tom DeMarco和Timothy Lister两位大师用严谨的科学实验和辛辣尖锐的解剖一步步为我们揭开知识经济下管理中的这种误区，与《人月神话》中给出一些成功的实践和准确的论断不同，《人件》更想给读者以警醒，激发对人的因素的思考。</p>]]></description>
 </item>
 <item>
     <title>《人月神话》 - 读书笔记</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://morsuning.github.io/post/</link>
     <pubDate>Sat, 26 Sep 2020 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/post/</guid>
+    <guid>http://morsuning.github.io/post/</guid>
     <description><![CDATA[<p>很显然，作为一名技术人员，阅读一本不能提供任何技术的“管理学”书籍，首先需要的是耐心，需要的是那种想明白这样一本书到底是存在什么价值才会被奉为经典的好奇心。同时我也希望我能在阅读这样一部已经想读了好多年的经典书籍后能给自己留下一些有用的东西，因此我力图在这篇读书笔记中保留我学习到的知识、对本书的思考与评价和我自己的一些观点。</p>]]></description>
 </item>
 </channel>

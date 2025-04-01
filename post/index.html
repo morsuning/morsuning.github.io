@@ -1,47 +1,45 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>存储领域的概念 - morsuning&#39;s Blog</title><meta name="Description" content="morsuning&#39;s porsonal blog"><meta property="og:url" content="http://localhost:1313/post/">
+        <title>云原生的5W1H - morsuning&#39;s Blog</title><meta name="Description" content="morsuning&#39;s porsonal blog"><meta property="og:url" content="http://morsuning.github.io/post/">
   <meta property="og:site_name" content="morsuning&#39;s Blog">
-  <meta property="og:title" content="存储领域的概念">
-  <meta property="og:description" content="本文的目标是以一篇文章的篇幅，介绍存储领域的各种概念以及他们是用来解决什么需求的
-这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域计算、存储和网络中的存储">
+  <meta property="og:title" content="云原生的5W1H">
+  <meta property="og:description" content="云原生漫谈 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&gt;容器编排-&gt;服务治理(简要介绍代表技术Docker、Kubernetes、Istio和Linkerd)、微服务架构 &amp; Serverless架构、DevOps &amp; 可观测性; Kubernetes简介(如何满足12-Factor)、架构及开发方式; 应用的现代化改造思路; 云原生时代下的团队(对新出现一些岗位和名词的解释); CNCF(简介、对cncf landscape的介绍);">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2023-09-15T21:40:47+08:00">
+    <meta property="article:published_time" content="2022-09-20T15:58:26+08:00">
     <meta property="article:modified_time" content="2022-09-20T21:56:37+08:00">
-    <meta property="article:tag" content="存储架构">
-    <meta property="article:tag" content="存储介质">
-    <meta property="article:tag" content="存储访问协议">
-    <meta property="article:tag" content="文件系统">
-    <meta property="og:image" content="http://localhost:1313/logo.png">
+    <meta property="article:tag" content="云原生概念">
+    <meta property="article:tag" content="云原生技术">
+    <meta property="article:tag" content="云原生应用">
+    <meta property="article:tag" content="CNCF">
+    <meta property="og:image" content="http://morsuning.github.io/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/logo.png">
-  <meta name="twitter:title" content="存储领域的概念">
-  <meta name="twitter:description" content="本文的目标是以一篇文章的篇幅，介绍存储领域的各种概念以及他们是用来解决什么需求的
-这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域计算、存储和网络中的存储">
+  <meta name="twitter:image" content="http://morsuning.github.io/logo.png">
+  <meta name="twitter:title" content="云原生的5W1H">
+  <meta name="twitter:description" content="云原生漫谈 云原生的5w1h，what，why，where，how，who when -&gt; anytime 云原生概念(定义、优势、总结); 云原生技术领域介绍：容器-&gt;容器编排-&gt;服务治理(简要介绍代表技术Docker、Kubernetes、Istio和Linkerd)、微服务架构 &amp; Serverless架构、DevOps &amp; 可观测性; Kubernetes简介(如何满足12-Factor)、架构及开发方式; 应用的现代化改造思路; 云原生时代下的团队(对新出现一些岗位和名词的解释); CNCF(简介、对cncf landscape的介绍);">
 <meta name="application-name" content="morsuning&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="morsuning&#39;s Blog">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/post/" /><link rel="prev" href="http://localhost:1313/posts/" /><link rel="next" href="http://localhost:1313/post/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="t-SejsMxzsjyn2lHmDr1CGq7A99OHg7n6auhjWhaViI" /><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://morsuning.github.io/post/" /><link rel="prev" href="http://morsuning.github.io/post/" /><link rel="next" href="http://morsuning.github.io/posts/" /><link rel="stylesheet" href="/css/style.min.0b4294dead3bcb53946d16fb4769f4b9032c426ec3a33609afe9b90ccc391015.css" integrity="sha256-C0KU3q07y1OUbRb7R2n0uQMsQm7DozYJr+m5DMw5EBU="><link rel="preload" href="/lib/fontawesome-free/css/all.min.74005d7c17d4a02f2f25404ec0655d9bc2fdaa53166874c87d7b7eec69d9088a.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.74005d7c17d4a02f2f25404ec0655d9bc2fdaa53166874c87d7b7eec69d9088a.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo="></noscript><link rel="preload" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8=" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.5fbaeb9f8e25d7e0143bae61d4b1802c16ce7390b96ceb2d498b0d96ff4c853f.css" integrity="sha256-X7rrn44l1+AUO65h1LGALBbOc5C5bOstSYsNlv9MhT8="></noscript><meta name="google-site-verification" content="t-SejsMxzsjyn2lHmDr1CGq7A99OHg7n6auhjWhaViI" /><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "存储领域的概念",
+        "headline": "云原生的5W1H",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/localhost:1313\/post\/"
-        },"genre": "posts","keywords": "存储架构, 存储介质, 存储访问协议, 文件系统","wordcount":  347 ,
-        "url": "http:\/\/localhost:1313\/post\/","datePublished": "2023-09-15T21:40:47+08:00","dateModified": "2022-09-20T21:56:37+08:00","publisher": {
+            "@id": "http:\/\/morsuning.github.io\/post\/"
+        },"genre": "posts","keywords": "云原生概念, 云原生技术, 云原生应用, CNCF","wordcount":  2715 ,
+        "url": "http:\/\/morsuning.github.io\/post\/","datePublished": "2022-09-20T15:58:26+08:00","dateModified": "2022-09-20T21:56:37+08:00","publisher": {
             "@type": "Organization",
             "name": "morsuning"},"author": {
                 "@type": "Person",
@@ -112,41 +110,150 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">存储领域的概念</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/morsuning" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>morsuning</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%AD%98%E5%82%A8/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>存储</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-09-15">2023-09-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;347 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">云原生的5W1H</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/morsuning" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>morsuning</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>云原生</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-09-20">2022-09-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2715 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"><p>本文的目标是以一篇文章的篇幅，介绍存储领域的各种概念以及他们是用来解决什么需求的</p>
-<p>这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域计算、存储和网络中的存储</p>
-<h1 id="存储架构">存储架构</h1>
-<p>jbod san nas</p>
-<p>数据冗余技术 ecc纠删码 多副本</p>
-<p>SDS</p>
-<h1 id="存储方式">存储方式</h1>
-<p>分布式存储类型 对象存储，块存储，文件存储</p>
-<p>集中式存储，分布式存储https://www.zhihu.com/question/343713625</p>
-<h1 id="存储介质">存储介质</h1>
-<p>存储介质 ssd hdd scm</p>
-<h1 id="硬件支持技术">硬件支持技术</h1>
-<p>nvme-of  fiber iSCSI</p>
-<p>RDMA</p>
-<p>SPDK</p>
-<h1 id="存储访问协议">存储访问协议</h1>
-<p>网络文件系统及接口 NFS CIFS SMB HDFS Lustre POSIX</p>
-<p>存储访问协议 Amazon S3协议 <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html" target="_blank" rel="noopener noreffer ">https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html</a></p>
-<h1 id="linux文件系统">Linux文件系统</h1>
-<p>Linux文件系统类型 磁盘文件系统 内存文件系统 网络文件系统</p>
-<h1 id="存储系统监控和管理">存储系统监控和管理</h1>
-<p>存储系统监控和管理</p>
-<h1 id="典型存储项目">典型存储项目</h1>
-<p>存储项目 minIO Ceph daos JuiceFS</p>
-<p>从一个通常的具有计算机使用经验的人展开，存储方式，存储介质，文件系统，访问协议sds</p>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#docker">Docker</a></li>
+        <li><a href="#kubernetes">Kubernetes</a></li>
+        <li><a href="#istiolinkerd">Istio？linkerd？</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="云原生漫谈">云原生漫谈</h1>
+<blockquote>
+<p>云原生的5w1h，what，why，where，how，who  when -&gt; anytime
+云原生概念(定义、优势、总结);
+云原生技术领域介绍：容器-&gt;容器编排-&gt;服务治理(简要介绍代表技术Docker、Kubernetes、Istio和Linkerd)、微服务架构 &amp; Serverless架构、DevOps &amp; 可观测性;
+Kubernetes简介(如何满足12-Factor)、架构及开发方式;
+应用的现代化改造思路;
+云原生时代下的团队(对新出现一些岗位和名词的解释);
+CNCF(简介、对cncf landscape的介绍);</p></blockquote>
+<h1 id="概念">概念</h1>
+<p>What</p>
+<p>定义</p>
+<p>Martin Fowler - 课程获取</p>
+<p>云原生描述了一种高效组织的模式，可以快速地、一致地、可靠地、规模化地交付软件</p>
+<p><strong>持续交付</strong>、<strong>DevOps</strong> 和<strong>微服务</strong>指明了为什么，怎么样，和什么是云原生</p>
+<p>CNCF定义：</p>
+<p>云原生技术有利于各组织在公有云、私有云和混合云等新型动态环境中，构建和运行可弹性扩展的应用。云原生的代表技术包括容器、服务网格、微服务、不可变基础设施和声明式 API。</p>
+<p>这些技术能够构建容错性好、易于管理和便于观察的松耦合系统。结合可靠的自动化手段，云原生技术使工程师能够轻松地对系统作出频繁和可预测的重大变更。</p>
+<p>Pivotal 公司的 Matt Stine，2015，对于云原生的定义：12-Factor；面向微服务架构；自服务敏捷架构；基于API的协作；扛脆弱性</p>
+<p>云原生12因素（12-Factor）</p>
+<ol>
+<li>基准代码：一份基准代码，多份部署。基准代码和应用之间总是保持一一对应的关系。所有部署的基准代码相同，但是每份部署可以使用其不同的版本。</li>
+<li>依赖：显式声明依赖关系。应用程序一定通过依赖清单，确切地声明所有依赖项。</li>
+<li>配置：在环境中存储配置。将应用的配置存储于环境变量中。环境变量可以非常方便地在不同的部署间做修改，却不动一行代码。</li>
+<li>后端服务：把后端服务当做附加资源。应用不会区别对待本地或第三方服务。对应用程序而言，两种都是附加资源。</li>
+<li>构建、发布、运行：严格地区分构建，发布，运行这三个步骤。</li>
+<li>进程：以一个或多个无状态进程运行应用。应用的进程必须无状态且无共享。</li>
+<li>端口绑定：通过端口绑定提供服务。应用完全自我加载而不依赖任何网络服务器就可以创建一个面向网络的服务。</li>
+<li>并发：通过进程模型进行扩展。开发人员可以运用这个模型去设计应用架构，将不同工作分配给不同的进程类型。</li>
+<li>易处理：快速启动和优雅终止可最大化健壮性。应用的进程是可支配的，意思是说它们可以瞬间开启或停止。</li>
+<li>开发环境与线上环境等价：尽可能保持开发、预发布、线上环境相同。应用想要做到持续部署就必须缩小本地与线上差异。</li>
+<li>日志：把日志当做事件流。应用本身考虑存储自己的输出流。不应该试图去写或者管理日志文件。</li>
+<li>管理进程：后台管理任务当做一次性进程运行。一次性管理进程应该和正常的常驻进程使用同样的环境。</li>
+</ol>
+<p>总结</p>
+<p>理念 -&gt; 特征 -&gt; 技术体系(包括云原生架构、云原生服务等https://www.oracle.com/hk/cloud/cloud-native/what-is-cloud-native/)</p>
+<p>优势</p>
+<p>why</p>
+<p>发展历程 从docker，参考书</p>
+<p>新时代互联网巨头成功的秘诀 - 又快又好</p>
+<ul>
+<li>创新速度</li>
+<li>随时随地可用的服务</li>
+<li>从 0 到 1，快速拓展</li>
+<li>以移动设备为中心的用户体验 - 移动为王</li>
+</ul>
+<p>云原生应用程序或原生云应用程序 (NCA) 是为云计算架构设计的程序。他们有很多好处。</p>
+<ul>
+<li>**独立性：**他们的架构使得构建彼此独立的云原生应用程序成为可能。这意味着您还可以单独管理和部署它们。</li>
+<li>**弹性：**即使在基础设施中断的情况下，精心设计的云原生应用程序也能够生存并保持在线。</li>
+<li>**基于标准：**为了互操作性和工作负载可移植性，云原生服务通常基于开源和基于标准的技术。这有助于减少供应商锁定并提高可移植性。</li>
+<li>**业务敏捷性：**云原生应用程序支持跨网络的灵活部署选项，并且比传统应用程序更小，这使得它们更易于开发、部署和迭代。</li>
+<li>**自动化：**云原生应用程序使用 DevOps 自动化功能，并支持持续交付和部署定期发布的软件更改。此外，开发人员可以使用蓝绿和金丝雀部署等方法来改进应用程序，而不会影响用户体验。</li>
+<li>**无停机时间：**借助 Kubernetes 等容器编排器，您可以部署软件更新，停机时间基本为零。</li>
+</ul>
+<p>最终要解决的问题</p>
+<p>软件开发的本质困难 - 研究生课程资料</p>
+<p>复杂性，不可见性，可变性，一致性</p>
+<p>软件工程的一切 架构 协作模式 软件过程etc&hellip; 都是为了解决这些问题</p>
+<h1 id="云原生技术领域">云原生技术领域</h1>
+<p>where</p>
+<h1 id="容器---容器编排---服务治理">容器 -&gt; 容器编排 -&gt; 服务治理</h1>
+<h3 id="docker">Docker</h3>
+<h3 id="kubernetes">Kubernetes</h3>
+<h3 id="istiolinkerd">Istio？linkerd？</h3>
+<h1 id="微服务架构--serverless架构">微服务架构 &amp; Serverless架构</h1>
+<h1 id="devops--可观测性">DevOps &amp; 可观测性</h1>
+<p>DevOps工具链</p>
+<p>!https://cdn.nlark.com/yuque/0/2021/png/1386879/1621972375535-ea44572d-afd5-47f7-a816-1ef0d053bc23.png?x-oss-process=image%2Fresize%2Cw_1507%2Climit_0</p>
+<p>!https://cdn.nlark.com/yuque/0/2022/webp/1386879/1663579034683-2a95b897-da39-458c-bb0b-e6ab3f5d0955.webp?x-oss-process=image%2Fresize%2Cw_843%2Climit_0</p>
+<h1 id="cicd">CI/CD</h1>
+<h1 id="kubernetes-1">Kubernetes</h1>
+<h1 id="简介">简介</h1>
+<p>如何满足12-Factor，为什么是云原生核心</p>
+<h1 id="架构">架构</h1>
+<h1 id="开发方式">开发方式</h1>
+<p>什么是Kubernetes原生应用</p>
+<p>sidecar模式</p>
+<p>发布模式</p>
+<h1 id="应用的现代化改造">应用的现代化改造</h1>
+<p>How</p>
+<p>将单体应用改造成云原生应用</p>
+<p>容器化 -&gt; 了解容器编排引擎工作原理 -&gt; 了解分布式系统的模式 -&gt; 应用服务网格 -&gt; 使用无服务器架构 -&gt; 代码优化，将短任务改造成函数</p>
+<h1 id="刀砍模式">刀砍模式</h1>
+<p>一刀一刀砍去巨石应用。具体来说就是通过微服务架构来实现新的服务，然后逐步替换掉老应用中的部分组件功能。可以采用网关或者外观层来将用户请求导向正确的应用。随着时间的推移，越来越多的功能被转移到新架构下，知道整个巨石应用崩塌瓦解，完全转换为一个微服务架构下的应用。</p>
+<h1 id="防损层模式">防损层模式</h1>
+<p>与刀砍模式类似，区别在于新服务需要调用老服务。通过建立防损层可以使新服务访问老服务，反过来老服务也可以调用新服务。</p>
+<h1 id="云原生时代下的团队">云原生时代下的团队</h1>
+<p>who</p>
+<p>岗位</p>
+<p>开发？</p>
+<p>运维？</p>
+<p>运维开发？</p>
+<p>SRE？</p>
+<p>云原生工程师？</p>
+<p>Kubernetes开发工程师？</p>
+<p>容器工程师？</p>
+<p>基础架构研发工程师？</p>
+<p>云原生操作系统？</p>
+<h1 id="cncf">CNCF</h1>
+<p>云原生生态介绍</p>
+<p>CNCF 成立于 2015 年，旨在应对大量采用云原生系统的组织和服务。CNCF 是由 Linux 基金会创建的项目，是一个开源软件基金会，旨在促进云原生技术的采用。CNCF 拥有超过 400 名成员，包括公共云提供商、企业软件公司和技术初创公司。微软、甲骨文、VMware、英特尔是 CNCF 的一些白金会员。</p>
+<p>CNCF 的存在是为了确保云原生技术可访问、可用且可靠。它培育了一个致力于 Kubernetes、Prometheus 和 CoreDNS 等项目的社区，同时支持构建可持续环境的组织，这些环境在微服务架构中编排容器。</p>
+<p>landscape介绍</p>
+<p><a href="https://landscape.cncf.io/" target="_blank" rel="noopener noreffer ">https://landscape.cncf.io/</a></p>
+<p>组合一个典型的云原生架构</p>
+<h1 id="如何评估云原生能力">如何评估云原生能力</h1>
+<p>CMMI</p>
+<p>云原生的未来</p>
+<h1 id="参考资料--推荐阅读">参考资料 &amp; 推荐阅读</h1>
+<p><a href="https://www.infoq.cn/article/Fl9i3xgdklYR9xO5ryDc?source=app_share" target="_blank" rel="noopener noreffer ">https://www.infoq.cn/article/Fl9i3xgdklYR9xO5ryDc?source=app_share</a></p>
+<p>云原生：</p>
+<p>深入剖析Kubernetes</p>
+<p>云原生.Boris Scholl 等.2020</p>
+<p>Design Patterns for container-based distributed systems.Brendan Burns 容器设计模式</p>
+<p>云原生应用设计模式https://xie.infoq.cn/article/3c64971c8aa06fec5e00b463b</p>
+<p><a href="https://ost.51cto.com/posts/13985" target="_blank" rel="noopener noreffer ">https://ost.51cto.com/posts/13985</a></p>
+<p>DevOps：</p>
+<p>凤凰项目</p>
+<p>DevOps实践指南</p>
+<p>微服务：</p>
+<p>微服务设计模式</p>
+<p>Martin Fowler Microservices <a href="https://martinfowler.com/articles/microservices.html" target="_blank" rel="noopener noreffer ">https://martinfowler.com/articles/microservices.html</a></p>
+<p>企业IT架构转型之道：阿里巴巴中台战略思想与架构实战</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -158,20 +265,20 @@
                             <a class="link-to-markdown" href="/post/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="http://localhost:1313/post/" data-title="存储领域的概念" data-via="xxxx" data-hashtags="存储架构,存储介质,存储访问协议,文件系统"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="http://localhost:1313/post/" data-title="存储领域的概念"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/post/" data-hashtag="存储架构"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/post/" data-title="存储领域的概念"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/post/" data-title="存储领域的概念"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/post/" data-title="存储领域的概念"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="http://localhost:1313/post/" data-title="存储领域的概念" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=http%3a%2f%2flocalhost%3a1313%2fpost%2f&amp;text=%e5%ad%98%e5%82%a8%e9%a2%86%e5%9f%9f%e7%9a%84%e6%a6%82%e5%bf%b5" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="http://morsuning.github.io/post/" data-title="云原生的5W1H" data-via="xxxx" data-hashtags="云原生概念,云原生技术,云原生应用,CNCF"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="http://morsuning.github.io/post/" data-title="云原生的5W1H"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://morsuning.github.io/post/" data-hashtag="云原生概念"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://morsuning.github.io/post/" data-title="云原生的5W1H"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://morsuning.github.io/post/" data-title="云原生的5W1H"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://morsuning.github.io/post/" data-title="云原生的5W1H"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="http://morsuning.github.io/post/" data-title="云原生的5W1H" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=http%3a%2f%2fmorsuning.github.io%2fpost%2f&amp;text=%e4%ba%91%e5%8e%9f%e7%94%9f%e7%9a%845W1H" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%AD%98%E5%82%A8%E6%9E%B6%E6%9E%84/">存储架构</a>,&nbsp;<a href="/tags/%E5%AD%98%E5%82%A8%E4%BB%8B%E8%B4%A8/">存储介质</a>,&nbsp;<a href="/tags/%E5%AD%98%E5%82%A8%E8%AE%BF%E9%97%AE%E5%8D%8F%E8%AE%AE/">存储访问协议</a>,&nbsp;<a href="/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">文件系统</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%A6%82%E5%BF%B5/">云原生概念</a>,&nbsp;<a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%8A%80%E6%9C%AF/">云原生技术</a>,&nbsp;<a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/">云原生应用</a>,&nbsp;<a href="/tags/cncf/">CNCF</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/" class="prev" rel="prev" title="Go错误处理最佳实践"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go错误处理最佳实践</a>
-            <a href="/post/" class="next" rel="next" title="记一次文件系统性能测试">记一次文件系统性能测试<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/post/" class="prev" rel="prev" title="简述软件过程改进"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>简述软件过程改进</a>
+            <a href="/posts/" class="next" rel="next" title="Go错误处理最佳实践">Go错误处理最佳实践<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
@@ -187,5 +294,5 @@
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.fill%2CArray.prototype.find%2CArray.from%2CIntersectionObserver%2CMath.sign%2CObject.assign%2CPromise%2CObject.entries%2Chtml5shiv%2CObject.values%2Cfetch%2CElement.prototype.after"></script><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/twemoji/twemoji.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script src="/lib/cookieconsent/cookieconsent.min.js"></script><script>window.config={"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.f787891b550d554c214aa8902f39ac46df2dbd48fdec500a2040a5dce1e8ab58.css" integrity="sha256-94eJG1UNVUwhSqiQLzmsRt8tvUj97FAKIECl3OHoq1g="><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.cd0d0b6e50ff01ff2f3a9a70d7cfb66a7c6cb9acf7a566325568be6d3bd31fc4.css" integrity="sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q="><script src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.fill%2CArray.prototype.find%2CArray.from%2CIntersectionObserver%2CMath.sign%2CObject.assign%2CPromise%2CObject.entries%2Chtml5shiv%2CObject.values%2Cfetch%2CElement.prototype.after"></script><script src="/lib/autocomplete/autocomplete.min.ae2da1bd62c6469ee27770ad1cddf2e8296d8a7f6d85b091463e5200c5e320af.js" integrity="sha256-ri2hvWLGRp7id3CtHN3y6Cltin9thbCRRj5SAMXjIK8="></script><script src="/lib/lunr/lunr.min.08a93c0120364b01159db3c287f39b2180bb740334472bda0675bd3f18981676.js" integrity="sha256-CKk8ASA2SwEVnbPCh/ObIYC7dAM0RyvaBnW9PxiYFnY="></script><script src="/lib/lazysizes/lazysizes.min.3d9120fa621da6d613c1698b7014ec6bdf4620366e8f2b7b547059f4b6f6272b.js" integrity="sha256-PZEg+mIdptYTwWmLcBTsa99GIDZujyt7VHBZ9Lb2Jys="></script><script src="/lib/twemoji/twemoji.min.706224d8dc5440460f8ed91c1a6aad25d732af6e0ee6fb31151b157ab485babb.js" integrity="sha256-cGIk2NxUQEYPjtkcGmqtJdcyr24O5vsxFRsVerSFurs="></script><script src="/lib/clipboard/clipboard.min.e17a1d816e13c0826e0ed7febfabc3277f45571234bde0bf9120829a7169edc9.js" integrity="sha256-4XodgW4TwIJuDtf+v6vDJ39FVxI0veC/kSCCmnFp7ck="></script><script src="/lib/sharer/sharer.min.bb9594bf58d14dbb3c9acc003dad8a2e6a63d5c4ebb80e027bc1871c3ee406c8.js" integrity="sha256-u5WUv1jRTbs8mswAPa2KLmpj1cTruA4Ce8GHHD7kBsg="></script><script src="/lib/katex/katex.min.863811e2baa0849c77bc92d26d44f4d0a4843c2a8ab52c462017dea57316e4d8.js" integrity="sha256-hjgR4rqghJx3vJLSbUT00KSEPCqKtSxGIBfepXMW5Ng="></script><script src="/lib/katex/contrib/auto-render.min.bb53eb953394531aae36fdd537065c4244eb8542901a3ce914601d932675b8ac.js" integrity="sha256-u1PrlTOUUxquNv3VNwZcQkTrhUKQGjzpFGAdkyZ1uKw="></script><script src="/lib/katex/contrib/copy-tex.min.07770af90943a1de1a1010794bc78c6a7346d46d48fb63e35cc76ba76b827604.js" integrity="sha256-B3cK+QlDod4aEBB5S8eManNG1G1I+2PjXMdrp2uCdgQ="></script><script src="/lib/katex/contrib/mhchem.min.9f87e5e9c384a160472d0045035a8641f6013358eddb3ece708634a50f946a40.js" integrity="sha256-n4fl6cOEoWBHLQBFA1qGQfYBM1jt2z7OcIY0pQ+UakA="></script><script src="/lib/cookieconsent/cookieconsent.min.e55842a856a6d829feca3c3ad736c136b6c7549e9247274f78aa296259e06e24.js" integrity="sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="></script><script>window.config={"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.67c28326f8888864ac082b008da85cd7a6da15b4a7690f3ad8b4731f946675a0.js" integrity="sha256-Z8KDJviIiGSsCCsAjahc16baFbSnaQ862LRzH5RmdaA="></script></body>
 </html>

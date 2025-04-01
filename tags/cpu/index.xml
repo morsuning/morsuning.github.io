@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>CPU - Tag - morsuning&#39;s Blog</title>
-        <link>http://localhost:1313/tags/cpu/</link>
+        <link>http://morsuning.github.io/tags/cpu/</link>
         <description>CPU - Tag - morsuning&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
-            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/cpu/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://morsuning.github.io/tags/cpu/" rel="self" type="application/rss+xml" /><item>
     <title>记一次CPU占用过高问题定位</title>
-    <link>http://localhost:1313/post/</link>
+    <link>http://morsuning.github.io/post/</link>
     <pubDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</pubDate>
     <author>morsuning</author>
-    <guid>http://localhost:1313/post/</guid>
+    <guid>http://morsuning.github.io/post/</guid>
     <description><![CDATA[<p>记录一次对象存储在曙光服务器（Hygon CPU）上CPU占用异常问题的定位过程，相关信息已脱敏</p>
 <h2 id="环境说明">环境说明</h2>
 <p>CPU规格：每个服务器2 * Hygon C86 7380 32-Core Processor，一共128个虚拟核，具体规格如下：</p>]]></description>
