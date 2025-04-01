@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>《人件》 - 读书笔记 - morsuning&#39;s Blog</title><meta name="Description" content="morsuning&#39;s porsonal blog"><meta property="og:url" content="http://localhost:1313/posts/reading-note-humanware/post/">
+  <meta property="og:site_name" content="morsuning&#39;s Blog">
+  <meta property="og:title" content="《人件》 - 读书笔记">
+  <meta property="og:description" content="在对失败的软件开发项目的分析中，人们倾向于将与人相关的失败因素归结于政治而不深入研究，这是一种误区，而本书中Tom DeMarco和Timothy Lister两位大师用严谨的科学实验和辛辣尖锐的解剖一步步为我们揭开知识经济下管理中的这种误区，与《人月神话》中给出一些成功的实践和准确的论断不同，《人件》更想给读者以警醒，激发对人的因素的思考。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-11-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-11-20T00:00:00+00:00">
+    <meta property="article:tag" content="软件工程管理">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="《人件》 - 读书笔记">
+  <meta name="twitter:description" content="在对失败的软件开发项目的分析中，人们倾向于将与人相关的失败因素归结于政治而不深入研究，这是一种误区，而本书中Tom DeMarco和Timothy Lister两位大师用严谨的科学实验和辛辣尖锐的解剖一步步为我们揭开知识经济下管理中的这种误区，与《人月神话》中给出一些成功的实践和准确的论断不同，《人件》更想给读者以警醒，激发对人的因素的思考。">
+<meta name="application-name" content="morsuning&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="morsuning&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/reading-note-humanware/post/" /><link rel="prev" href="http://localhost:1313/posts/reading-note-hacker-and-painters/post/" /><link rel="next" href="http://localhost:1313/posts/reading-note-meditations-on-software-management/post/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="t-SejsMxzsjyn2lHmDr1CGq7A99OHg7n6auhjWhaViI" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《人件》 - 读书笔记",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/reading-note-humanware\/post\/"
+        },"genre": "posts","keywords": "软件工程管理","wordcount":  2155 ,
+        "url": "http:\/\/localhost:1313\/posts\/reading-note-humanware\/post\/","datePublished": "2020-11-20T00:00:00+00:00","dateModified": "2020-11-20T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "morsuning"},"author": {
+                "@type": "Person",
+                "name": "morsuning"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="morsuning&#39;s Blog">morsuning&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="morsuning&#39;s Blog">morsuning&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">《人件》 - 读书笔记</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>morsuning</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>读书笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-11-20">2020-11-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2155 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>在对失败的软件开发项目的分析中，人们倾向于将与人相关的失败因素归结于政治而不深入研究，这是一种误区，而本书中Tom DeMarco和Timothy Lister两位大师用严谨的科学实验和辛辣尖锐的解剖一步步为我们揭开知识经济下管理中的这种误区，与《人月神话》中给出一些成功的实践和准确的论断不同，《人件》更想给读者以警醒，激发对人的因素的思考。</p>
+<p>《人件》此书的核心观点是软件系统的主要问题不在于技术，而在于社会性因素。那么，究竟是哪些社会性因素呢？作者围绕如下几个问题，提出了需要注意的地方。</p>
+<ol>
+<li>管理人力资源；</li>
+<li>改善办公环境；</li>
+<li>招聘留用人才；</li>
+<li>提高团队效率；</li>
+<li>塑造企业文化；</li>
+<li>营造快乐氛围；</li>
+</ol>
+<p>通过对以上问题的探讨，本书会让管理者形成一种心态，这种心态会帮助他更好地激发员工的工作效率而不是进行不必要的压榨。在这些问题中，我选择几个关键因素进行探讨。</p>
+<ul>
+<li>单纯的技术问题绝不是导致项目失败的关键
+“政治”是被访问者最常提及的失败原因，对于技术人员倘若面对政治范畴的问题，我们通常会逆来顺受，当与政治无关时，我们往往更加游刃有余。因此《人件》中认为的工作问题更多的属于社会学范畴，而非技术范畴。但是实际情况是，大多数管理者虽然承认他们对人的担心甚于对技术的担心，但是他们还是总以技术为主要的关注点，越俎代庖地去解决复杂而又有趣地难题上，却将最重要地与人相关地要素放到最低优先级。《人件》对此现象的解释就是该问题造成的原因就是管理者的提拔机制。
+《人件》提出的几条管理脑力劳动者的建议或者警告：
+<ul>
+<li>错误在所难免</li>
+<li>避免向工作者施压，反而采用一些手段让大家少工作一会儿，让大家做更有意义的事情</li>
+<li>尊重每一位员工，“没有人是不可替换的”思想是不可靠的</li>
+<li>稳定的生产思维对项目工作尤为有害，项目总是处于不断变化的状态，一个能让项目更加稳定的人抵得上两个做事的人</li>
+<li>我们花时间去做事，但却从来不去考虑工作本身的问题</li>
+</ul>
+</li>
+<li>榨干员工的时间和精力是危险的
+《人件》中提到的一个案例就是管理人员压榨员工，直接导致团队内两名成员离婚，一名成员的儿子染上毒瘾。管理者以牺牲员工的生活为代价来承担更大的工作强度和更长的工作时间，管理者鼓吹他们的员工加了多少班，并谋算着如何让大家加班更多的手段。这是完全不对，应该是引导员工意识到人生苦短，生活中还有很多事情比工作更重要。需要记得是：压力不会让工作得更好——只是工作得更快。
+产品质量的影响因素——自信
+新手管理者或许觉得工作可以不参杂个人情绪的，但是实际情况下，我们的工作给了我们表达情绪的很多机会。当我们面临一个背景毫无所知的项目，我们肯定十分胆怯，威胁到自信，并且我们倾向于将我们的自信与生产出的产品质量紧密相连。</li>
+<li>再谈帕金森定律
+当我们热爱我们的工作，我们绝不会让一项工作变得遥遥无期，因为这回推迟我们获得满足感的时间，在不需要降低标准、牺牲质量的时候，我们期望工作能快点完成。但是需要明确的是：帕金森定律是不能在工作中得到运用的。把团队中的成员当成帕金森性的员工是不可能奏效的，这只能消磨他们的意志，让他们失去前进的动力。《人件》中提出了帕金森定律的变异版本：一个组织的工作如果都忙忙碌碌，就会膨胀以至于占满整个工作日。</li>
+<li>不要相信“苦杏素”
+不少管理人员在“足够绝望”时会忽略对证据的审视，买到的技术缺乏任何客观证据的支撑。在实际项目中会存在这样类似的七宗罪：
+<ul>
+<li>有一个你不知道的新窍门可以让产能飙升</li>
+<li>其他的管理者正在收获100%、200%乃至更多的增长！</li>
+<li>技术日新月异，你已经过时了！</li>
+<li>改变程序语言会给你带来巨大的提升</li>
+<li>因为库存的缘故，你需要马上让产能翻倍</li>
+<li>你自动化了其他所有东西；难道不是要你自动化掉你的软件开发人员吗？</li>
+<li>你的员工在巨大的压力下工作得更好</li>
+</ul>
+</li>
+<li>忘记掉这些准则，你和你的员工会工作得更好
+似乎在朝九晚五得环境里啥都完成不了
+软件行业里似乎形成一种风俗：加班就是命中注定。归根到底其实就是环境因素影响很
+大。在《人件》中以下因素跟产出效率基本或根本没有关系：语言、经验年限、缺陷个数、薪酬。此外，从《人件》提供得数据来看，对工作环境设计上采用弃权政策是一个错误。那些安静、宽敞和注重隐私得环境不但能使你的团队更高效地完成工作，还能帮助你吸引和挽留住人才。</li>
+<li>构建社区
+成功构建社区的组织更能留在人。当员工有足够的社区意识时，他们就不想离开了。此时你对人力资本的投资由此也得到了回报，进而也愿意投资更多，再进而你的员工也会表现得更好，更喜欢呆在你的公司，这将会是一个增强得良性循环。</li>
+<li>快乐地工作
+作为一名管理者，你需要保证自己手下的人从工作中得到快乐。所谓的工作，就是要使员工的效率最大化，而这已经足以剥夺他们的快乐了。</li>
+</ul>
+<p>纵观整本书，Tom DeMarco和Timothy Lister两位大师探索了技术项目中的人文问题，讨论了管理者在领导力上的病理征状，提出一些关于管理新旧成员水火不容的混合团队的建议方法。由于我的阅历尚浅，对有些章节读后并没有太多的感悟，有些章节有幡然醒悟的感觉，这类书还是需要在日后反复阅读。</p>
+<p>此外，通过阅读《人月神话》和《人件》这两本书，我们大概能总结出软件工程管理的核心目标是：成本和工作量的估算、计划和进度跟踪调整，风险分析与控制等，在此基础上，我们要最大化地激发人的力量，即让人尽可能大地提高工作效率，尽可能多地保持良好的关系，尽可能地减少工作时间等。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2020-11-20</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/reading-note-humanware/post/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/">软件工程管理</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/reading-note-hacker-and-painters/post/" class="prev" rel="prev" title="《黑客与画家》 - 读书笔记"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>《黑客与画家》 - 读书笔记</a>
+            <a href="/posts/reading-note-meditations-on-software-management/post/" class="next" rel="next" title="《软件管理沉思录》 - 读书笔记">《软件管理沉思录》 - 读书笔记<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2018 - 2025</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/twemoji/twemoji.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js"></script></body>
+</html>

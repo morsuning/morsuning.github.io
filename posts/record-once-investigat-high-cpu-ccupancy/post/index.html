@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>记一次CPU占用过高问题定位 - morsuning&#39;s Blog</title><meta name="Description" content="morsuning&#39;s porsonal blog"><meta property="og:url" content="http://localhost:1313/posts/record-once-investigat-high-cpu-ccupancy/post/">
+  <meta property="og:site_name" content="morsuning&#39;s Blog">
+  <meta property="og:title" content="记一次CPU占用过高问题定位">
+  <meta property="og:description" content="记录一次对象存储在曙光服务器（Hygon CPU）上CPU占用异常问题的定位过程，相关信息已脱敏
+环境说明 CPU规格：每个服务器2 * Hygon C86 7380 32-Core Processor，一共128个虚拟核，具体规格如下：">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-12-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-12-21T00:00:00+00:00">
+    <meta property="article:tag" content="对象存储">
+    <meta property="article:tag" content="问题定位">
+    <meta property="article:tag" content="CPU">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="记一次CPU占用过高问题定位">
+  <meta name="twitter:description" content="记录一次对象存储在曙光服务器（Hygon CPU）上CPU占用异常问题的定位过程，相关信息已脱敏
+环境说明 CPU规格：每个服务器2 * Hygon C86 7380 32-Core Processor，一共128个虚拟核，具体规格如下：">
+<meta name="application-name" content="morsuning&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="morsuning&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/record-once-investigat-high-cpu-ccupancy/post/" /><link rel="prev" href="http://localhost:1313/posts/kubernetes-csi-introduce/post/" /><link rel="next" href="http://localhost:1313/posts/macos-software-recommand/post/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="t-SejsMxzsjyn2lHmDr1CGq7A99OHg7n6auhjWhaViI" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "记一次CPU占用过高问题定位",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/record-once-investigat-high-cpu-ccupancy\/post\/"
+        },"genre": "posts","keywords": "对象存储, 问题定位, CPU","wordcount":  842 ,
+        "url": "http:\/\/localhost:1313\/posts\/record-once-investigat-high-cpu-ccupancy\/post\/","datePublished": "2023-12-21T00:00:00+00:00","dateModified": "2023-12-21T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "morsuning"},"author": {
+                "@type": "Person",
+                "name": "morsuning"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="morsuning&#39;s Blog">morsuning&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="morsuning&#39;s Blog">morsuning&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">记一次CPU占用过高问题定位</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>morsuning</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E9%97%AE%E9%A2%98/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>问题</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-21">2023-12-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;842 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#环境说明">环境说明</a></li>
+    <li><a href="#问题现象">问题现象</a></li>
+    <li><a href="#定位结论">定位结论</a></li>
+    <li><a href="#定位过程">定位过程</a></li>
+    <li><a href="#调优建议">调优建议</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>记录一次对象存储在曙光服务器（Hygon CPU）上CPU占用异常问题的定位过程，相关信息已脱敏</p>
+<h2 id="环境说明">环境说明</h2>
+<p>CPU规格：每个服务器2 * Hygon C86 7380 32-Core Processor，一共128个虚拟核，具体规格如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../image/post/1717311210763.png"
+        data-srcset="../image/post/1717311210763.png, ../image/post/1717311210763.png 1.5x, ../image/post/1717311210763.png 2x"
+        data-sizes="auto"
+        alt="../image/post/1717311210763.png"
+        title="1717311210763" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../image/post/1717333986748.png"
+        data-srcset="../image/post/1717333986748.png, ../image/post/1717333986748.png 1.5x, ../image/post/1717333986748.png 2x"
+        data-sizes="auto"
+        alt="../image/post/1717333986748.png"
+        title="1717333986748" /></p>
+<p>通过lstopo &ndash;of png &gt; out.png 命令可以看到服务器CPU（numa架构）的及其外设（内存、硬盘、网卡）的拓扑结构图</p>
+<h2 id="问题现象">问题现象</h2>
+<p>3个节点的集群跑216并发的128M大对象，测试集群带宽，对象存储进程CPU占用上千，是正常节点CPU占用的数十倍，且CPU利用率高在三个节点中随机出现，最少1个节点出现，最多3个节点出现</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../image/post/1717334582729.png"
+        data-srcset="../image/post/1717334582729.png, ../image/post/1717334582729.png 1.5x, ../image/post/1717334582729.png 2x"
+        data-sizes="auto"
+        alt="../image/post/1717334582729.png"
+        title="1717334582729" /></p>
+<p>通过perf命令抓取性能数据，发现CPU利用率与IPC负相关，与L1-dcache-loads负相关，与dTLB-loads负相关</p>
+<p>下图最右边节点的CPU利用率最高</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../image/post/1717334801193.png"
+        data-srcset="../image/post/1717334801193.png, ../image/post/1717334801193.png 1.5x, ../image/post/1717334801193.png 2x"
+        data-sizes="auto"
+        alt="../image/post/1717334801193.png"
+        title="1717334801193" /></p>
+<h2 id="定位结论">定位结论</h2>
+<p>是Hygon CPU本身的问题，CPU占用高是CPU内部调度的问题</p>
+<h2 id="定位过程">定位过程</h2>
+<ol>
+<li>确定硬盘和网络都不是瓶颈</li>
+<li>屏蔽对象存储服务进程的后台任务，不改变该现象</li>
+<li>使用go pprof工具排除程序本身的问题</li>
+<li>通过perf工具确定CPU利用率高的节点上CPU流水线的效率很低，各节点CPU效率有数倍差距</li>
+<li>经过绑核验证，使用128核/64核/32核/16核/8核都能支持1.5G的对象带宽，无论绑多少核CPU都能用满</li>
+</ol>
+<h2 id="调优建议">调优建议</h2>
+<ol>
+<li>建议在Hygon CPU上部署对象存储服务时使用16核的绑核方式（即numa中的一个node），例：</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-shell">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">taskset -apc 32-39, 96-103 <span class="m">2638647</span></span></span></code></pre></div></div>
+<p>其中，32-29, 96-103是绑定的CPU核的变化，可以通过Iscpu获取，或者numactl-H获取；2638647 是需要绑核的进程ID</p>
+<ol start="2">
+<li>当限制核数以后，会导致prometheus获取metrics效据变慢，具体表现在对象存储服务和node_exporter向prometheus回写数据非常慢。绑16核的场景下，回写metrics最多要花37秒，因此建议作出如下调整：
+<ol>
+<li>﻿﻿延长prometheus的指标拉取周期，由15秒拉取一次调整为1分钟拉取一次</li>
+<li>延长prometheus的指标拉取超时时长，由10秒超时调整为55秒超时</li>
+</ol>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-12-21</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/record-once-investigat-high-cpu-ccupancy/post/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/">对象存储</a>,&nbsp;<a href="/tags/%E9%97%AE%E9%A2%98%E5%AE%9A%E4%BD%8D/">问题定位</a>,&nbsp;<a href="/tags/cpu/">CPU</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/kubernetes-csi-introduce/post/" class="prev" rel="prev" title="Kubernetes 存储实现原理及简单示例"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Kubernetes 存储实现原理及简单示例</a>
+            <a href="/posts/macos-software-recommand/post/" class="next" rel="next" title="MacOS 开发软件及 Shell 配置推荐">MacOS 开发软件及 Shell 配置推荐<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2018 - 2025</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/twemoji/twemoji.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js"></script></body>
+</html>

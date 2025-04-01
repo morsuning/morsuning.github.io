@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - morsuning&#39;s Blog</title>
+        <link>http://localhost:1313/tags/</link>
+        <description>Tags - Tag - morsuning&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Sat, 11 May 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>MacOS</title>
+    <link>http://localhost:1313/tags/macos/</link>
+    <pubDate>Sat, 11 May 2024 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/tags/macos/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Shell</title>
+    <link>http://localhost:1313/tags/shell/</link>
+    <pubDate>Sat, 11 May 2024 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/tags/shell/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>CPU</title>
+    <link>http://localhost:1313/tags/cpu/</link>
+    <pubDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/tags/cpu/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>对象存储</title>
+    <link>http://localhost:1313/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</link>
+    <pubDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>问题定位</title>
+    <link>http://localhost:1313/tags/%E9%97%AE%E9%A2%98%E5%AE%9A%E4%BD%8D/</link>
+    <pubDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/tags/%E9%97%AE%E9%A2%98%E5%AE%9A%E4%BD%8D/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>CSI</title>
+    <link>http://localhost:1313/tags/csi/</link>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/tags/csi/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>PV</title>
+    <link>http://localhost:1313/tags/pv/</link>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/tags/pv/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>PVC</title>
+    <link>http://localhost:1313/tags/pvc/</link>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/tags/pvc/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>存储</title>
+    <link>http://localhost:1313/tags/%E5%AD%98%E5%82%A8/</link>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/tags/%E5%AD%98%E5%82%A8/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>JuiceFS</title>
+    <link>http://localhost:1313/tags/juicefs/</link>
+    <pubDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/tags/juicefs/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

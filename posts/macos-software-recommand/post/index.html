@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>MacOS 开发软件及 Shell 配置推荐 - morsuning&#39;s Blog</title><meta name="Description" content="morsuning&#39;s porsonal blog"><meta property="og:url" content="http://localhost:1313/posts/macos-software-recommand/post/">
+  <meta property="og:site_name" content="morsuning&#39;s Blog">
+  <meta property="og:title" content="MacOS 开发软件及 Shell 配置推荐">
+  <meta property="og:description" content="常用软件 软件来源 macwk 学习版MacOS软件下载
+Mac App Store 苹果官方应用商店，方便下载、卸载、更新和付费
+Homebrew MacOS软件包管理器，通常用来安装开源软件
+各软件官方网站
+必备软件 applite brew GUI 建议在此安装推荐的软件和任何brew安装的软件，方便管理">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-05-11T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-05-11T00:00:00+00:00">
+    <meta property="article:tag" content="MacOS">
+    <meta property="article:tag" content="Shell">
+    <meta property="og:image" content="http://localhost:1313/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/logo.png">
+  <meta name="twitter:title" content="MacOS 开发软件及 Shell 配置推荐">
+  <meta name="twitter:description" content="常用软件 软件来源 macwk 学习版MacOS软件下载
+Mac App Store 苹果官方应用商店，方便下载、卸载、更新和付费
+Homebrew MacOS软件包管理器，通常用来安装开源软件
+各软件官方网站
+必备软件 applite brew GUI 建议在此安装推荐的软件和任何brew安装的软件，方便管理">
+<meta name="application-name" content="morsuning&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="morsuning&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/macos-software-recommand/post/" /><link rel="prev" href="http://localhost:1313/posts/record-once-investigat-high-cpu-ccupancy/post/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="t-SejsMxzsjyn2lHmDr1CGq7A99OHg7n6auhjWhaViI" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MacOS 开发软件及 Shell 配置推荐",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/macos-software-recommand\/post\/"
+        },"genre": "posts","keywords": "MacOS, Shell","wordcount":  1927 ,
+        "url": "http:\/\/localhost:1313\/posts\/macos-software-recommand\/post\/","datePublished": "2024-05-11T00:00:00+00:00","dateModified": "2024-05-11T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": "morsuning"},"author": {
+                "@type": "Person",
+                "name": "morsuning"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="morsuning&#39;s Blog">morsuning&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="morsuning&#39;s Blog">morsuning&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MacOS 开发软件及 Shell 配置推荐</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>morsuning</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-05-11">2024-05-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1927 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#常用软件">常用软件</a>
+      <ul>
+        <li><a href="#软件来源">软件来源</a></li>
+        <li><a href="#必备软件">必备软件</a></li>
+        <li><a href="#可选软件">可选软件</a></li>
+        <li><a href="#命令行工具简要推荐">命令行工具简要推荐</a></li>
+      </ul>
+    </li>
+    <li><a href="#shell">Shell</a>
+      <ul>
+        <li><a href="#配置oh-my-zsh">配置oh-my-zsh</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="常用软件">常用软件</h2>
+<h3 id="软件来源">软件来源</h3>
+<p><a href="https://macwk.cn/" target="_blank" rel="noopener noreffer ">macwk</a> 学习版MacOS软件下载</p>
+<p>Mac App Store 苹果官方应用商店，方便下载、卸载、更新和付费</p>
+<p>Homebrew MacOS软件包管理器，通常用来安装开源软件</p>
+<p>各软件官方网站</p>
+<h3 id="必备软件">必备软件</h3>
+<p><a href="https://github.com/milanvarady/Applite" target="_blank" rel="noopener noreffer ">applite</a> brew GUI 建议在此安装推荐的软件和任何brew安装的软件，方便管理</p>
+<p>appcleaner App卸载工具</p>
+<p><a href="https://github.com/clash-verge-rev/clash-verge-rev" target="_blank" rel="noopener noreffer ">clash-verge-rev</a> | <a href="https://github.com/hiddify/hiddify-next" target="_blank" rel="noopener noreffer ">hiddify-next</a> 科学上网工具</p>
+<p>The Unarchiver 压缩工具</p>
+<p>item2 | wrap 终端模拟器</p>
+<p>edge | arc 浏览器</p>
+<p>motrix 全功能下载管理器</p>
+<p>VSCode 全能代码编辑器</p>
+<p>欧陆词典 单词查询&amp;翻译</p>
+<p>Notion 在线笔记 | Anytype 本地+在线笔记</p>
+<p>Obsidian 离线可同步笔记</p>
+<p>Microsoft Office 微软全家桶，办公专用</p>
+<p><a href="http://www.renfei.org/snippets-lab/" target="_blank" rel="noopener noreffer ">SnippetsLab</a> | Lepton 优秀的代码片段管理工具, 轻量, 可基于菜单栏操作</p>
+<p>reeder RSS订阅浏览器</p>
+<p>iina or infuse 视频播放器</p>
+<p>koodo Reader 电子书管理，可替代calibre，支持多设备同步及epub等多种电子书格式</p>
+<p><a href="https://kapeli.com/dash" target="_blank" rel="noopener noreffer ">dash</a> 开发文档查阅</p>
+<p><a href="https://www.drbuho.com/buhontfs" target="_blank" rel="noopener noreffer ">buhontfs</a> NTFS磁盘工具，可读写NTFS磁盘，我是免费期入的，可用其他软件替代</p>
+<p><a href="https://github.com/exelban/stats" target="_blank" rel="noopener noreffer ">stats</a> iStats开源平替，菜单栏系统资源监视器</p>
+<p><a href="https://tailscale.com/" target="_blank" rel="noopener noreffer ">tailscale</a> 内网穿透工具</p>
+<p>raycast | utools 效率工具平台，可集成各类效率插件，补全系统级功能，<a href="https://github.com/marekbrze/categorized-raycast-extensions" target="_blank" rel="noopener noreffer ">raycast 插件推荐</a></p>
+<p>Barbee | Bartender 菜单栏项自定义隐藏，避免被刘海遮挡</p>
+<p>PDF Expert pdf编辑工具</p>
+<p>XnViewMP 图片查看格式转换压缩</p>
+<p>rustdesk 远程桌面工具</p>
+<p>whisky 运行windows应用</p>
+<p>playcover 运行未在Mac App Store上架的ios应用</p>
+<p>UTM | Parallels Desktop 虚拟机软件</p>
+<p>Quick Look 插件: 选中文件，按空格预览</p>
+<ul>
+<li>QuicklookStephen - 查看未知拓展名的纯文本文件 brew install &ndash;cask qlstephen</li>
+<li>QLMarkdown - 空格键预览 Markdown 文本效果 - brew install &ndash;cask qlmarkdown</li>
+</ul>
+<h3 id="可选软件">可选软件</h3>
+<p><a href="https://capslock.vonng.com/#/zh-cn/" target="_blank" rel="noopener noreffer ">capslock</a> 将CapsLock键改造为强力功能修饰键</p>
+<p>Downie 下载视频，也可以使用<a href="https://cobalt.tools/" target="_blank" rel="noopener noreffer ">cobalt</a>这个网站</p>
+<p>switchhosts host切换</p>
+<p><a href="http://mac.softpedia.com/get/Utilities/KeyCastr.shtml" target="_blank" rel="noopener noreffer ">KeyCastr</a> 将mac按键显示在屏幕上，分享演示、录制视频或动图时超赞</p>
+<p>pixpin 截图&amp;OCR工具</p>
+<p>QSpace &amp; TotalFinder 访达增强</p>
+<p>BetterMouse 全能鼠标驱动设置</p>
+<p>permute3 格式转换</p>
+<p>android file transfer 传输安卓系统文件</p>
+<p>Etcher 制作 U 盘镜像</p>
+<p>ventoy 新一代多系统启动U盘解决方案</p>
+<p>CheatSheet 按command显示当前应用快捷键</p>
+<p>AlDente 用于MacBooks的ALL-IN-ONE充电限制器应用软件</p>
+<p><strong>开发者工具</strong></p>
+<p>DBeaver ｜ Naviat 数据库客户端</p>
+<p>postman API管理工具</p>
+<p><a href="https://github.com/RubyMetric/chsrc" target="_blank" rel="noopener noreffer ">chsrc</a> 全平台一件换源工具</p>
+<h3 id="命令行工具简要推荐">命令行工具简要推荐</h3>
+<p>wget 下载工具</p>
+<p>tmux 终端复用</p>
+<p>cloc 代码行数统计命令行工具</p>
+<p><strong>proxychains-ng</strong> 终端命令行下代理神器，可以让指定的命令走设置好的代理，内网渗透、科学上网必备工具 brew install proxychains-ng 配置文件: /usr/local/etc/proxychains.conf</p>
+<ul>
+<li>proxychains4 curl <a href="https://www.google.com.hk" target="_blank" rel="noopener noreffer ">https://www.google.com.hk</a> 通过代理访问</li>
+<li>proxychains4 -q /bin/zsh 开启zsh全局代理</li>
+<li>配置文件最后一行配置示例: http 127.0.0.1 7897</li>
+<li>建议配置alias pc=’proxychains4’</li>
+</ul>
+<h2 id="shell">Shell</h2>
+<p>使用当前MacOS下体验最佳终端Warp，搭配MacOS自带的zsh及其配置框架oh-my-zsh</p>
+<p>先依次安装</p>
+<ol>
+<li>oh-my-zsh: zsh配置框架 sh -c &ldquo;$(curl -fsSL <a href="https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh%29%22" target="_blank" rel="noopener noreffer ">https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</a></li>
+<li>brew: 包管理工具</li>
+</ol>
+<h3 id="配置oh-my-zsh">配置oh-my-zsh</h3>
+<p>修改～/.zshrc</p>
+<p><strong>主题</strong></p>
+<p>ZSH_THEME=”robbyrussell”默认</p>
+<p>推荐主题：简洁 - cloud, af-magic;详细 - ys, dst</p>
+<p><strong>zsh插件</strong></p>
+<ul>
+<li>自动跳转插件autojump</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/wting/autojump.git <span class="nv">$ZSH_CUSTOM</span>/plugins/autojump<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$ZSH_CUSTOM</span>/plugins/autojump<span class="p">;</span>
+</span></span><span class="line"><span class="cl">python3 install.py<span class="p">;</span></span></span></code></pre></div></div>
+<p>只要访问过某个目录直接 j 目录 即可跳转到该目录</p>
+<ul>
+<li>extract (oh-my-zsh内置)一个命令解压所有文件 x &lt;文件名&gt; 即可解压该文件</li>
+<li>zsh-syntax-highlighting 语法高亮插件</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-jsx">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">clone</span> <span class="nx">https</span><span class="o">:</span><span class="err">//github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting;</span></span></span></code></pre></div></div>
+<ul>
+<li>zsh-autosuggestions 命令自动补全插件</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-jsx">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="nx">git</span> <span class="nx">clone</span> <span class="nx">https</span><span class="o">:</span><span class="err">//github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions;</span></span></span></code></pre></div></div>
+<p><strong>最终的参考.zshrc文件</strong></p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># If you come from bash you might have to change your $PATH.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/env/bin:<span class="nv">$HOME</span>/.local/bin:/usr/local/bin:/opt/homebrew/bin:<span class="nv">$PATH</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Homebrew mirror</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HOMEBREW_BREW_GIT_REMOTE</span><span class="o">=</span><span class="s2">&#34;https://mirrors.ustc.edu.cn/brew.git&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HOMEBREW_CORE_GIT_REMOTE</span><span class="o">=</span><span class="s2">&#34;https://mirrors.ustc.edu.cn/homebrew-core.git&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HOMEBREW_BOTTLE_DOMAIN</span><span class="o">=</span><span class="s2">&#34;https://mirrors.ustc.edu.cn/homebrew-bottles&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HOMEBREW_API_DOMAIN</span><span class="o">=</span><span class="s2">&#34;https://mirrors.ustc.edu.cn/homebrew-bottles/api&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Path to your oh-my-zsh installation.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">ZSH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/.oh-my-zsh&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set name of the theme to load --- if set to &#34;random&#34;, it will</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># load a random theme each time oh-my-zsh is loaded, in which case,</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># to know which specific one was loaded, run: echo $RANDOM_THEME</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ZSH_THEME</span><span class="o">=</span><span class="s2">&#34;ys&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set list of themes to pick from when loading at random</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Setting this variable when ZSH_THEME=random will cause zsh to load</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># a theme from this variable instead of looking in $ZSH/themes/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># If set to an empty array, this variable will have no effect.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ZSH_THEME_RANDOM_CANDIDATES=( &#34;robbyrussell&#34; &#34;agnoster&#34; )</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line to use case-sensitive completion.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CASE_SENSITIVE=&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line to use hyphen-insensitive completion.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Case-sensitive completion must be off. _ and - will be interchangeable.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># HYPHEN_INSENSITIVE=&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment one of the following lines to change the auto-update behavior</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># zstyle &#39;:omz:update&#39; mode disabled  # disable automatic updates</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># zstyle &#39;:omz:update&#39; mode auto      # update automatically without asking</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># zstyle &#39;:omz:update&#39; mode reminder  # just remind me to update when it&#39;s time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line to change how often to auto-update (in days).</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># zstyle &#39;:omz:update&#39; frequency 13</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line if pasting URLs and other text is messed up.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># DISABLE_MAGIC_FUNCTIONS=&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line to disable colors in ls.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># DISABLE_LS_COLORS=&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line to disable auto-setting terminal title.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># DISABLE_AUTO_TITLE=&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line to enable command auto-correction.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ENABLE_CORRECTION=&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line to display red dots whilst waiting for completion.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># You can also set it to another string to have that shown instead of the default red dots.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># e.g. COMPLETION_WAITING_DOTS=&#34;%F{yellow}waiting...%f&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Caution: this setting can cause issues with multiline prompts in zsh &lt; 5.7.1 (see #5765)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># COMPLETION_WAITING_DOTS=&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line if you want to disable marking untracked files</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># under VCS as dirty. This makes repository status check for large repositories</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># much, much faster.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># DISABLE_UNTRACKED_FILES_DIRTY=&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the following line if you want to change the command execution time</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># stamp shown in the history command output.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># You can set one of the optional three formats:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &#34;mm/dd/yyyy&#34;|&#34;dd.mm.yyyy&#34;|&#34;yyyy-mm-dd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># or set a custom format using the strftime function format specifications,</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># see &#39;man strftime&#39; for details.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># HIST_STAMPS=&#34;mm/dd/yyyy&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Would you like to use another custom folder than $ZSH/custom?</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ZSH_CUSTOM=/path/to/new-custom-folder</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Which plugins would you like to load?</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Standard plugins can be found in $ZSH/plugins/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Custom plugins may be added to $ZSH_CUSTOM/plugins/</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Example format: plugins=(rails git textmate ruby lighthouse)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Add wisely, as too many plugins slow down shell startup.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">plugins</span><span class="o">=(</span>git extract textmate ruby mvn gradle autojump zsh-syntax-highlighting zsh-autosuggestions<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> <span class="nv">$ZSH</span>/oh-my-zsh.sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># User configuration</span>
+</span></span><span class="line"><span class="cl">autoload -U compinit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># export MANPATH=&#34;/usr/local/man:$MANPATH&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># You may need to manually set your language environment</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># export LANG=en_US.UTF-8</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Preferred editor for local and remote sessions</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># if [[ -n $SSH_CONNECTION ]]; then</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   export EDITOR=&#39;vim&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># else</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   export EDITOR=&#39;mvim&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Compilation flags</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># export ARCHFLAGS=&#34;-arch x86_64&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set personal aliases, overriding those provided by oh-my-zsh libs,</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># plugins, and themes. Aliases can be placed here, though oh-my-zsh</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># users are encouraged to define aliases within the ZSH_CUSTOM folder.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># For a full list of active aliases, run `alias`.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Example aliases</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># alias zshconfig=&#34;mate ~/.zshrc&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># alias ohmyzsh=&#34;mate ~/.oh-my-zsh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">dk</span><span class="o">=</span><span class="s2">&#34;docker&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">python</span><span class="o">=</span><span class="s2">&#34;python3&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">cls</span><span class="o">=</span><span class="s1">&#39;clear&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">vi</span><span class="o">=</span><span class="s1">&#39;vim&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">pc</span><span class="o">=</span><span class="s1">&#39;proxychains4&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">javac</span><span class="o">=</span><span class="s2">&#34;javac -J-Dfile.encoding=utf8&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">grep</span><span class="o">=</span><span class="s2">&#34;grep --color=auto&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">html</span><span class="o">=</span>vi <span class="c1"># 在命令行直接输入后缀为 html 的文件名，会在 TextMate 中打开</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">rb</span><span class="o">=</span>vi <span class="c1"># 在命令行直接输入 ruby 文件，会在 TextMate 中打开</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">py</span><span class="o">=</span>vi <span class="c1"># 在命令行直接输入 python 文件，会用 vim 中打开，以下类似</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">js</span><span class="o">=</span>vi
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">c</span><span class="o">=</span>vi
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">java</span><span class="o">=</span>vi
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">txt</span><span class="o">=</span>vi
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">gz</span><span class="o">=</span><span class="s1">&#39;tar -xzvf&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">tgz</span><span class="o">=</span><span class="s1">&#39;tar -xzvf&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">zip</span><span class="o">=</span><span class="s1">&#39;unzip&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> -s <span class="nv">bz2</span><span class="o">=</span><span class="s1">&#39;tar -xjvf&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Source global definitions</span>
+</span></span><span class="line"><span class="cl">s2c <span class="o">()</span> <span class="o">{</span> scp <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> <span class="si">${</span><span class="nv">SSH_CLIENT</span><span class="p">%% *</span><span class="si">}</span>:~/<span class="p">;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">c2s <span class="o">()</span> <span class="o">{</span> scp <span class="si">${</span><span class="nv">SSH_CLIENT</span><span class="p">%% *</span><span class="si">}</span>:<span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> .<span class="p">;</span> <span class="o">}</span></span></span></code></pre></div></div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-05-11</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/macos-software-recommand/post/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/macos/">MacOS</a>,&nbsp;<a href="/tags/shell/">Shell</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/record-once-investigat-high-cpu-ccupancy/post/" class="prev" rel="prev" title="记一次CPU占用过高问题定位"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>记一次CPU占用过高问题定位</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2018 - 2025</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/twemoji/twemoji.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js"></script></body>
+</html>

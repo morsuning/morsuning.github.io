@@ -1,0 +1,120 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>morsuning&#39;s Blog</title>
+        <link>http://localhost:1313/</link>
+        <description>morsuning&#39;s porsonal blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Sat, 11 May 2024 00:00:00 &#43;0000</lastBuildDate>
+            <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>MacOS 开发软件及 Shell 配置推荐</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Sat, 11 May 2024 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<h2 id="常用软件">常用软件</h2>
+<h3 id="软件来源">软件来源</h3>
+<p><a href="https://macwk.cn/" target="_blank" rel="noopener noreffer ">macwk</a> 学习版MacOS软件下载</p>
+<p>Mac App Store 苹果官方应用商店，方便下载、卸载、更新和付费</p>
+<p>Homebrew MacOS软件包管理器，通常用来安装开源软件</p>
+<p>各软件官方网站</p>
+<h3 id="必备软件">必备软件</h3>
+<p><a href="https://github.com/milanvarady/Applite" target="_blank" rel="noopener noreffer ">applite</a> brew GUI 建议在此安装推荐的软件和任何brew安装的软件，方便管理</p>]]></description>
+</item>
+<item>
+    <title>记一次CPU占用过高问题定位</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Thu, 21 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<p>记录一次对象存储在曙光服务器（Hygon CPU）上CPU占用异常问题的定位过程，相关信息已脱敏</p>
+<h2 id="环境说明">环境说明</h2>
+<p>CPU规格：每个服务器2 * Hygon C86 7380 32-Core Processor，一共128个虚拟核，具体规格如下：</p>]]></description>
+</item>
+<item>
+    <title>Kubernetes 存储实现原理及简单示例</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<h2 id="1-kubernetes存储相关概念及实现原理">1 Kubernetes存储相关概念及实现原理</h2>
+<h3 id="11-pv--pvc">1.1 PV &amp; PVC</h3>
+<p><strong>概念</strong></p>
+<p>Kubernetes定义了PV（PersistentVolume）与PVC（PersistentVolumeClaim）这两个概念让用户使用持久化存储，是在用户与存储服务提供者之间添加的一个中间层。</p>]]></description>
+</item>
+<item>
+    <title>记一次文件系统性能测试</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<p>记录一次视频监控场景下对文件系统进行性能测试及简单调优的过程及思路，相关内容已脱敏</p>
+<h2 id="1-性能分析方法">1 性能分析方法</h2>
+<p>可通过日志和检测工具来监控基于fuse实现的用户态文件系统性能</p>]]></description>
+</item>
+<item>
+    <title>存储领域的概念</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Fri, 15 Sep 2023 21:40:47 &#43;0800</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<p>本文的目标是以一篇文章的篇幅，介绍存储领域的各种概念以及他们是用来解决什么需求的</p>
+<p>这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域计算、存储和网络中的存储</p>]]></description>
+</item>
+<item>
+    <title>Go错误处理最佳实践</title>
+    <link>http://localhost:1313/posts/</link>
+    <pubDate>Wed, 21 Jun 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/posts/</guid>
+    <description><![CDATA[<h2 id="一-golang错误处理机制panic和recover简要介绍">一 Golang错误处理机制panic和recover简要介绍</h2>
+<ul>
+<li>使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然后将panic抛向上一层，直至程序crash。但是也可以使用被defer的recover函数来捕获异常阻止程序的崩溃，recover只有被defer后才是有意义的</li>
+</ul>
+<p>使用示例：</p>]]></description>
+</item>
+<item>
+    <title>云原生的5W1H</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Tue, 20 Sep 2022 15:58:26 &#43;0800</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<h1 id="云原生漫谈">云原生漫谈</h1>
+<blockquote>
+<p>云原生的5w1h，what，why，where，how，who  when -&gt; anytime
+云原生概念(定义、优势、总结);
+云原生技术领域介绍：容器-&gt;容器编排-&gt;服务治理(简要介绍代表技术Docker、Kubernetes、Istio和Linkerd)、微服务架构 &amp; Serverless架构、DevOps &amp; 可观测性;
+Kubernetes简介(如何满足12-Factor)、架构及开发方式;
+应用的现代化改造思路;
+云原生时代下的团队(对新出现一些岗位和名词的解释);
+CNCF(简介、对cncf landscape的介绍);</p>]]></description>
+</item>
+<item>
+    <title>简述软件过程改进</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Mon, 12 Apr 2021 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<p>——在CMMI中引入敏捷</p>
+<h2 id="1-cmmi概述">1 CMMI概述</h2>
+<p>80年代早期，在SEI的资助下美国空军成立了一项研究来分析为什么许多软件合同都会超出工期和预算。由此得出的结论是：糟糕的过程。CMM&amp;CMMI也因此产生。CMMI的中文名称是能力成熟度模型，是一个过程改进方法和模型，它为组织提供了实现高效的软件交付过程所必需的基本元素，关注通过切实改进过程域的成熟度，实现过程改进的目标。它可以用来指导一个项目、一个部门甚至整个组织的过程改进。CMMI能帮助我们整合以往各自为政的组织功能，建立过程改进的目标与优先级，指导我们进行质量改进，还提供了评价现有过程的参照点，最关键的一点是，它提供了过程改进的线路图，目前最主要的用途是评价一个组织的组织级能力。</p>]]></description>
+</item>
+<item>
+    <title>《软件管理沉思录》 - 读书笔记</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Tue, 22 Dec 2020 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<p>《软件管理沉思录》是一本介绍SEI项目管理、人际沟通和团队协作的要诀。不论读者是软件开发者抑或是管理者，都能够从这本书中挖掘到价值。</p>
+<p>本书分为四个部分，分别介绍了项目管理，团队管理，与上级沟通和自我管理。</p>]]></description>
+</item>
+<item>
+    <title>《人件》 - 读书笔记</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Fri, 20 Nov 2020 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<p>在对失败的软件开发项目的分析中，人们倾向于将与人相关的失败因素归结于政治而不深入研究，这是一种误区，而本书中Tom DeMarco和Timothy Lister两位大师用严谨的科学实验和辛辣尖锐的解剖一步步为我们揭开知识经济下管理中的这种误区，与《人月神话》中给出一些成功的实践和准确的论断不同，《人件》更想给读者以警醒，激发对人的因素的思考。</p>]]></description>
+</item>
+</channel>
+</rss>

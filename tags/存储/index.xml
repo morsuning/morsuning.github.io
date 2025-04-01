@@ -1,0 +1,19 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>存储 - Tag - morsuning&#39;s Blog</title>
+        <link>http://localhost:1313/tags/%E5%AD%98%E5%82%A8/</link>
+        <description>存储 - Tag - morsuning&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%AD%98%E5%82%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>Kubernetes 存储实现原理及简单示例</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Fri, 01 Dec 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<h2 id="1-kubernetes存储相关概念及实现原理">1 Kubernetes存储相关概念及实现原理</h2>
+<h3 id="11-pv--pvc">1.1 PV &amp; PVC</h3>
+<p><strong>概念</strong></p>
+<p>Kubernetes定义了PV（PersistentVolume）与PVC（PersistentVolumeClaim）这两个概念让用户使用持久化存储，是在用户与存储服务提供者之间添加的一个中间层。</p>]]></description>
+</item>
+</channel>
+</rss>

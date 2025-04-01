@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>文件系统 - Category - morsuning&#39;s Blog</title>
+        <link>http://localhost:1313/categories/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
+        <description>文件系统 - Category - morsuning&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>morsuning@gmail.com (morsuning)</managingEditor>
+            <webMaster>morsuning@gmail.com (morsuning)</webMaster><lastBuildDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/categories/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="self" type="application/rss+xml" /><item>
+    <title>记一次文件系统性能测试</title>
+    <link>http://localhost:1313/post/</link>
+    <pubDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</pubDate>
+    <author>morsuning</author>
+    <guid>http://localhost:1313/post/</guid>
+    <description><![CDATA[<p>记录一次视频监控场景下对文件系统进行性能测试及简单调优的过程及思路，相关内容已脱敏</p>
+<h2 id="1-性能分析方法">1 性能分析方法</h2>
+<p>可通过日志和检测工具来监控基于fuse实现的用户态文件系统性能</p>]]></description>
+</item>
+</channel>
+</rss>
