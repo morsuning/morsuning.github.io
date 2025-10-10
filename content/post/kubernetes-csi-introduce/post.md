@@ -2,8 +2,8 @@
 title: "Kubernetes 存储实现原理及简单示例"
 date: 2023-12-01
 author: morsuning
-categories: ["Kubernetes"]
-tags: ["存储", "PV", "PVC", "CSI"]
+categories: ["Technology"]
+tags: ["Cloud Native", ""]
 ---
 ## 1 Kubernetes存储相关概念及实现原理
 

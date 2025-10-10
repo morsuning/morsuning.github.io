@@ -5,11 +5,10 @@ date: 2020-12-22
 
 author: morsuning
 
-categories: ["读书笔记"]
+categories: ["Note"]
 
-tags: ["软件工程管理"]
+tags: ["Software Engineering"]
 ---
-
 《软件管理沉思录》是一本介绍SEI项目管理、人际沟通和团队协作的要诀。不论读者是软件开发者抑或是管理者，都能够从这本书中挖掘到价值。
 
 本书分为四个部分，分别介绍了项目管理，团队管理，与上级沟通和自我管理。

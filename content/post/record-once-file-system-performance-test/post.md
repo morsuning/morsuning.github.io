@@ -2,8 +2,8 @@
 title: "记一次文件系统性能测试"
 date: 2023-11-27
 author: morsuning
-categories: ["文件系统"]
-tags: ["JuiceFS", "性能"]
+categories: ["Share"]
+tags: ["Storage"]
 ---
 记录一次视频监控场景下对文件系统进行性能测试及简单调优的过程及思路，相关内容已脱敏
 

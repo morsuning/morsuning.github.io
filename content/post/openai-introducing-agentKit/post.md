@@ -5,11 +5,10 @@ date: 2025-10-09
 
 author: morsuning
 
-categories: ["AI"]
+categories: ["Translation"]
 
-tags: ["OpenAI", "软件工程"]
+tags: ["OpenAI", "R&D Efficiency"]
 ---
-
 面向构建、部署与优化智能代理的新一整套工具
 
 从今天起，我们推出 **AgentKit**，一套面向开发者和企业，用于构建、部署与优化智能代理（agents）的完整工具集。到目前为止，构建代理意味着你要处理零散的工具：复杂的编排（orchestration）没有版本控制、自定义连接器、手动评估流程、提示(prompt) 调优，以及上线前几周的前端工作。使用 AgentKit，开发者现在可以可视化设计工作流，并且使用新的构建模块更快地嵌入具“代理特性”的 UI，包括：
@@ -94,4 +93,4 @@ ChatKit 已经服务于多个用例，从内部知识助理、入门引导、客
 
 我们迫不及待地想看看你们会构建出什么。 ([OpenAI][1])
 
-[1]: https://openai.com/index/introducing-agentkit/ "Introducing AgentKit | OpenAI"
+[1]: https://openai.com/index/introducing-agentkit/

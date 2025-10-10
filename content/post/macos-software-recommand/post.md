@@ -2,8 +2,8 @@
 title: "MacOS 开发软件及 Shell 配置推荐"
 date: 2024-05-11
 author: morsuning
-categories: ["分享"]
-tags: ["MacOS", "Shell"]
+categories: ["Share"]
+tags: ["R&D Efficiency"]
 ---
 ## 常用软件
 

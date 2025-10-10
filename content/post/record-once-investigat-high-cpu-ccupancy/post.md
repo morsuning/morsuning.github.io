@@ -2,8 +2,8 @@
 title: "记一次CPU占用过高问题定位"
 date: 2023-12-21
 author: morsuning
-categories: ["问题"]
-tags: ["对象存储", "问题定位", "CPU"]
+categories: ["Share"]
+tags: ["Storage", "Troubleshooting"]
 ---
 记录一次对象存储在曙光服务器（Hygon CPU）上CPU占用异常问题的定位过程，相关信息已脱敏
 

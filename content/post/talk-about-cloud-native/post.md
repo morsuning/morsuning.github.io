@@ -1,10 +1,9 @@
 ---
 title: "云原生的5W1H"
-date: 2022-09-20T15:58:26+08:00
-lastmod: 2022-09-20T21:56:37+08:00
+date: 2022-09-20
 author: morsuning
-categories: ["云原生"]
-tags: ["云原生概念", "云原生技术", "云原生应用", "CNCF"]
+categories: ["Technology"]
+tags: ["Cloud Native"]
 ---
 # 云原生漫谈
 

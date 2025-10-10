@@ -5,9 +5,9 @@ date: 2023-06-21
 
 author: morsuning
 
-categories: ["Golang"]
+categories: ["Programming"]
 
-tags: ["错误处理", "Golang", "最佳实践"]
+tags: ["Golang", "Best Practice"]
 ---
 ## 一 Golang错误处理机制panic和recover简要介绍
 

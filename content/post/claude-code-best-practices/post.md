@@ -5,11 +5,10 @@ date: 2025-09-28
 
 author: morsuning
 
-categories: ["AI"]
+categories: ["Programming"]
 
-tags: ["Claude", "软件工程"]
+tags: ["Claude", "R&D Efficiency"]
 ---
-
 **发布于 2025年4月18日，[原文链接](https://www.anthropic.com/engineering/claude-code-best-practices)**
 
 Claude Code 是一款用于代理式编码（agentic coding）的命令行工具。本文将介绍一些在使用 Claude Code 过程中，跨越不同代码库、语言和环境都已证明行之有效的技巧和窍门。
