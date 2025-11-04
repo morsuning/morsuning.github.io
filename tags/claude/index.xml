@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Claude on morsuning's Blog</title><link>https://morsuning.github.io/tags/claude/</link><description>Recent content in Claude on morsuning's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://morsuning.github.io/tags/claude/index.xml" rel="self" type="application/rss+xml"/><item><title>【翻译】Claude Code：代理式编码的最佳实践</title><link>https://morsuning.github.io/p/%E7%BF%BB%E8%AF%91claude-code%E4%BB%A3%E7%90%86%E5%BC%8F%E7%BC%96%E7%A0%81%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://morsuning.github.io/p/%E7%BF%BB%E8%AF%91claude-code%E4%BB%A3%E7%90%86%E5%BC%8F%E7%BC%96%E7%A0%81%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</guid><description>&lt;p&gt;&lt;strong&gt;发布于 2025年4月18日，&lt;a class="link" href="https://www.anthropic.com/engineering/claude-code-best-practices" target="_blank" rel="noopener"
+&gt;原文链接&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Claude Code 是一款用于代理式编码（agentic coding）的命令行工具。本文将介绍一些在使用 Claude Code 过程中，跨越不同代码库、语言和环境都已证明行之有效的技巧和窍门。&lt;/p&gt;
+&lt;p&gt;我们最近&lt;a class="link" href="https://www.anthropic.com/news/claude-3-7-sonnet" target="_blank" rel="noopener"
+&gt;发布了 Claude Code&lt;/a&gt;，这是一款为代理式编码设计的命令行工具。作为一项研究项目，Claude Code 为 Anthropic 的工程师和研究人员提供了一种更原生的方式，将 Claude 集成到他们的编码工作流中。&lt;/p&gt;
+&lt;p&gt;Claude Code 的设计理念是刻意保持底层和无固定模式（low-level and unopinionated），提供近乎原始的模型访问能力，而不强制用户遵循特定的工作流程。这种设计哲学创造了一个灵活、可定制、可编写脚本且功能强大的安全工具。然而，尽管功能强大，这种灵活性也给初次接触代理式编码工具的工程师带来了一定的学习曲线——至少在他们形成自己的一套最佳实践之前是如此。&lt;/p&gt;
+&lt;p&gt;本文旨在概述一些已在 Anthropic 内部团队以及在各种代码库、语言和环境中使用的外部工程师中被证明是行之有效的通用模式。此列表中的任何内容都不是一成不变或普遍适用的；请将这些建议视为起点。我们鼓励您进行实验，找到最适合您的方式！&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;想要了解更详细的信息吗？我们在 &lt;a class="link" href="https://claude.ai/redirect/website.v1.c4a1cf84-94d0-43f2-a02b-73258301b840/code" target="_blank" rel="noopener"
+&gt;claude.ai/code&lt;/a&gt; 上的综合文档涵盖了本文提到的所有功能，并提供了额外的示例、实现细节和高级技术。&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id="1-自定义您的设置"&gt;&lt;strong&gt;1. 自定义您的设置&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;Claude Code 是一个代理式编码助手，它会自动将上下文信息提取到提示中。这种上下文收集过程会消耗时间和 tokens，但您可以通过调整环境来优化它。&lt;/p&gt;
+&lt;h3 id="a-创建-claudemd-文件"&gt;&lt;strong&gt;a. 创建 CLAUDE.md 文件&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;CLAUDE.md 是一个特殊文件，Claude 在开始对话时会自动将其内容提取到上下文中。这使得它成为记录以下内容的理想场所：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;常用的 bash 命令&lt;/li&gt;
+&lt;li&gt;核心文件和实用函数&lt;/li&gt;
+&lt;li&gt;代码风格指南&lt;/li&gt;
+&lt;li&gt;测试说明&lt;/li&gt;
+&lt;li&gt;代码仓库的规范（例如，分支命名、使用 merge 还是 rebase 等）&lt;/li&gt;
+&lt;li&gt;开发者环境设置（例如，pyenv 的使用、哪些编译器可用）&lt;/li&gt;
+&lt;li&gt;项目中特有的任何意外行为或警告&lt;/li&gt;
+&lt;li&gt;您希望 Claude 记住的其他信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CLAUDE.md 文件没有固定的格式要求。我们建议保持其内容简洁且易于人类阅读。例如：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;span class="lnt"&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-plaintext" data-lang="plaintext"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Bash commands
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- npm run build: Build the project
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- npm run typecheck: Run the typechecker
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\# Code style
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- Use ES modules (import/export) syntax, not CommonJS (require)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- Destructure imports when possible (eg. import { foo } from &amp;#39;bar&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\# Workflow
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- Be sure to typecheck when you’re done making a series of code changes
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- Prefer running single tests, and not the whole test suite, for performance
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;您可以将 CLAUDE.md 文件放置在多个位置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;仓库的根目录&lt;/strong&gt;，或您运行 claude 命令的任何位置（最常见的用法）。将其命名为 CLAUDE.md 并提交到 git 中，以便在不同会话和团队成员之间共享（推荐），或者命名为 CLAUDE.local.md 并将其添加到 .gitignore 中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;运行 claude 命令所在目录的任何父目录&lt;/strong&gt;。这对于 monorepos（单一代码库）项目最有用，您可能在 root/foo 目录下运行 claude，同时在 root/CLAUDE.md 和 root/foo/CLAUDE.md 中都有 CLAUDE.md 文件。这两个文件的内容都会被自动提取到上下文中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;运行 claude 命令所在目录的任何子目录&lt;/strong&gt;。这与上述情况相反，在这种情况下，当您处理子目录中的文件时，Claude 会按需提取 CLAUDE.md 文件的内容。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;您的主文件夹&lt;/strong&gt; (~/.claude/CLAUDE.md)，其内容将应用于您所有的 &lt;em&gt;claude&lt;/em&gt; 会话。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当您运行 /init 命令时，Claude 会自动为您生成一个 CLAUDE.md 文件。&lt;/p&gt;
+&lt;h3 id="b-调优您的-claudemd-文件"&gt;&lt;strong&gt;b. 调优您的 CLAUDE.md 文件&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;您的 CLAUDE.md 文件会成为 Claude 提示的一部分，因此应像对待任何频繁使用的提示一样对其进行优化。一个常见的错误是添加大量内容而没有迭代验证其有效性。花些时间进行实验，确定哪些内容能让模型最好地遵循指令。&lt;/p&gt;
+&lt;p&gt;您可以手动向 CLAUDE.md 添加内容，或者按 # 键向 Claude 发出指令，它会自动将该指令整合到相关的 CLAUDE.md 文件中。许多工程师在编码时会频繁使用 # 来记录命令、文件和风格指南，然后将 CLAUDE.md 的更改包含在提交中，以便团队成员也能受益。&lt;/p&gt;
+&lt;p&gt;在 Anthropic，我们偶尔会使用&lt;a class="link" href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prompt-improver" target="_blank" rel="noopener"
+&gt;提示改进器 (prompt improver)&lt;/a&gt; 来优化 CLAUDE.md 文件，并经常调整指令（例如，使用 &amp;ldquo;IMPORTANT&amp;rdquo; 或 &amp;ldquo;YOU MUST&amp;rdquo; 来强调）以提高模型的遵循度。&lt;/p&gt;
+&lt;h3 id="c-管理-claude-允许使用的工具列表"&gt;&lt;strong&gt;c. 管理 Claude 允许使用的工具列表&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;默认情况下，对于任何可能修改您系统的操作，Claude Code 都会请求许可：文件写入、许多 bash 命令、MCP 工具等。我们设计 Claude Code 时采用了这种刻意保守的方法，以将安全性放在首位。您可以自定义允许列表（allowlist），以允许您确信安全的其他工具，或允许那些易于撤销的潜在不安全工具（例如，文件编辑、git commit）。&lt;/p&gt;
+&lt;p&gt;有四种方式来管理允许的工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在会话中被提示时&lt;strong&gt;选择 &amp;ldquo;Always allow&amp;rdquo;（始终允许）&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;启动 Claude Code 后&lt;strong&gt;使用 /permissions 命令&lt;/strong&gt;来添加或移除允许列表中的工具。例如，您可以添加 Edit 来始终允许文件编辑，Bash(git commit:*) 来允许 git commit，或者 mcp__puppeteer__puppeteer_navigate 来允许使用 Puppeteer MCP 服务器进行导航。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;手动编辑&lt;/strong&gt;您的 .claude/settings.json 或 ~/.claude.json 文件（我们建议将前者检入源代码控制中以便与团队共享）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;使用 --allowedTools CLI 标志&lt;/strong&gt;来设置特定于会话的权限。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="d-如果使用-github请安装-gh-cli"&gt;&lt;strong&gt;d. 如果使用 GitHub，请安装 gh CLI&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Claude 知道如何使用 gh CLI 与 GitHub 交互，以创建 issue、开启 pull request、读取评论等。如果没有安装 gh，Claude 仍然可以使用 GitHub API 或 MCP 服务器（如果您已安装）。&lt;/p&gt;
+&lt;h2 id="2-为-claude-提供更多工具"&gt;&lt;strong&gt;2. 为 Claude 提供更多工具&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;Claude 可以访问您的 shell 环境，您可以在其中为它构建一系列便利的脚本和函数，就像为自己构建一样。它还可以通过 MCP 和 REST API 利用更复杂的工具。&lt;/p&gt;
+&lt;h3 id="a-将-claude-与-bash-工具结合使用"&gt;&lt;strong&gt;a. 将 Claude 与 bash 工具结合使用&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Claude Code 继承了您的 bash 环境，使其可以访问您的所有工具。虽然 Claude 了解像 unix 工具和 gh 这样的常用工具，但如果没有指令，它不会知道您的自定义 bash 工具：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;通过使用示例告诉 Claude 工具的名称。&lt;/li&gt;
+&lt;li&gt;告诉 Claude 运行 --help 来查看工具文档。&lt;/li&gt;
+&lt;li&gt;在 CLAUDE.md 中记录常用的工具。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="b-将-claude-与-mcp-结合使用"&gt;&lt;strong&gt;b. 将 Claude 与 MCP 结合使用&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Claude Code 同时作为 MCP 服务器和客户端。作为客户端，它可以通过三种方式连接到任意数量的 MCP 服务器以访问它们的工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;在项目配置中&lt;/strong&gt;（在相应目录中运行 Claude Code 时可用）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在全局配置中&lt;/strong&gt;（在所有项目中都可用）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在检入代码库的 .mcp.json 文件中&lt;/strong&gt;（对在您的代码库中工作的任何人均可用）。例如，您可以将 Puppeteer 和 Sentry 服务器添加到您的 .mcp.json 文件中，这样在您的仓库中工作的每位工程师都可以开箱即用地使用这些工具。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在使用 MCP 时，使用 --mcp-debug 标志启动 Claude 也有助于识别配置问题。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/6961243cc6409e41ba93895faded4f4bc1772366-1600x1231.png"
+loading="lazy"
+alt="https://www-cdn.anthropic.com/images/4zrzovbb/website/6961243cc6409e41ba93895faded4f4bc1772366-1600x1231.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="c-使用自定义斜杠命令"&gt;&lt;strong&gt;c. 使用自定义斜杠命令&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;对于重复性的工作流——如调试循环、日志分析等——您可以将提示模板存储在 .claude/commands 文件夹中的 Markdown 文件里。当您键入 / 时，这些模板就会通过斜杠命令菜单可用。您可以将这些命令检入 git，使其对团队其他成员可用。&lt;/p&gt;
+&lt;p&gt;自定义斜杠命令可以包含特殊关键字 $ARGUMENTS，以从命令调用中传递参数。&lt;/p&gt;
+&lt;p&gt;例如，这是一个可用于自动获取并修复 GitHub issue 的斜杠命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-plaintext" data-lang="plaintext"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Please analyze and fix the GitHub issue: $ARGUMENTS.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Follow these steps:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;1\. Use \`gh issue view\` to get the issue details
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;2\. Understand the problem described in the issue
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;3\. Search the codebase for relevant files
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;4\. Implement the necessary changes to fix the issue
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;5\. Write and run tests to verify the fix
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;6\. Ensure code passes linting and type checking
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;7\. Create a descriptive commit message
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;8\. Push and create a PR
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Remember to use the GitHub CLI (\`gh\`) for all GitHub-related tasks.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;将上述内容放入 .claude/commands/fix-github-issue.md 文件中，即可在 Claude Code 中通过 /project:fix-github-issue 命令使用它。然后，您可以使用 /project:fix-github-issue 1234 来让 Claude 修复编号为 1234 的 issue。同样，您可以将个人命令添加到 ~/.claude/commands 文件夹中，以便在所有会话中使用。&lt;/p&gt;
+&lt;h2 id="3-尝试常见工作流"&gt;&lt;strong&gt;3. 尝试常见工作流&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;Claude Code 不会强加特定的工作流，这让您可以灵活地按自己喜欢的方式使用它。在这种灵活性所提供的空间内，我们的用户社区中涌现出了几种成功有效使用 Claude Code 的模式：&lt;/p&gt;
+&lt;h3 id="a-探索规划编码提交"&gt;&lt;strong&gt;a. 探索、规划、编码、提交&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;这个通用的工作流适用于许多问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 阅读相关文件、图片或 URL&lt;/strong&gt;，可以提供一般性指引（“阅读处理日志的文件”）或具体文件名（“阅读 logging.py”），但要明确告诉它暂时不要编写任何代码。
+&lt;ol&gt;
+&lt;li&gt;在这个工作流阶段，您应该考虑充分利用子代理（subagents），特别是对于复杂问题。让 Claude 使用子代理来验证细节或调查它可能有的特定问题，尤其是在对话或任务的早期，这往往能在不显著损失效率的情况下，更好地保留上下文的可用性。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 制定一个解决特定问题的计划&lt;/strong&gt;。我们建议使用 &amp;ldquo;think&amp;rdquo; 这个词来触发扩展思考模式，这会给予 Claude 额外的计算时间来更彻底地评估备选方案。这些特定的短语直接映射到系统中不断增加的思考预算级别：&amp;ldquo;think&amp;rdquo; &amp;lt; &amp;ldquo;think hard&amp;rdquo; &amp;lt; &amp;ldquo;think harder&amp;rdquo; &amp;lt; &amp;ldquo;ultrathink&amp;rdquo;。每个级别都会为 Claude 分配更多的思考预算。
+&lt;ol&gt;
+&lt;li&gt;如果这一步的结果看起来合理，您可以让 Claude 创建一个文档或一个 GitHub issue 来记录它的计划，这样如果实现步骤（第3步）不符合您的期望，您可以回溯到这个节点。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 用代码实现其解决方案&lt;/strong&gt;。这也是一个好时机，可以要求它在实现方案的各个部分时，明确验证其解决方案的合理性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 提交结果并创建一个 pull request&lt;/strong&gt;。如果相关，这也是让 Claude 更新任何 README 或变更日志，解释它刚刚做了什么的好时机。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;步骤 #1-#2 至关重要——没有它们，Claude 往往会直接跳到编码解决方案。虽然有时这正是您想要的，但对于需要更深入前期思考的问题，要求 Claude 先进行研究和规划会显著提高其表现。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/6ea59a36fe82c2b300bceaf3b880a4b4852c552d-1600x1143.png"
+loading="lazy"
+alt="https://www-cdn.anthropic.com/images/4zrzovbb/website/6ea59a36fe82c2b300bceaf3b880a4b4852c552d-1600x1143.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="b-编写测试提交编码迭代提交"&gt;&lt;strong&gt;b. 编写测试、提交；编码、迭代、提交&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;这是一个 Anthropic 内部最喜欢的工作流，适用于那些可以通过单元测试、集成测试或端到端测试轻松验证的变更。测试驱动开发（TDD）在代理式编码的加持下变得更加强大：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 根据预期的输入/输出对编写测试&lt;/strong&gt;。明确指出您正在进行测试驱动开发，这样它就会避免创建模拟实现，即使对于代码库中尚不存在的功能也是如此。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;告诉 Claude 运行测试并确认它们失败&lt;/strong&gt;。在此阶段明确告诉它不要编写任何实现代码通常很有帮助。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;当您对测试满意时，要求 Claude 提交测试&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 编写能够通过测试的代码&lt;/strong&gt;，并指示它不要修改测试。告诉 Claude 继续尝试，直到所有测试都通过。通常，Claude 需要几次迭代才能完成编写代码、运行测试、调整代码、再运行测试的循环。
+&lt;ol&gt;
+&lt;li&gt;在此阶段，要求它使用独立的子代理来验证实现是否对测试过拟合，这会很有帮助。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;一旦您对更改满意，要求 Claude 提交代码&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;当 Claude 有一个明确的目标可以迭代时——比如一个视觉模型、一个测试用例或其他类型的输出——它的表现最好。通过提供像测试这样的预期输出，Claude 可以进行更改、评估结果，并逐步改进直到成功。&lt;/p&gt;
+&lt;h3 id="c-编写代码截图结果迭代"&gt;&lt;strong&gt;c. 编写代码、截图结果、迭代&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;与测试工作流类似，您可以为 Claude 提供视觉目标：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;为 Claude 提供一种截取浏览器屏幕截图的方法&lt;/strong&gt;（例如，使用 &lt;a class="link" href="https://github.com/modelcontextprotocol/servers/tree/c19925b8f0f2815ad72b08d2368f0007c86eb8e6/src/puppeteer" target="_blank" rel="noopener"
+&gt;Puppeteer MCP 服务器&lt;/a&gt;、(&lt;a class="link" href="https://github.com/joshuayoes/ios-simulator-mcp" target="_blank" rel="noopener"
+&gt;https://github.com/joshuayoes/ios-simulator-mcp&lt;/a&gt;)，或者手动复制/粘贴截图给 Claude）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;通过复制/粘贴或拖放图片，或者提供图片文件路径，给 Claude 一个视觉模型&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 用代码实现该设计&lt;/strong&gt;，截取结果的屏幕截图，并进行迭代，直到其结果与模型匹配。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;当您满意时，要求 Claude 提交&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;像人类一样，Claude 的输出通过迭代往往会显著改善。虽然第一个版本可能不错，但经过2-3次迭代后，它通常会看起来好得多。为 Claude 提供查看其输出的工具，以获得最佳结果。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/75e1b57a0b696e7aafeca1ed5fa6ba7c601a5953-1360x1126.png"
+loading="lazy"
+alt="https://www-cdn.anthropic.com/images/4zrzovbb/website/75e1b57a0b696e7aafeca1ed5fa6ba7c601a5953-1360x1126.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="d-安全的-yolo-模式"&gt;&lt;strong&gt;d. 安全的 YOLO 模式&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;您可以不监督 Claude，而是使用 claude --dangerously-skip-permissions 来绕过所有权限检查，让 Claude 不间断地工作直到完成。这对于修复 lint 错误或生成样板代码等工作流非常有效。&lt;/p&gt;
+&lt;p&gt;让 Claude 运行任意命令是有风险的，可能导致数据丢失、系统损坏或&amp;hellip; &lt;/p&gt;
+\[译者注：原文此处句子不完整\]&lt;h2 id="4-与-claude-协作"&gt;&lt;strong&gt;4. 与 Claude 协作&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;最重要的实践是将 Claude 视为一个智能的协作者，而不仅仅是一个自动补全工具或搜索引擎。当您提供清晰、具体的指令并保持对话式的方法时，Claude 在处理复杂的多步骤任务时表现出色。&lt;/p&gt;
+&lt;h3 id="a-具体明确"&gt;&lt;strong&gt;a. 具体明确&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Claude 能够推断意图，但它无法读懂您的心思。具体性能够使其更好地与您的期望对齐。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align: left"&gt;不好的指令&lt;/th&gt;
+&lt;th style="text-align: left"&gt;好的指令&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left"&gt;为 foo.py 写测试&lt;/td&gt;
+&lt;td style="text-align: left"&gt;为 foo.py 写一个新的测试用例，覆盖用户未登录时的边缘情况。避免使用 mock。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left"&gt;为什么 ExecutionFactory 的 API 这么奇怪？&lt;/td&gt;
+&lt;td style="text-align: left"&gt;查看 ExecutionFactory 的 git 历史，总结一下它的 API 是如何演变至今的。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left"&gt;添加一个日历小部件&lt;/td&gt;
+&lt;td style="text-align: left"&gt;查看主页上现有小部件的实现方式，以理解其模式，特别是代码和接口是如何分离的。HotDogWidget.php 是一个很好的入门示例。然后，遵循该模式实现一个新的日历小部件，允许用户选择月份并通过向前/向后翻页来选择年份。除了代码库中已使用的库之外，不要使用其他库，从头开始构建。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="b-给-claude-提供图片"&gt;&lt;strong&gt;b. 给 Claude 提供图片&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Claude 可以通过多种方式出色地处理图片和图表：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;粘贴截图&lt;/strong&gt;（专业提示：在 macOS 中按 &lt;em&gt;cmd+ctrl+shift+4&lt;/em&gt; 可以将截图复制到剪贴板，然后按 &lt;em&gt;ctrl+v&lt;/em&gt; 粘贴。请注意，这与您通常在 Mac 上使用的 cmd+v 不同，并且在远程操作时无效。）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;拖放&lt;/strong&gt;图片到提示输入框中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;提供图片的文件路径&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这在进行 UI 开发时以设计模型为参考点，以及在分析和调试时使用可视化图表时特别有用。即使您不向上下文中添加视觉材料，明确告诉 Claude 最终结果在视觉上需要具有吸引力的重要性，仍然很有帮助。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/7372868757dd17b6f2d3fef98d499d7991d89800-1450x1164.png"
+loading="lazy"
+alt="https://www-cdn.anthropic.com/images/4zrzovbb/website/7372868757dd17b6f2d3fef98d499d7991d89800-1450x1164.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="c-提及您希望-claude-查看或处理的文件"&gt;&lt;strong&gt;c. 提及您希望 Claude 查看或处理的文件&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;使用 Tab 键自动补全功能，可以快速引用您仓库中任何位置的文件或文件夹，帮助 Claude 找到或更新正确的资源。&lt;/p&gt;
+&lt;h3 id="d-给-claude-提供-url"&gt;&lt;strong&gt;d. 给 Claude 提供 URL&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;将特定的 URL 与您的提示一起粘贴，Claude 会获取并阅读其内容。为避免对同一域名（例如 docs.foo.com）重复出现权限提示，请使用 /permissions 将域名添加到您的允许列表中。&lt;/p&gt;
+&lt;h3 id="e-尽早并频繁地进行路线修正"&gt;&lt;strong&gt;e. 尽早并频繁地进行路线修正&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;虽然自动接受模式（按 shift+tab 切换）可以让 Claude 自主工作，但通常情况下，通过作为一名积极的协作者并引导 Claude 的方法，您会得到更好的结果。在开始时向 Claude 彻底解释任务可以获得最佳结果，但您也可以随时对 Claude 进行路线修正。&lt;/p&gt;
+&lt;p&gt;这四个工具有助于进行路线修正：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;在编码前要求 Claude 制定一个计划&lt;/strong&gt;。明确告诉它在您确认其计划可行之前不要编码。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在任何阶段（思考、工具调用、文件编辑）按 Escape 键中断&lt;/strong&gt; Claude，同时保留上下文，以便您可以重新定向或扩展指令。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;双击 Escape 键可以跳回历史记录&lt;/strong&gt;，编辑之前的提示，并探索一个不同的方向。您可以编辑提示并重复，直到得到您想要的结果。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 撤销更改&lt;/strong&gt;，通常与选项 #2 结合使用，以采取不同的方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;尽管 Claude Code 偶尔会在第一次尝试时就完美解决问题，但使用这些修正工具通常能更快地产生更好的解决方案。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/e071de707f209bbaa7f16b593cc7ed0739875dae-1306x1088.png"
+loading="lazy"
+alt="https://www-cdn.anthropic.com/images/4zrzovbb/website/e071de707f209bbaa7f16b593cc7ed0739875dae-1306x1088.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="f-使用-clear-保持上下文的专注"&gt;&lt;strong&gt;f. 使用 /clear 保持上下文的专注&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;在长时间的会话中，Claude 的上下文窗口可能会被不相关的对话、文件内容和命令填满。这会降低性能，有时还会分散 Claude 的注意力。在任务之间频繁使用 /clear 命令来重置上下文窗口。&lt;/p&gt;
+&lt;h3 id="g-对复杂工作流使用清单和草稿板"&gt;&lt;strong&gt;g. 对复杂工作流使用清单和草稿板&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;对于包含多个步骤或需要详尽解决方案的大型任务——如代码迁移、修复大量 lint 错误或运行复杂的构建脚本——可以通过让 Claude 使用 Markdown 文件（甚至 GitHub issue！）作为清单和工作草稿板来提高性能。&lt;/p&gt;
+&lt;h2 id="5-脚本与自动化"&gt;&lt;strong&gt;5. 脚本与自动化&lt;/strong&gt;
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;批处理&lt;/strong&gt;允许您自动执行重复性任务：
+&lt;ol&gt;
+&lt;li&gt;创建一个包含您的提示的 shell 脚本。&lt;/li&gt;
+&lt;li&gt;调用 claude 并传入您的脚本。例如：claude -p “migrate foo.py from React to Vue. When you are done, you MUST return the string OK if you succeeded, or FAIL if the task failed.” --allowedTools Edit Bash(git commit:*)&lt;/li&gt;
+&lt;li&gt;多次运行该脚本并优化您的提示以获得期望的结果。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;管道操作 (Pipelining)&lt;/strong&gt; 将 Claude 集成到现有的数据/处理管道中：
+&lt;ol&gt;
+&lt;li&gt;调用 claude -p “&amp;lt;your prompt&amp;gt;” --json | your_command，其中 your_command 是您处理管道的下一步。&lt;/li&gt;
+&lt;li&gt;就是这样！JSON 输出（可选）可以帮助提供结构，以便于自动化处理。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;对于这两种用例，使用 --verbose 标志进行调试 Claude 调用可能会很有帮助。我们通常建议在生产环境中关闭详细模式以获得更清晰的输出。&lt;/p&gt;
+&lt;p&gt;您在使用 Claude Code 方面有什么技巧和最佳实践吗？请标记 @AnthropicAI，让我们看看您正在构建什么！&lt;/p&gt;
+&lt;h2 id="致谢"&gt;&lt;strong&gt;致谢&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;作者：Boris Cherny。这项工作借鉴了广大 Claude Code 用户社区的最佳实践，他们富有创造力的方法和工作流程持续激励着我们。特别感谢 Daisy Hollman、Ashwin Bhat、Cat Wu、Sid Bidasaria、Cal Rueb、Nodir Turakulov、Barry Zhang、Drew Hodun 以及许多其他 Anthropic 工程师，他们宝贵的见解和使用 Claude Code 的实践经验帮助塑造了这些建议。&lt;/p&gt;
+&lt;h3 id="想了解更多"&gt;&lt;strong&gt;想了解更多？&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;通过 Anthropic Academy 的课程，掌握 API 开发、模型上下文协议（Model Context Protocol）和 Claude Code。完成课程后可获得证书。&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://anthropic.skilljar.com/" target="_blank" rel="noopener"
+&gt;探索课程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;© 2025 Anthropic PBC&lt;/p&gt;</description></item></channel></rss>
