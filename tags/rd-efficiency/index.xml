@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>R&amp;D Efficiency on morsuning's Blog</title><link>https://morsuning.github.io/tags/rd-efficiency/</link><description>Recent content in R&amp;D Efficiency on morsuning's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 09 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://morsuning.github.io/tags/rd-efficiency/index.xml" rel="self" type="application/rss+xml"/><item><title>【翻译】OpenAI - 推出 AgentKit</title><link>https://morsuning.github.io/p/%E7%BF%BB%E8%AF%91openai-%E6%8E%A8%E5%87%BA-agentkit/</link><pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate><guid>https://morsuning.github.io/p/%E7%BF%BB%E8%AF%91openai-%E6%8E%A8%E5%87%BA-agentkit/</guid><description>&lt;p&gt;面向构建、部署与优化智能代理的新一整套工具&lt;/p&gt;
+&lt;p&gt;从今天起，我们推出 &lt;strong&gt;AgentKit&lt;/strong&gt;，一套面向开发者和企业，用于构建、部署与优化智能代理（agents）的完整工具集。到目前为止，构建代理意味着你要处理零散的工具：复杂的编排（orchestration）没有版本控制、自定义连接器、手动评估流程、提示(prompt) 调优，以及上线前几周的前端工作。使用 AgentKit，开发者现在可以可视化设计工作流，并且使用新的构建模块更快地嵌入具“代理特性”的 UI，包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Agent Builder&lt;/strong&gt;：用于可视化创建和版本管理多 Agent 工作流的画布&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Connector Registry&lt;/strong&gt;：集中管理 OpenAI 产品间的数据与工具连接方式&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ChatKit&lt;/strong&gt;：一个用于在你的产品中嵌入可定制聊天型代理体验的工具包&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们还扩展了评估能力（Evals），新增功能如数据集、跟踪评分（trace grading）、自动提示优化、第三方模型支持，以便衡量与提升代理性能。&lt;/p&gt;
+&lt;p&gt;自从 3 月发布 Responses API 和 Agents SDK 以来，我们看到很多开发者和企业构建了端到端的 agent 工作流，用于深入研究、客服支持等。Klarna 构建了一个可处理三分之二工单的客服代理，Clay 用一个销售代理把增长提升了 10 倍。AgentKit 构建在 Responses API 之上，帮助开发者更高效、更可靠地构建代理。 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="使用-agent-builder-设计工作流"&gt;使用 Agent Builder 设计工作流
+&lt;/h2&gt;&lt;p&gt;随着代理工作流日益复杂，开发者需要更清晰地了解其内部运作。
+&lt;strong&gt;Agent Builder&lt;/strong&gt; 提供一个可视化画布，用于拖拽节点组成逻辑、连接工具、配置定制 Guardrails（安全界限）。它支持预览运行、内联评估配置以及完整版本控制，非常适合快速迭代。 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;开发者可以从空白画布开始，也可以使用预构建模板。
+在 Ramp 团队，他们在几小时内即可从空白画布构建出一个买家代理：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“Agent Builder 将原本需要数月、涉及复杂编排、自定义代码和手动优化的工作，转变为只需几小时即可完成。这个可视化画布让产品、法律和工程团队保持在同一页面，迭代周期缩短 70%，能够在两个冲刺内上线，而不是两个季度。”
+— Ramp (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;类似地，日本领先的技术及互联网服务公司 LY Corporation 使用 Agent Builder，在不到两小时内构建了一个工作助理代理：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“Agent Builder 让我们以全新的方式编排代理，在一个界面里让工程师与领域专家协作。我们在不到两小时内构建了第一个多 agent 工作流并运行，大幅加速了代理的创建与部署时间。”
+— LY Corporation (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我们还推出了 &lt;strong&gt;Connector Registry&lt;/strong&gt;，供企业治理和维护跨多个工作区与组织中的数据。&lt;strong&gt;Connector Registry&lt;/strong&gt; 将数据源整合到一个管理面板，可跨 ChatGPT 与 API 使用。这个注册表包含所有预构建连接器（如 Dropbox、Google Drive、SharePoint、Microsoft Teams）和第三方 MCP（多渠道平台）连接器。 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;开发者还可以在 Agent Builder 中启用 &lt;strong&gt;Guardrails&lt;/strong&gt;——一种开源、模块化的安全层，用以防止代理发生意外或恶意行为。Guardrails 可以掩码或标记个人识别信息（PII）、检测越狱（jailbreak）行为，并应用其他保护措施，更便于构建和部署可靠、安全的代理。Guardrails 可以独立部署，也可以通过 Guardrails 库在 &lt;strong&gt;Python&lt;/strong&gt; 和 &lt;strong&gt;JavaScript&lt;/strong&gt; 中使用。 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="用-chatkit-嵌入具代理特性的聊天体验"&gt;用 ChatKit 嵌入具代理特性的聊天体验
+&lt;/h2&gt;&lt;p&gt;部署代理聊天 UI（用户界面）往往比预期更复杂 —— 你要处理流式响应、线程管理、显示模型“思考”状态、设计交互流畅的聊天体验。&lt;strong&gt;ChatKit&lt;/strong&gt; 使得在你的产品中嵌入聊天型代理更简单。它可以被嵌入到应用或网站中，并可定制外观以匹配你的主题或品牌。 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“我们用 ChatKit 为 Canva 开发者社区构建支持代理，节省了超过两周的开发时间，并在不到一小时内完成集成。这个支持代理将改变开发者与我们文档的交互方式，使其变为对话式体验，从而更容易在 Canva 上构建应用和集成。”
+— Canva (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;ChatKit 已经服务于多个用例，从内部知识助理、入门引导、客服支持到研究代理。HubSpot 的客服代理是其中一个例子。 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="用新的-evals-能力衡量代理性能"&gt;用新的 Evals 能力衡量代理性能
+&lt;/h2&gt;&lt;p&gt;要构建可靠、可投入生产环境的代理，就必须进行严格的性能评估。去年我们推出 &lt;strong&gt;Evals&lt;/strong&gt; 平台，帮助开发者测试 prompts 和衡量模型行为。如今我们为 Evals 添加了四个新功能，使得创建评估（evals）更容易：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Datasets&lt;/strong&gt; — 从零快速构建 agent 评估，并通过自动评分器与人工批注扩展&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Trace grading&lt;/strong&gt; — 对 agent 工作流做端到端评估并自动打分，以找出缺陷&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自动提示优化&lt;/strong&gt;（Automated prompt optimization）— 基于人工批注和评分器输出生成更好的 prompts&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;第三方模型支持&lt;/strong&gt; — 在 OpenAI Evals 平台内部评估其他厂商的模型 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;我们已经看到客户通过使用这些功能获得了重大性能提升。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“这个评估平台使我们多 agent 尽职调查框架的开发时间缩短超过 50%，同时使代理准确率提升了 30%。”
+— Carlyle (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;（在原文中有一个界面截图，展示 dataset 表格，一些评分、语气、反馈、准确度列） (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="用强化微调推动代理性能"&gt;用强化微调推动代理性能
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;强化微调&lt;/strong&gt;（Reinforcement fine-tuning, RFT）使得开发者可以定制我们的推理模型。RFT 在 OpenAI o4-mini 上已广泛可用，并且在 GPT-5 上处于私有 beta 阶段。我们正与多家客户紧密合作，在更广泛发布前优化 GPT-5 的 RFT。 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;今天，我们在该 RFT beta 中引入了两项新特性，以进一步提升代理性能：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定制工具调用&lt;/strong&gt;（Custom tool calls）— 让模型学会在正确的时机调用正确工具，以改善推理能力&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;定制评分器&lt;/strong&gt;（Custom graders）— 为你的用例设定专属评估标准，聚焦最关键的性能指标 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="定价与可用性"&gt;定价与可用性
+&lt;/h2&gt;&lt;p&gt;从今天起，&lt;strong&gt;ChatKit&lt;/strong&gt; 和新的 &lt;strong&gt;Evals 能力&lt;/strong&gt; 向所有开发者广泛开放。Agent Builder 处于 Beta 阶段，而 Connector Registry 正在向部分 API、ChatGPT Enterprise 与教育用户推出 Beta。要启用 Connector Registry，需要 &lt;strong&gt;Global Admin 控制台&lt;/strong&gt;（Global Admin Console）&amp;ndash; 只有具有全局所有者身份的用户才能管理域、单点登录 (SSO)、多个 API 组织。 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;所有这些工具都包含在标准 API 模型定价中。我们计划很快推出独立的 Workflows API 和代理部署选项（用于 ChatGPT）。 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;我们迫不及待地想看看你们会构建出什么。 (&lt;a class="link" href="https://openai.com/index/introducing-agentkit/" target="_blank" rel="noopener"
+&gt;OpenAI&lt;/a&gt;)&lt;/p&gt;</description></item><item><title>【翻译】Claude Code：代理式编码的最佳实践</title><link>https://morsuning.github.io/p/%E7%BF%BB%E8%AF%91claude-code%E4%BB%A3%E7%90%86%E5%BC%8F%E7%BC%96%E7%A0%81%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</link><pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate><guid>https://morsuning.github.io/p/%E7%BF%BB%E8%AF%91claude-code%E4%BB%A3%E7%90%86%E5%BC%8F%E7%BC%96%E7%A0%81%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</guid><description>&lt;p&gt;&lt;strong&gt;发布于 2025年4月18日，&lt;a class="link" href="https://www.anthropic.com/engineering/claude-code-best-practices" target="_blank" rel="noopener"
+&gt;原文链接&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Claude Code 是一款用于代理式编码（agentic coding）的命令行工具。本文将介绍一些在使用 Claude Code 过程中，跨越不同代码库、语言和环境都已证明行之有效的技巧和窍门。&lt;/p&gt;
+&lt;p&gt;我们最近&lt;a class="link" href="https://www.anthropic.com/news/claude-3-7-sonnet" target="_blank" rel="noopener"
+&gt;发布了 Claude Code&lt;/a&gt;，这是一款为代理式编码设计的命令行工具。作为一项研究项目，Claude Code 为 Anthropic 的工程师和研究人员提供了一种更原生的方式，将 Claude 集成到他们的编码工作流中。&lt;/p&gt;
+&lt;p&gt;Claude Code 的设计理念是刻意保持底层和无固定模式（low-level and unopinionated），提供近乎原始的模型访问能力，而不强制用户遵循特定的工作流程。这种设计哲学创造了一个灵活、可定制、可编写脚本且功能强大的安全工具。然而，尽管功能强大，这种灵活性也给初次接触代理式编码工具的工程师带来了一定的学习曲线——至少在他们形成自己的一套最佳实践之前是如此。&lt;/p&gt;
+&lt;p&gt;本文旨在概述一些已在 Anthropic 内部团队以及在各种代码库、语言和环境中使用的外部工程师中被证明是行之有效的通用模式。此列表中的任何内容都不是一成不变或普遍适用的；请将这些建议视为起点。我们鼓励您进行实验，找到最适合您的方式！&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;想要了解更详细的信息吗？我们在 &lt;a class="link" href="https://claude.ai/redirect/website.v1.c4a1cf84-94d0-43f2-a02b-73258301b840/code" target="_blank" rel="noopener"
+&gt;claude.ai/code&lt;/a&gt; 上的综合文档涵盖了本文提到的所有功能，并提供了额外的示例、实现细节和高级技术。&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id="1-自定义您的设置"&gt;&lt;strong&gt;1. 自定义您的设置&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;Claude Code 是一个代理式编码助手，它会自动将上下文信息提取到提示中。这种上下文收集过程会消耗时间和 tokens，但您可以通过调整环境来优化它。&lt;/p&gt;
+&lt;h3 id="a-创建-claudemd-文件"&gt;&lt;strong&gt;a. 创建 CLAUDE.md 文件&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;CLAUDE.md 是一个特殊文件，Claude 在开始对话时会自动将其内容提取到上下文中。这使得它成为记录以下内容的理想场所：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;常用的 bash 命令&lt;/li&gt;
+&lt;li&gt;核心文件和实用函数&lt;/li&gt;
+&lt;li&gt;代码风格指南&lt;/li&gt;
+&lt;li&gt;测试说明&lt;/li&gt;
+&lt;li&gt;代码仓库的规范（例如，分支命名、使用 merge 还是 rebase 等）&lt;/li&gt;
+&lt;li&gt;开发者环境设置（例如，pyenv 的使用、哪些编译器可用）&lt;/li&gt;
+&lt;li&gt;项目中特有的任何意外行为或警告&lt;/li&gt;
+&lt;li&gt;您希望 Claude 记住的其他信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CLAUDE.md 文件没有固定的格式要求。我们建议保持其内容简洁且易于人类阅读。例如：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;span class="lnt"&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-plaintext" data-lang="plaintext"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Bash commands
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- npm run build: Build the project
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- npm run typecheck: Run the typechecker
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\# Code style
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- Use ES modules (import/export) syntax, not CommonJS (require)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- Destructure imports when possible (eg. import { foo } from &amp;#39;bar&amp;#39;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\# Workflow
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- Be sure to typecheck when you’re done making a series of code changes
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;\- Prefer running single tests, and not the whole test suite, for performance
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;您可以将 CLAUDE.md 文件放置在多个位置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;仓库的根目录&lt;/strong&gt;，或您运行 claude 命令的任何位置（最常见的用法）。将其命名为 CLAUDE.md 并提交到 git 中，以便在不同会话和团队成员之间共享（推荐），或者命名为 CLAUDE.local.md 并将其添加到 .gitignore 中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;运行 claude 命令所在目录的任何父目录&lt;/strong&gt;。这对于 monorepos（单一代码库）项目最有用，您可能在 root/foo 目录下运行 claude，同时在 root/CLAUDE.md 和 root/foo/CLAUDE.md 中都有 CLAUDE.md 文件。这两个文件的内容都会被自动提取到上下文中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;运行 claude 命令所在目录的任何子目录&lt;/strong&gt;。这与上述情况相反，在这种情况下，当您处理子目录中的文件时，Claude 会按需提取 CLAUDE.md 文件的内容。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;您的主文件夹&lt;/strong&gt; (~/.claude/CLAUDE.md)，其内容将应用于您所有的 &lt;em&gt;claude&lt;/em&gt; 会话。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当您运行 /init 命令时，Claude 会自动为您生成一个 CLAUDE.md 文件。&lt;/p&gt;
+&lt;h3 id="b-调优您的-claudemd-文件"&gt;&lt;strong&gt;b. 调优您的 CLAUDE.md 文件&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;您的 CLAUDE.md 文件会成为 Claude 提示的一部分，因此应像对待任何频繁使用的提示一样对其进行优化。一个常见的错误是添加大量内容而没有迭代验证其有效性。花些时间进行实验，确定哪些内容能让模型最好地遵循指令。&lt;/p&gt;
+&lt;p&gt;您可以手动向 CLAUDE.md 添加内容，或者按 # 键向 Claude 发出指令，它会自动将该指令整合到相关的 CLAUDE.md 文件中。许多工程师在编码时会频繁使用 # 来记录命令、文件和风格指南，然后将 CLAUDE.md 的更改包含在提交中，以便团队成员也能受益。&lt;/p&gt;
+&lt;p&gt;在 Anthropic，我们偶尔会使用&lt;a class="link" href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prompt-improver" target="_blank" rel="noopener"
+&gt;提示改进器 (prompt improver)&lt;/a&gt; 来优化 CLAUDE.md 文件，并经常调整指令（例如，使用 &amp;ldquo;IMPORTANT&amp;rdquo; 或 &amp;ldquo;YOU MUST&amp;rdquo; 来强调）以提高模型的遵循度。&lt;/p&gt;
+&lt;h3 id="c-管理-claude-允许使用的工具列表"&gt;&lt;strong&gt;c. 管理 Claude 允许使用的工具列表&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;默认情况下，对于任何可能修改您系统的操作，Claude Code 都会请求许可：文件写入、许多 bash 命令、MCP 工具等。我们设计 Claude Code 时采用了这种刻意保守的方法，以将安全性放在首位。您可以自定义允许列表（allowlist），以允许您确信安全的其他工具，或允许那些易于撤销的潜在不安全工具（例如，文件编辑、git commit）。&lt;/p&gt;
+&lt;p&gt;有四种方式来管理允许的工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在会话中被提示时&lt;strong&gt;选择 &amp;ldquo;Always allow&amp;rdquo;（始终允许）&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;启动 Claude Code 后&lt;strong&gt;使用 /permissions 命令&lt;/strong&gt;来添加或移除允许列表中的工具。例如，您可以添加 Edit 来始终允许文件编辑，Bash(git commit:*) 来允许 git commit，或者 mcp__puppeteer__puppeteer_navigate 来允许使用 Puppeteer MCP 服务器进行导航。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;手动编辑&lt;/strong&gt;您的 .claude/settings.json 或 ~/.claude.json 文件（我们建议将前者检入源代码控制中以便与团队共享）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;使用 --allowedTools CLI 标志&lt;/strong&gt;来设置特定于会话的权限。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="d-如果使用-github请安装-gh-cli"&gt;&lt;strong&gt;d. 如果使用 GitHub，请安装 gh CLI&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Claude 知道如何使用 gh CLI 与 GitHub 交互，以创建 issue、开启 pull request、读取评论等。如果没有安装 gh，Claude 仍然可以使用 GitHub API 或 MCP 服务器（如果您已安装）。&lt;/p&gt;
+&lt;h2 id="2-为-claude-提供更多工具"&gt;&lt;strong&gt;2. 为 Claude 提供更多工具&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;Claude 可以访问您的 shell 环境，您可以在其中为它构建一系列便利的脚本和函数，就像为自己构建一样。它还可以通过 MCP 和 REST API 利用更复杂的工具。&lt;/p&gt;
+&lt;h3 id="a-将-claude-与-bash-工具结合使用"&gt;&lt;strong&gt;a. 将 Claude 与 bash 工具结合使用&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Claude Code 继承了您的 bash 环境，使其可以访问您的所有工具。虽然 Claude 了解像 unix 工具和 gh 这样的常用工具，但如果没有指令，它不会知道您的自定义 bash 工具：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;通过使用示例告诉 Claude 工具的名称。&lt;/li&gt;
+&lt;li&gt;告诉 Claude 运行 --help 来查看工具文档。&lt;/li&gt;
+&lt;li&gt;在 CLAUDE.md 中记录常用的工具。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="b-将-claude-与-mcp-结合使用"&gt;&lt;strong&gt;b. 将 Claude 与 MCP 结合使用&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Claude Code 同时作为 MCP 服务器和客户端。作为客户端，它可以通过三种方式连接到任意数量的 MCP 服务器以访问它们的工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;在项目配置中&lt;/strong&gt;（在相应目录中运行 Claude Code 时可用）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在全局配置中&lt;/strong&gt;（在所有项目中都可用）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在检入代码库的 .mcp.json 文件中&lt;/strong&gt;（对在您的代码库中工作的任何人均可用）。例如，您可以将 Puppeteer 和 Sentry 服务器添加到您的 .mcp.json 文件中，这样在您的仓库中工作的每位工程师都可以开箱即用地使用这些工具。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在使用 MCP 时，使用 --mcp-debug 标志启动 Claude 也有助于识别配置问题。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/6961243cc6409e41ba93895faded4f4bc1772366-1600x1231.png"
+loading="lazy"
+alt="https://www-cdn.anthropic.com/images/4zrzovbb/website/6961243cc6409e41ba93895faded4f4bc1772366-1600x1231.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="c-使用自定义斜杠命令"&gt;&lt;strong&gt;c. 使用自定义斜杠命令&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;对于重复性的工作流——如调试循环、日志分析等——您可以将提示模板存储在 .claude/commands 文件夹中的 Markdown 文件里。当您键入 / 时，这些模板就会通过斜杠命令菜单可用。您可以将这些命令检入 git，使其对团队其他成员可用。&lt;/p&gt;
+&lt;p&gt;自定义斜杠命令可以包含特殊关键字 $ARGUMENTS，以从命令调用中传递参数。&lt;/p&gt;
+&lt;p&gt;例如，这是一个可用于自动获取并修复 GitHub issue 的斜杠命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-plaintext" data-lang="plaintext"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Please analyze and fix the GitHub issue: $ARGUMENTS.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Follow these steps:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;1\. Use \`gh issue view\` to get the issue details
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;2\. Understand the problem described in the issue
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;3\. Search the codebase for relevant files
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;4\. Implement the necessary changes to fix the issue
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;5\. Write and run tests to verify the fix
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;6\. Ensure code passes linting and type checking
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;7\. Create a descriptive commit message
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;8\. Push and create a PR
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Remember to use the GitHub CLI (\`gh\`) for all GitHub-related tasks.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;将上述内容放入 .claude/commands/fix-github-issue.md 文件中，即可在 Claude Code 中通过 /project:fix-github-issue 命令使用它。然后，您可以使用 /project:fix-github-issue 1234 来让 Claude 修复编号为 1234 的 issue。同样，您可以将个人命令添加到 ~/.claude/commands 文件夹中，以便在所有会话中使用。&lt;/p&gt;
+&lt;h2 id="3-尝试常见工作流"&gt;&lt;strong&gt;3. 尝试常见工作流&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;Claude Code 不会强加特定的工作流，这让您可以灵活地按自己喜欢的方式使用它。在这种灵活性所提供的空间内，我们的用户社区中涌现出了几种成功有效使用 Claude Code 的模式：&lt;/p&gt;
+&lt;h3 id="a-探索规划编码提交"&gt;&lt;strong&gt;a. 探索、规划、编码、提交&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;这个通用的工作流适用于许多问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 阅读相关文件、图片或 URL&lt;/strong&gt;，可以提供一般性指引（“阅读处理日志的文件”）或具体文件名（“阅读 logging.py”），但要明确告诉它暂时不要编写任何代码。
+&lt;ol&gt;
+&lt;li&gt;在这个工作流阶段，您应该考虑充分利用子代理（subagents），特别是对于复杂问题。让 Claude 使用子代理来验证细节或调查它可能有的特定问题，尤其是在对话或任务的早期，这往往能在不显著损失效率的情况下，更好地保留上下文的可用性。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 制定一个解决特定问题的计划&lt;/strong&gt;。我们建议使用 &amp;ldquo;think&amp;rdquo; 这个词来触发扩展思考模式，这会给予 Claude 额外的计算时间来更彻底地评估备选方案。这些特定的短语直接映射到系统中不断增加的思考预算级别：&amp;ldquo;think&amp;rdquo; &amp;lt; &amp;ldquo;think hard&amp;rdquo; &amp;lt; &amp;ldquo;think harder&amp;rdquo; &amp;lt; &amp;ldquo;ultrathink&amp;rdquo;。每个级别都会为 Claude 分配更多的思考预算。
+&lt;ol&gt;
+&lt;li&gt;如果这一步的结果看起来合理，您可以让 Claude 创建一个文档或一个 GitHub issue 来记录它的计划，这样如果实现步骤（第3步）不符合您的期望，您可以回溯到这个节点。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 用代码实现其解决方案&lt;/strong&gt;。这也是一个好时机，可以要求它在实现方案的各个部分时，明确验证其解决方案的合理性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 提交结果并创建一个 pull request&lt;/strong&gt;。如果相关，这也是让 Claude 更新任何 README 或变更日志，解释它刚刚做了什么的好时机。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;步骤 #1-#2 至关重要——没有它们，Claude 往往会直接跳到编码解决方案。虽然有时这正是您想要的，但对于需要更深入前期思考的问题，要求 Claude 先进行研究和规划会显著提高其表现。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/6ea59a36fe82c2b300bceaf3b880a4b4852c552d-1600x1143.png"
+loading="lazy"
+alt="https://www-cdn.anthropic.com/images/4zrzovbb/website/6ea59a36fe82c2b300bceaf3b880a4b4852c552d-1600x1143.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="b-编写测试提交编码迭代提交"&gt;&lt;strong&gt;b. 编写测试、提交；编码、迭代、提交&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;这是一个 Anthropic 内部最喜欢的工作流，适用于那些可以通过单元测试、集成测试或端到端测试轻松验证的变更。测试驱动开发（TDD）在代理式编码的加持下变得更加强大：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 根据预期的输入/输出对编写测试&lt;/strong&gt;。明确指出您正在进行测试驱动开发，这样它就会避免创建模拟实现，即使对于代码库中尚不存在的功能也是如此。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;告诉 Claude 运行测试并确认它们失败&lt;/strong&gt;。在此阶段明确告诉它不要编写任何实现代码通常很有帮助。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;当您对测试满意时，要求 Claude 提交测试&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 编写能够通过测试的代码&lt;/strong&gt;，并指示它不要修改测试。告诉 Claude 继续尝试，直到所有测试都通过。通常，Claude 需要几次迭代才能完成编写代码、运行测试、调整代码、再运行测试的循环。
+&lt;ol&gt;
+&lt;li&gt;在此阶段，要求它使用独立的子代理来验证实现是否对测试过拟合，这会很有帮助。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;一旦您对更改满意，要求 Claude 提交代码&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;当 Claude 有一个明确的目标可以迭代时——比如一个视觉模型、一个测试用例或其他类型的输出——它的表现最好。通过提供像测试这样的预期输出，Claude 可以进行更改、评估结果，并逐步改进直到成功。&lt;/p&gt;
+&lt;h3 id="c-编写代码截图结果迭代"&gt;&lt;strong&gt;c. 编写代码、截图结果、迭代&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;与测试工作流类似，您可以为 Claude 提供视觉目标：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;为 Claude 提供一种截取浏览器屏幕截图的方法&lt;/strong&gt;（例如，使用 &lt;a class="link" href="https://github.com/modelcontextprotocol/servers/tree/c19925b8f0f2815ad72b08d2368f0007c86eb8e6/src/puppeteer" target="_blank" rel="noopener"
+&gt;Puppeteer MCP 服务器&lt;/a&gt;、(&lt;a class="link" href="https://github.com/joshuayoes/ios-simulator-mcp" target="_blank" rel="noopener"
+&gt;https://github.com/joshuayoes/ios-simulator-mcp&lt;/a&gt;)，或者手动复制/粘贴截图给 Claude）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;通过复制/粘贴或拖放图片，或者提供图片文件路径，给 Claude 一个视觉模型&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 用代码实现该设计&lt;/strong&gt;，截取结果的屏幕截图，并进行迭代，直到其结果与模型匹配。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;当您满意时，要求 Claude 提交&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;像人类一样，Claude 的输出通过迭代往往会显著改善。虽然第一个版本可能不错，但经过2-3次迭代后，它通常会看起来好得多。为 Claude 提供查看其输出的工具，以获得最佳结果。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/75e1b57a0b696e7aafeca1ed5fa6ba7c601a5953-1360x1126.png"
+loading="lazy"
+alt="https://www-cdn.anthropic.com/images/4zrzovbb/website/75e1b57a0b696e7aafeca1ed5fa6ba7c601a5953-1360x1126.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="d-安全的-yolo-模式"&gt;&lt;strong&gt;d. 安全的 YOLO 模式&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;您可以不监督 Claude，而是使用 claude --dangerously-skip-permissions 来绕过所有权限检查，让 Claude 不间断地工作直到完成。这对于修复 lint 错误或生成样板代码等工作流非常有效。&lt;/p&gt;
+&lt;p&gt;让 Claude 运行任意命令是有风险的，可能导致数据丢失、系统损坏或&amp;hellip; &lt;/p&gt;
+\[译者注：原文此处句子不完整\]&lt;h2 id="4-与-claude-协作"&gt;&lt;strong&gt;4. 与 Claude 协作&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;最重要的实践是将 Claude 视为一个智能的协作者，而不仅仅是一个自动补全工具或搜索引擎。当您提供清晰、具体的指令并保持对话式的方法时，Claude 在处理复杂的多步骤任务时表现出色。&lt;/p&gt;
+&lt;h3 id="a-具体明确"&gt;&lt;strong&gt;a. 具体明确&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Claude 能够推断意图，但它无法读懂您的心思。具体性能够使其更好地与您的期望对齐。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align: left"&gt;不好的指令&lt;/th&gt;
+&lt;th style="text-align: left"&gt;好的指令&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left"&gt;为 foo.py 写测试&lt;/td&gt;
+&lt;td style="text-align: left"&gt;为 foo.py 写一个新的测试用例，覆盖用户未登录时的边缘情况。避免使用 mock。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left"&gt;为什么 ExecutionFactory 的 API 这么奇怪？&lt;/td&gt;
+&lt;td style="text-align: left"&gt;查看 ExecutionFactory 的 git 历史，总结一下它的 API 是如何演变至今的。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: left"&gt;添加一个日历小部件&lt;/td&gt;
+&lt;td style="text-align: left"&gt;查看主页上现有小部件的实现方式，以理解其模式，特别是代码和接口是如何分离的。HotDogWidget.php 是一个很好的入门示例。然后，遵循该模式实现一个新的日历小部件，允许用户选择月份并通过向前/向后翻页来选择年份。除了代码库中已使用的库之外，不要使用其他库，从头开始构建。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="b-给-claude-提供图片"&gt;&lt;strong&gt;b. 给 Claude 提供图片&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Claude 可以通过多种方式出色地处理图片和图表：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;粘贴截图&lt;/strong&gt;（专业提示：在 macOS 中按 &lt;em&gt;cmd+ctrl+shift+4&lt;/em&gt; 可以将截图复制到剪贴板，然后按 &lt;em&gt;ctrl+v&lt;/em&gt; 粘贴。请注意，这与您通常在 Mac 上使用的 cmd+v 不同，并且在远程操作时无效。）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;拖放&lt;/strong&gt;图片到提示输入框中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;提供图片的文件路径&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这在进行 UI 开发时以设计模型为参考点，以及在分析和调试时使用可视化图表时特别有用。即使您不向上下文中添加视觉材料，明确告诉 Claude 最终结果在视觉上需要具有吸引力的重要性，仍然很有帮助。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/7372868757dd17b6f2d3fef98d499d7991d89800-1450x1164.png"
+loading="lazy"
+alt="https://www-cdn.anthropic.com/images/4zrzovbb/website/7372868757dd17b6f2d3fef98d499d7991d89800-1450x1164.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="c-提及您希望-claude-查看或处理的文件"&gt;&lt;strong&gt;c. 提及您希望 Claude 查看或处理的文件&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;使用 Tab 键自动补全功能，可以快速引用您仓库中任何位置的文件或文件夹，帮助 Claude 找到或更新正确的资源。&lt;/p&gt;
+&lt;h3 id="d-给-claude-提供-url"&gt;&lt;strong&gt;d. 给 Claude 提供 URL&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;将特定的 URL 与您的提示一起粘贴，Claude 会获取并阅读其内容。为避免对同一域名（例如 docs.foo.com）重复出现权限提示，请使用 /permissions 将域名添加到您的允许列表中。&lt;/p&gt;
+&lt;h3 id="e-尽早并频繁地进行路线修正"&gt;&lt;strong&gt;e. 尽早并频繁地进行路线修正&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;虽然自动接受模式（按 shift+tab 切换）可以让 Claude 自主工作，但通常情况下，通过作为一名积极的协作者并引导 Claude 的方法，您会得到更好的结果。在开始时向 Claude 彻底解释任务可以获得最佳结果，但您也可以随时对 Claude 进行路线修正。&lt;/p&gt;
+&lt;p&gt;这四个工具有助于进行路线修正：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;在编码前要求 Claude 制定一个计划&lt;/strong&gt;。明确告诉它在您确认其计划可行之前不要编码。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在任何阶段（思考、工具调用、文件编辑）按 Escape 键中断&lt;/strong&gt; Claude，同时保留上下文，以便您可以重新定向或扩展指令。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;双击 Escape 键可以跳回历史记录&lt;/strong&gt;，编辑之前的提示，并探索一个不同的方向。您可以编辑提示并重复，直到得到您想要的结果。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;要求 Claude 撤销更改&lt;/strong&gt;，通常与选项 #2 结合使用，以采取不同的方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;尽管 Claude Code 偶尔会在第一次尝试时就完美解决问题，但使用这些修正工具通常能更快地产生更好的解决方案。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/e071de707f209bbaa7f16b593cc7ed0739875dae-1306x1088.png"
+loading="lazy"
+alt="https://www-cdn.anthropic.com/images/4zrzovbb/website/e071de707f209bbaa7f16b593cc7ed0739875dae-1306x1088.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="f-使用-clear-保持上下文的专注"&gt;&lt;strong&gt;f. 使用 /clear 保持上下文的专注&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;在长时间的会话中，Claude 的上下文窗口可能会被不相关的对话、文件内容和命令填满。这会降低性能，有时还会分散 Claude 的注意力。在任务之间频繁使用 /clear 命令来重置上下文窗口。&lt;/p&gt;
+&lt;h3 id="g-对复杂工作流使用清单和草稿板"&gt;&lt;strong&gt;g. 对复杂工作流使用清单和草稿板&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;对于包含多个步骤或需要详尽解决方案的大型任务——如代码迁移、修复大量 lint 错误或运行复杂的构建脚本——可以通过让 Claude 使用 Markdown 文件（甚至 GitHub issue！）作为清单和工作草稿板来提高性能。&lt;/p&gt;
+&lt;h2 id="5-脚本与自动化"&gt;&lt;strong&gt;5. 脚本与自动化&lt;/strong&gt;
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;批处理&lt;/strong&gt;允许您自动执行重复性任务：
+&lt;ol&gt;
+&lt;li&gt;创建一个包含您的提示的 shell 脚本。&lt;/li&gt;
+&lt;li&gt;调用 claude 并传入您的脚本。例如：claude -p “migrate foo.py from React to Vue. When you are done, you MUST return the string OK if you succeeded, or FAIL if the task failed.” --allowedTools Edit Bash(git commit:*)&lt;/li&gt;
+&lt;li&gt;多次运行该脚本并优化您的提示以获得期望的结果。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;管道操作 (Pipelining)&lt;/strong&gt; 将 Claude 集成到现有的数据/处理管道中：
+&lt;ol&gt;
+&lt;li&gt;调用 claude -p “&amp;lt;your prompt&amp;gt;” --json | your_command，其中 your_command 是您处理管道的下一步。&lt;/li&gt;
+&lt;li&gt;就是这样！JSON 输出（可选）可以帮助提供结构，以便于自动化处理。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;对于这两种用例，使用 --verbose 标志进行调试 Claude 调用可能会很有帮助。我们通常建议在生产环境中关闭详细模式以获得更清晰的输出。&lt;/p&gt;
+&lt;p&gt;您在使用 Claude Code 方面有什么技巧和最佳实践吗？请标记 @AnthropicAI，让我们看看您正在构建什么！&lt;/p&gt;
+&lt;h2 id="致谢"&gt;&lt;strong&gt;致谢&lt;/strong&gt;
+&lt;/h2&gt;&lt;p&gt;作者：Boris Cherny。这项工作借鉴了广大 Claude Code 用户社区的最佳实践，他们富有创造力的方法和工作流程持续激励着我们。特别感谢 Daisy Hollman、Ashwin Bhat、Cat Wu、Sid Bidasaria、Cal Rueb、Nodir Turakulov、Barry Zhang、Drew Hodun 以及许多其他 Anthropic 工程师，他们宝贵的见解和使用 Claude Code 的实践经验帮助塑造了这些建议。&lt;/p&gt;
+&lt;h3 id="想了解更多"&gt;&lt;strong&gt;想了解更多？&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;通过 Anthropic Academy 的课程，掌握 API 开发、模型上下文协议（Model Context Protocol）和 Claude Code。完成课程后可获得证书。&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://anthropic.skilljar.com/" target="_blank" rel="noopener"
+&gt;探索课程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;© 2025 Anthropic PBC&lt;/p&gt;</description></item><item><title>MacOS 开发软件及 Shell 配置推荐</title><link>https://morsuning.github.io/p/macos-%E5%BC%80%E5%8F%91%E8%BD%AF%E4%BB%B6%E5%8F%8A-shell-%E9%85%8D%E7%BD%AE%E6%8E%A8%E8%8D%90/</link><pubDate>Sat, 11 May 2024 00:00:00 +0000</pubDate><guid>https://morsuning.github.io/p/macos-%E5%BC%80%E5%8F%91%E8%BD%AF%E4%BB%B6%E5%8F%8A-shell-%E9%85%8D%E7%BD%AE%E6%8E%A8%E8%8D%90/</guid><description>&lt;h2 id="常用软件"&gt;常用软件
+&lt;/h2&gt;&lt;h3 id="软件来源"&gt;软件来源
+&lt;/h3&gt;&lt;p&gt;&lt;a class="link" href="https://macwk.cn/" target="_blank" rel="noopener"
+&gt;macwk&lt;/a&gt; 学习版MacOS软件下载&lt;/p&gt;
+&lt;p&gt;Mac App Store 苹果官方应用商店，方便下载、卸载、更新和付费&lt;/p&gt;
+&lt;p&gt;Homebrew MacOS软件包管理器，通常用来安装开源软件&lt;/p&gt;
+&lt;p&gt;各软件官方网站&lt;/p&gt;
+&lt;h3 id="必备软件"&gt;必备软件
+&lt;/h3&gt;&lt;p&gt;&lt;a class="link" href="https://github.com/milanvarady/Applite" target="_blank" rel="noopener"
+&gt;applite&lt;/a&gt; brew GUI 建议在此安装推荐的软件和任何brew安装的软件，方便管理&lt;/p&gt;
+&lt;p&gt;appcleaner App卸载工具&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/clash-verge-rev/clash-verge-rev" target="_blank" rel="noopener"
+&gt;clash-verge-rev&lt;/a&gt; | &lt;a class="link" href="https://github.com/hiddify/hiddify-next" target="_blank" rel="noopener"
+&gt;hiddify-next&lt;/a&gt; 科学上网工具&lt;/p&gt;
+&lt;p&gt;The Unarchiver 压缩工具&lt;/p&gt;
+&lt;p&gt;item2 | wrap 终端模拟器&lt;/p&gt;
+&lt;p&gt;edge | arc 浏览器&lt;/p&gt;
+&lt;p&gt;motrix 全功能下载管理器&lt;/p&gt;
+&lt;p&gt;VSCode 全能代码编辑器&lt;/p&gt;
+&lt;p&gt;欧陆词典 单词查询&amp;amp;翻译&lt;/p&gt;
+&lt;p&gt;Notion 在线笔记 | Anytype 本地+在线笔记&lt;/p&gt;
+&lt;p&gt;Obsidian 离线可同步笔记&lt;/p&gt;
+&lt;p&gt;Microsoft Office 微软全家桶，办公专用&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="http://www.renfei.org/snippets-lab/" target="_blank" rel="noopener"
+&gt;SnippetsLab&lt;/a&gt; | Lepton 优秀的代码片段管理工具, 轻量, 可基于菜单栏操作&lt;/p&gt;
+&lt;p&gt;reeder RSS订阅浏览器&lt;/p&gt;
+&lt;p&gt;iina or infuse 视频播放器&lt;/p&gt;
+&lt;p&gt;koodo Reader 电子书管理，可替代calibre，支持多设备同步及epub等多种电子书格式&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://kapeli.com/dash" target="_blank" rel="noopener"
+&gt;dash&lt;/a&gt; 开发文档查阅&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.drbuho.com/buhontfs" target="_blank" rel="noopener"
+&gt;buhontfs&lt;/a&gt; NTFS磁盘工具，可读写NTFS磁盘，我是免费期入的，可用其他软件替代&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/exelban/stats" target="_blank" rel="noopener"
+&gt;stats&lt;/a&gt; iStats开源平替，菜单栏系统资源监视器&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://tailscale.com/" target="_blank" rel="noopener"
+&gt;tailscale&lt;/a&gt; 内网穿透工具&lt;/p&gt;
+&lt;p&gt;raycast | utools 效率工具平台，可集成各类效率插件，补全系统级功能，&lt;a class="link" href="https://github.com/marekbrze/categorized-raycast-extensions" target="_blank" rel="noopener"
+&gt;raycast 插件推荐&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Barbee | Bartender 菜单栏项自定义隐藏，避免被刘海遮挡&lt;/p&gt;
+&lt;p&gt;PDF Expert pdf编辑工具&lt;/p&gt;
+&lt;p&gt;XnViewMP 图片查看格式转换压缩&lt;/p&gt;
+&lt;p&gt;rustdesk 远程桌面工具&lt;/p&gt;
+&lt;p&gt;whisky 运行windows应用&lt;/p&gt;
+&lt;p&gt;playcover 运行未在Mac App Store上架的ios应用&lt;/p&gt;
+&lt;p&gt;UTM | Parallels Desktop 虚拟机软件&lt;/p&gt;
+&lt;p&gt;Quick Look 插件: 选中文件，按空格预览&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;QuicklookStephen - 查看未知拓展名的纯文本文件 brew install &amp;ndash;cask qlstephen&lt;/li&gt;
+&lt;li&gt;QLMarkdown - 空格键预览 Markdown 文本效果 - brew install &amp;ndash;cask qlmarkdown&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="可选软件"&gt;可选软件
+&lt;/h3&gt;&lt;p&gt;&lt;a class="link" href="https://capslock.vonng.com/#/zh-cn/" target="_blank" rel="noopener"
+&gt;capslock&lt;/a&gt; 将CapsLock键改造为强力功能修饰键&lt;/p&gt;
+&lt;p&gt;Downie 下载视频，也可以使用&lt;a class="link" href="https://cobalt.tools/" target="_blank" rel="noopener"
+&gt;cobalt&lt;/a&gt;这个网站&lt;/p&gt;
+&lt;p&gt;switchhosts host切换&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="http://mac.softpedia.com/get/Utilities/KeyCastr.shtml" target="_blank" rel="noopener"
+&gt;KeyCastr&lt;/a&gt; 将mac按键显示在屏幕上，分享演示、录制视频或动图时超赞&lt;/p&gt;
+&lt;p&gt;pixpin 截图&amp;amp;OCR工具&lt;/p&gt;
+&lt;p&gt;QSpace &amp;amp; TotalFinder 访达增强&lt;/p&gt;
+&lt;p&gt;BetterMouse 全能鼠标驱动设置&lt;/p&gt;
+&lt;p&gt;permute3 格式转换&lt;/p&gt;
+&lt;p&gt;android file transfer 传输安卓系统文件&lt;/p&gt;
+&lt;p&gt;Etcher 制作 U 盘镜像&lt;/p&gt;
+&lt;p&gt;ventoy 新一代多系统启动U盘解决方案&lt;/p&gt;
+&lt;p&gt;CheatSheet 按command显示当前应用快捷键&lt;/p&gt;
+&lt;p&gt;AlDente 用于MacBooks的ALL-IN-ONE充电限制器应用软件&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;开发者工具&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;DBeaver ｜ Naviat 数据库客户端&lt;/p&gt;
+&lt;p&gt;postman API管理工具&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/RubyMetric/chsrc" target="_blank" rel="noopener"
+&gt;chsrc&lt;/a&gt; 全平台一件换源工具&lt;/p&gt;
+&lt;h3 id="命令行工具简要推荐"&gt;命令行工具简要推荐
+&lt;/h3&gt;&lt;p&gt;wget 下载工具&lt;/p&gt;
+&lt;p&gt;tmux 终端复用&lt;/p&gt;
+&lt;p&gt;cloc 代码行数统计命令行工具&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;proxychains-ng&lt;/strong&gt; 终端命令行下代理神器，可以让指定的命令走设置好的代理，内网渗透、科学上网必备工具 brew install proxychains-ng 配置文件: /usr/local/etc/proxychains.conf&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;proxychains4 curl &lt;a class="link" href="https://www.google.com.hk" target="_blank" rel="noopener"
+&gt;https://www.google.com.hk&lt;/a&gt; 通过代理访问&lt;/li&gt;
+&lt;li&gt;proxychains4 -q /bin/zsh 开启zsh全局代理&lt;/li&gt;
+&lt;li&gt;配置文件最后一行配置示例: http 127.0.0.1 7897&lt;/li&gt;
+&lt;li&gt;建议配置alias pc=’proxychains4’&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="shell"&gt;Shell
+&lt;/h2&gt;&lt;p&gt;使用当前MacOS下体验最佳终端Warp，搭配MacOS自带的zsh及其配置框架oh-my-zsh&lt;/p&gt;
+&lt;p&gt;先依次安装&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;oh-my-zsh: zsh配置框架 sh -c &amp;ldquo;$(curl -fsSL &lt;a class="link" href="https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh%29%22" target="_blank" rel="noopener"
+&gt;https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;brew: 包管理工具&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="配置oh-my-zsh"&gt;配置oh-my-zsh
+&lt;/h3&gt;&lt;p&gt;修改～/.zshrc&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;主题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;ZSH_THEME=”robbyrussell”默认&lt;/p&gt;
+&lt;p&gt;推荐主题：简洁 - cloud, af-magic;详细 - ys, dst&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;zsh插件&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;自动跳转插件autojump&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/wting/autojump.git &lt;span class="nv"&gt;$ZSH_CUSTOM&lt;/span&gt;/plugins/autojump&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="nv"&gt;$ZSH_CUSTOM&lt;/span&gt;/plugins/autojump&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;python3 install.py&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;只要访问过某个目录直接 j 目录 即可跳转到该目录&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;extract (oh-my-zsh内置)一个命令解压所有文件 x &amp;lt;文件名&amp;gt; 即可解压该文件&lt;/li&gt;
+&lt;li&gt;zsh-syntax-highlighting 语法高亮插件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-jsx" data-lang="jsx"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;git&lt;/span&gt; &lt;span class="nx"&gt;clone&lt;/span&gt; &lt;span class="nx"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;zsh-autosuggestions 命令自动补全插件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-jsx" data-lang="jsx"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;git&lt;/span&gt; &lt;span class="nx"&gt;clone&lt;/span&gt; &lt;span class="nx"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;最终的参考.zshrc文件&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt; 10
+&lt;/span&gt;&lt;span class="lnt"&gt; 11
+&lt;/span&gt;&lt;span class="lnt"&gt; 12
+&lt;/span&gt;&lt;span class="lnt"&gt; 13
+&lt;/span&gt;&lt;span class="lnt"&gt; 14
+&lt;/span&gt;&lt;span class="lnt"&gt; 15
+&lt;/span&gt;&lt;span class="lnt"&gt; 16
+&lt;/span&gt;&lt;span class="lnt"&gt; 17
+&lt;/span&gt;&lt;span class="lnt"&gt; 18
+&lt;/span&gt;&lt;span class="lnt"&gt; 19
+&lt;/span&gt;&lt;span class="lnt"&gt; 20
+&lt;/span&gt;&lt;span class="lnt"&gt; 21
+&lt;/span&gt;&lt;span class="lnt"&gt; 22
+&lt;/span&gt;&lt;span class="lnt"&gt; 23
+&lt;/span&gt;&lt;span class="lnt"&gt; 24
+&lt;/span&gt;&lt;span class="lnt"&gt; 25
+&lt;/span&gt;&lt;span class="lnt"&gt; 26
+&lt;/span&gt;&lt;span class="lnt"&gt; 27
+&lt;/span&gt;&lt;span class="lnt"&gt; 28
+&lt;/span&gt;&lt;span class="lnt"&gt; 29
+&lt;/span&gt;&lt;span class="lnt"&gt; 30
+&lt;/span&gt;&lt;span class="lnt"&gt; 31
+&lt;/span&gt;&lt;span class="lnt"&gt; 32
+&lt;/span&gt;&lt;span class="lnt"&gt; 33
+&lt;/span&gt;&lt;span class="lnt"&gt; 34
+&lt;/span&gt;&lt;span class="lnt"&gt; 35
+&lt;/span&gt;&lt;span class="lnt"&gt; 36
+&lt;/span&gt;&lt;span class="lnt"&gt; 37
+&lt;/span&gt;&lt;span class="lnt"&gt; 38
+&lt;/span&gt;&lt;span class="lnt"&gt; 39
+&lt;/span&gt;&lt;span class="lnt"&gt; 40
+&lt;/span&gt;&lt;span class="lnt"&gt; 41
+&lt;/span&gt;&lt;span class="lnt"&gt; 42
+&lt;/span&gt;&lt;span class="lnt"&gt; 43
+&lt;/span&gt;&lt;span class="lnt"&gt; 44
+&lt;/span&gt;&lt;span class="lnt"&gt; 45
+&lt;/span&gt;&lt;span class="lnt"&gt; 46
+&lt;/span&gt;&lt;span class="lnt"&gt; 47
+&lt;/span&gt;&lt;span class="lnt"&gt; 48
+&lt;/span&gt;&lt;span class="lnt"&gt; 49
+&lt;/span&gt;&lt;span class="lnt"&gt; 50
+&lt;/span&gt;&lt;span class="lnt"&gt; 51
+&lt;/span&gt;&lt;span class="lnt"&gt; 52
+&lt;/span&gt;&lt;span class="lnt"&gt; 53
+&lt;/span&gt;&lt;span class="lnt"&gt; 54
+&lt;/span&gt;&lt;span class="lnt"&gt; 55
+&lt;/span&gt;&lt;span class="lnt"&gt; 56
+&lt;/span&gt;&lt;span class="lnt"&gt; 57
+&lt;/span&gt;&lt;span class="lnt"&gt; 58
+&lt;/span&gt;&lt;span class="lnt"&gt; 59
+&lt;/span&gt;&lt;span class="lnt"&gt; 60
+&lt;/span&gt;&lt;span class="lnt"&gt; 61
+&lt;/span&gt;&lt;span class="lnt"&gt; 62
+&lt;/span&gt;&lt;span class="lnt"&gt; 63
+&lt;/span&gt;&lt;span class="lnt"&gt; 64
+&lt;/span&gt;&lt;span class="lnt"&gt; 65
+&lt;/span&gt;&lt;span class="lnt"&gt; 66
+&lt;/span&gt;&lt;span class="lnt"&gt; 67
+&lt;/span&gt;&lt;span class="lnt"&gt; 68
+&lt;/span&gt;&lt;span class="lnt"&gt; 69
+&lt;/span&gt;&lt;span class="lnt"&gt; 70
+&lt;/span&gt;&lt;span class="lnt"&gt; 71
+&lt;/span&gt;&lt;span class="lnt"&gt; 72
+&lt;/span&gt;&lt;span class="lnt"&gt; 73
+&lt;/span&gt;&lt;span class="lnt"&gt; 74
+&lt;/span&gt;&lt;span class="lnt"&gt; 75
+&lt;/span&gt;&lt;span class="lnt"&gt; 76
+&lt;/span&gt;&lt;span class="lnt"&gt; 77
+&lt;/span&gt;&lt;span class="lnt"&gt; 78
+&lt;/span&gt;&lt;span class="lnt"&gt; 79
+&lt;/span&gt;&lt;span class="lnt"&gt; 80
+&lt;/span&gt;&lt;span class="lnt"&gt; 81
+&lt;/span&gt;&lt;span class="lnt"&gt; 82
+&lt;/span&gt;&lt;span class="lnt"&gt; 83
+&lt;/span&gt;&lt;span class="lnt"&gt; 84
+&lt;/span&gt;&lt;span class="lnt"&gt; 85
+&lt;/span&gt;&lt;span class="lnt"&gt; 86
+&lt;/span&gt;&lt;span class="lnt"&gt; 87
+&lt;/span&gt;&lt;span class="lnt"&gt; 88
+&lt;/span&gt;&lt;span class="lnt"&gt; 89
+&lt;/span&gt;&lt;span class="lnt"&gt; 90
+&lt;/span&gt;&lt;span class="lnt"&gt; 91
+&lt;/span&gt;&lt;span class="lnt"&gt; 92
+&lt;/span&gt;&lt;span class="lnt"&gt; 93
+&lt;/span&gt;&lt;span class="lnt"&gt; 94
+&lt;/span&gt;&lt;span class="lnt"&gt; 95
+&lt;/span&gt;&lt;span class="lnt"&gt; 96
+&lt;/span&gt;&lt;span class="lnt"&gt; 97
+&lt;/span&gt;&lt;span class="lnt"&gt; 98
+&lt;/span&gt;&lt;span class="lnt"&gt; 99
+&lt;/span&gt;&lt;span class="lnt"&gt;100
+&lt;/span&gt;&lt;span class="lnt"&gt;101
+&lt;/span&gt;&lt;span class="lnt"&gt;102
+&lt;/span&gt;&lt;span class="lnt"&gt;103
+&lt;/span&gt;&lt;span class="lnt"&gt;104
+&lt;/span&gt;&lt;span class="lnt"&gt;105
+&lt;/span&gt;&lt;span class="lnt"&gt;106
+&lt;/span&gt;&lt;span class="lnt"&gt;107
+&lt;/span&gt;&lt;span class="lnt"&gt;108
+&lt;/span&gt;&lt;span class="lnt"&gt;109
+&lt;/span&gt;&lt;span class="lnt"&gt;110
+&lt;/span&gt;&lt;span class="lnt"&gt;111
+&lt;/span&gt;&lt;span class="lnt"&gt;112
+&lt;/span&gt;&lt;span class="lnt"&gt;113
+&lt;/span&gt;&lt;span class="lnt"&gt;114
+&lt;/span&gt;&lt;span class="lnt"&gt;115
+&lt;/span&gt;&lt;span class="lnt"&gt;116
+&lt;/span&gt;&lt;span class="lnt"&gt;117
+&lt;/span&gt;&lt;span class="lnt"&gt;118
+&lt;/span&gt;&lt;span class="lnt"&gt;119
+&lt;/span&gt;&lt;span class="lnt"&gt;120
+&lt;/span&gt;&lt;span class="lnt"&gt;121
+&lt;/span&gt;&lt;span class="lnt"&gt;122
+&lt;/span&gt;&lt;span class="lnt"&gt;123
+&lt;/span&gt;&lt;span class="lnt"&gt;124
+&lt;/span&gt;&lt;span class="lnt"&gt;125
+&lt;/span&gt;&lt;span class="lnt"&gt;126
+&lt;/span&gt;&lt;span class="lnt"&gt;127
+&lt;/span&gt;&lt;span class="lnt"&gt;128
+&lt;/span&gt;&lt;span class="lnt"&gt;129
+&lt;/span&gt;&lt;span class="lnt"&gt;130
+&lt;/span&gt;&lt;span class="lnt"&gt;131
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# If you come from bash you might have to change your $PATH.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;/env/bin:&lt;span class="nv"&gt;$HOME&lt;/span&gt;/.local/bin:/usr/local/bin:/opt/homebrew/bin:&lt;span class="nv"&gt;$PATH&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Homebrew mirror&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;HOMEBREW_BREW_GIT_REMOTE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;https://mirrors.ustc.edu.cn/brew.git&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;HOMEBREW_CORE_GIT_REMOTE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;https://mirrors.ustc.edu.cn/homebrew-core.git&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;HOMEBREW_BOTTLE_DOMAIN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;https://mirrors.ustc.edu.cn/homebrew-bottles&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;HOMEBREW_API_DOMAIN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;https://mirrors.ustc.edu.cn/homebrew-bottles/api&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Path to your oh-my-zsh installation.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;ZSH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;$HOME&lt;/span&gt;&lt;span class="s2"&gt;/.oh-my-zsh&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Set name of the theme to load --- if set to &amp;#34;random&amp;#34;, it will&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# load a random theme each time oh-my-zsh is loaded, in which case,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# to know which specific one was loaded, run: echo $RANDOM_THEME&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;ZSH_THEME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;ys&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Set list of themes to pick from when loading at random&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Setting this variable when ZSH_THEME=random will cause zsh to load&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# a theme from this variable instead of looking in $ZSH/themes/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# If set to an empty array, this variable will have no effect.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# ZSH_THEME_RANDOM_CANDIDATES=( &amp;#34;robbyrussell&amp;#34; &amp;#34;agnoster&amp;#34; )&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment the following line to use case-sensitive completion.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# CASE_SENSITIVE=&amp;#34;true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment the following line to use hyphen-insensitive completion.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Case-sensitive completion must be off. _ and - will be interchangeable.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# HYPHEN_INSENSITIVE=&amp;#34;true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment one of the following lines to change the auto-update behavior&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# zstyle &amp;#39;:omz:update&amp;#39; mode disabled # disable automatic updates&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# zstyle &amp;#39;:omz:update&amp;#39; mode auto # update automatically without asking&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# zstyle &amp;#39;:omz:update&amp;#39; mode reminder # just remind me to update when it&amp;#39;s time&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment the following line to change how often to auto-update (in days).&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# zstyle &amp;#39;:omz:update&amp;#39; frequency 13&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment the following line if pasting URLs and other text is messed up.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# DISABLE_MAGIC_FUNCTIONS=&amp;#34;true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment the following line to disable colors in ls.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# DISABLE_LS_COLORS=&amp;#34;true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment the following line to disable auto-setting terminal title.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# DISABLE_AUTO_TITLE=&amp;#34;true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment the following line to enable command auto-correction.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# ENABLE_CORRECTION=&amp;#34;true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment the following line to display red dots whilst waiting for completion.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# You can also set it to another string to have that shown instead of the default red dots.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# e.g. COMPLETION_WAITING_DOTS=&amp;#34;%F{yellow}waiting...%f&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Caution: this setting can cause issues with multiline prompts in zsh &amp;lt; 5.7.1 (see #5765)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# COMPLETION_WAITING_DOTS=&amp;#34;true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment the following line if you want to disable marking untracked files&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# under VCS as dirty. This makes repository status check for large repositories&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# much, much faster.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# DISABLE_UNTRACKED_FILES_DIRTY=&amp;#34;true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Uncomment the following line if you want to change the command execution time&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# stamp shown in the history command output.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# You can set one of the optional three formats:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# &amp;#34;mm/dd/yyyy&amp;#34;|&amp;#34;dd.mm.yyyy&amp;#34;|&amp;#34;yyyy-mm-dd&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# or set a custom format using the strftime function format specifications,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# see &amp;#39;man strftime&amp;#39; for details.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# HIST_STAMPS=&amp;#34;mm/dd/yyyy&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Would you like to use another custom folder than $ZSH/custom?&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# ZSH_CUSTOM=/path/to/new-custom-folder&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Which plugins would you like to load?&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Standard plugins can be found in $ZSH/plugins/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Custom plugins may be added to $ZSH_CUSTOM/plugins/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Example format: plugins=(rails git textmate ruby lighthouse)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Add wisely, as too many plugins slow down shell startup.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;plugins&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt;git extract textmate ruby mvn gradle autojump zsh-syntax-highlighting zsh-autosuggestions&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;source&lt;/span&gt; &lt;span class="nv"&gt;$ZSH&lt;/span&gt;/oh-my-zsh.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# User configuration&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;autoload -U compinit
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# export MANPATH=&amp;#34;/usr/local/man:$MANPATH&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# You may need to manually set your language environment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# export LANG=en_US.UTF-8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Preferred editor for local and remote sessions&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# if [[ -n $SSH_CONNECTION ]]; then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# export EDITOR=&amp;#39;vim&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# export EDITOR=&amp;#39;mvim&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Compilation flags&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# export ARCHFLAGS=&amp;#34;-arch x86_64&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Set personal aliases, overriding those provided by oh-my-zsh libs,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# plugins, and themes. Aliases can be placed here, though oh-my-zsh&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# users are encouraged to define aliases within the ZSH_CUSTOM folder.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# For a full list of active aliases, run `alias`.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Example aliases&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# alias zshconfig=&amp;#34;mate ~/.zshrc&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# alias ohmyzsh=&amp;#34;mate ~/.oh-my-zsh&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;dk&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;docker&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;python&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;python3&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;cls&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;clear&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;vi&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;vim&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;pc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;proxychains4&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;javac&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;javac -J-Dfile.encoding=utf8&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;grep&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;grep --color=auto&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;html&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;vi &lt;span class="c1"&gt;# 在命令行直接输入后缀为 html 的文件名，会在 TextMate 中打开&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;rb&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;vi &lt;span class="c1"&gt;# 在命令行直接输入 ruby 文件，会在 TextMate 中打开&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;py&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;vi &lt;span class="c1"&gt;# 在命令行直接输入 python 文件，会用 vim 中打开，以下类似&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;js&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;vi
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;c&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;vi
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;java&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;vi
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;txt&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;vi
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;gz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;tar -xzvf&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;tgz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;tar -xzvf&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;zip&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;unzip&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;alias&lt;/span&gt; -s &lt;span class="nv"&gt;bz2&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;tar -xjvf&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Source global definitions&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;s2c &lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; scp &lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;$@&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SSH_CLIENT&lt;/span&gt;&lt;span class="p"&gt;%% *&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;:~/&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;c2s &lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; scp &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SSH_CLIENT&lt;/span&gt;&lt;span class="p"&gt;%% *&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;:&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt;&lt;span class="nv"&gt;$@&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; .&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item></channel></rss>

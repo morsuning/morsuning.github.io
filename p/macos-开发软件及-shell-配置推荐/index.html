@@ -1,0 +1,291 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="常用软件 软件来源 macwk 学习版MacOS软件下载\nMac App Store 苹果官方应用商店，方便下载、卸载、更新和付费\nHomebrew MacOS软件包管理器，通常用来安装开源软件\n各软件官方网站\n必备软件 applite brew GUI 建议在此安装推荐的软件和任何brew安装的软件，方便管理\n"><title>MacOS 开发软件及 Shell 配置推荐</title><link rel=canonical href=https://morsuning.github.io/p/macos-%E5%BC%80%E5%8F%91%E8%BD%AF%E4%BB%B6%E5%8F%8A-shell-%E9%85%8D%E7%BD%AE%E6%8E%A8%E8%8D%90/><link rel=stylesheet href=/scss/style.min.833d6eed45de56f48306bf57268d5b8cdfc8a60e8e7bdc99810464fcd033f7c6.css><meta property='og:title' content="MacOS 开发软件及 Shell 配置推荐"><meta property='og:description' content="常用软件 软件来源 macwk 学习版MacOS软件下载\nMac App Store 苹果官方应用商店，方便下载、卸载、更新和付费\nHomebrew MacOS软件包管理器，通常用来安装开源软件\n各软件官方网站\n必备软件 applite brew GUI 建议在此安装推荐的软件和任何brew安装的软件，方便管理\n"><meta property='og:url' content='https://morsuning.github.io/p/macos-%E5%BC%80%E5%8F%91%E8%BD%AF%E4%BB%B6%E5%8F%8A-shell-%E9%85%8D%E7%BD%AE%E6%8E%A8%E8%8D%90/'><meta property='og:site_name' content="morsuning's Blog"><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='R&amp;D Efficiency'><meta property='article:published_time' content='2024-05-11T00:00:00+00:00'><meta property='article:modified_time' content='2024-05-11T00:00:00+00:00'><meta name=twitter:title content="MacOS 开发软件及 Shell 配置推荐"><meta name=twitter:description content="常用软件 软件来源 macwk 学习版MacOS软件下载\nMac App Store 苹果官方应用商店，方便下载、卸载、更新和付费\nHomebrew MacOS软件包管理器，通常用来安装开源软件\n各软件官方网站\n必备软件 applite brew GUI 建议在此安装推荐的软件和任何brew安装的软件，方便管理\n"><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu_40bcc3d697d2dcd2.png width=300 height=225 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🌟</span></figure><div class=site-meta><h1 class=site-name><a href=/>morsuning's Blog</a></h1><h2 class=site-description>Developer. Geeker. e/acc. Investing in the future.</h2></div></header><ol class=menu-social><li><a href=https://github.com/morsuning target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/morsuning target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Links</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#常用软件>常用软件</a><ol><li><a href=#软件来源>软件来源</a></li><li><a href=#必备软件>必备软件</a></li><li><a href=#可选软件>可选软件</a></li><li><a href=#命令行工具简要推荐>命令行工具简要推荐</a></li></ol></li><li><a href=#shell>Shell</a><ol><li><a href=#配置oh-my-zsh>配置oh-my-zsh</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/share/>Share</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/macos-%E5%BC%80%E5%8F%91%E8%BD%AF%E4%BB%B6%E5%8F%8A-shell-%E9%85%8D%E7%BD%AE%E6%8E%A8%E8%8D%90/>MacOS 开发软件及 Shell 配置推荐</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2024-05-11T00:00:00Z>May 11, 2024</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 5 分钟</time></div></footer></div></header><section class=article-content><h2 id=常用软件>常用软件</h2><h3 id=软件来源>软件来源</h3><p><a class=link href=https://macwk.cn/ target=_blank rel=noopener>macwk</a> 学习版MacOS软件下载</p><p>Mac App Store 苹果官方应用商店，方便下载、卸载、更新和付费</p><p>Homebrew MacOS软件包管理器，通常用来安装开源软件</p><p>各软件官方网站</p><h3 id=必备软件>必备软件</h3><p><a class=link href=https://github.com/milanvarady/Applite target=_blank rel=noopener>applite</a> brew GUI 建议在此安装推荐的软件和任何brew安装的软件，方便管理</p><p>appcleaner App卸载工具</p><p><a class=link href=https://github.com/clash-verge-rev/clash-verge-rev target=_blank rel=noopener>clash-verge-rev</a> | <a class=link href=https://github.com/hiddify/hiddify-next target=_blank rel=noopener>hiddify-next</a> 科学上网工具</p><p>The Unarchiver 压缩工具</p><p>item2 | wrap 终端模拟器</p><p>edge | arc 浏览器</p><p>motrix 全功能下载管理器</p><p>VSCode 全能代码编辑器</p><p>欧陆词典 单词查询&翻译</p><p>Notion 在线笔记 | Anytype 本地+在线笔记</p><p>Obsidian 离线可同步笔记</p><p>Microsoft Office 微软全家桶，办公专用</p><p><a class=link href=http://www.renfei.org/snippets-lab/ target=_blank rel=noopener>SnippetsLab</a> | Lepton 优秀的代码片段管理工具, 轻量, 可基于菜单栏操作</p><p>reeder RSS订阅浏览器</p><p>iina or infuse 视频播放器</p><p>koodo Reader 电子书管理，可替代calibre，支持多设备同步及epub等多种电子书格式</p><p><a class=link href=https://kapeli.com/dash target=_blank rel=noopener>dash</a> 开发文档查阅</p><p><a class=link href=https://www.drbuho.com/buhontfs target=_blank rel=noopener>buhontfs</a> NTFS磁盘工具，可读写NTFS磁盘，我是免费期入的，可用其他软件替代</p><p><a class=link href=https://github.com/exelban/stats target=_blank rel=noopener>stats</a> iStats开源平替，菜单栏系统资源监视器</p><p><a class=link href=https://tailscale.com/ target=_blank rel=noopener>tailscale</a> 内网穿透工具</p><p>raycast | utools 效率工具平台，可集成各类效率插件，补全系统级功能，<a class=link href=https://github.com/marekbrze/categorized-raycast-extensions target=_blank rel=noopener>raycast 插件推荐</a></p><p>Barbee | Bartender 菜单栏项自定义隐藏，避免被刘海遮挡</p><p>PDF Expert pdf编辑工具</p><p>XnViewMP 图片查看格式转换压缩</p><p>rustdesk 远程桌面工具</p><p>whisky 运行windows应用</p><p>playcover 运行未在Mac App Store上架的ios应用</p><p>UTM | Parallels Desktop 虚拟机软件</p><p>Quick Look 插件: 选中文件，按空格预览</p><ul><li>QuicklookStephen - 查看未知拓展名的纯文本文件 brew install &ndash;cask qlstephen</li><li>QLMarkdown - 空格键预览 Markdown 文本效果 - brew install &ndash;cask qlmarkdown</li></ul><h3 id=可选软件>可选软件</h3><p><a class=link href=https://capslock.vonng.com/#/zh-cn/ target=_blank rel=noopener>capslock</a> 将CapsLock键改造为强力功能修饰键</p><p>Downie 下载视频，也可以使用<a class=link href=https://cobalt.tools/ target=_blank rel=noopener>cobalt</a>这个网站</p><p>switchhosts host切换</p><p><a class=link href=http://mac.softpedia.com/get/Utilities/KeyCastr.shtml target=_blank rel=noopener>KeyCastr</a> 将mac按键显示在屏幕上，分享演示、录制视频或动图时超赞</p><p>pixpin 截图&amp;OCR工具</p><p>QSpace & TotalFinder 访达增强</p><p>BetterMouse 全能鼠标驱动设置</p><p>permute3 格式转换</p><p>android file transfer 传输安卓系统文件</p><p>Etcher 制作 U 盘镜像</p><p>ventoy 新一代多系统启动U盘解决方案</p><p>CheatSheet 按command显示当前应用快捷键</p><p>AlDente 用于MacBooks的ALL-IN-ONE充电限制器应用软件</p><p><strong>开发者工具</strong></p><p>DBeaver ｜ Naviat 数据库客户端</p><p>postman API管理工具</p><p><a class=link href=https://github.com/RubyMetric/chsrc target=_blank rel=noopener>chsrc</a> 全平台一件换源工具</p><h3 id=命令行工具简要推荐>命令行工具简要推荐</h3><p>wget 下载工具</p><p>tmux 终端复用</p><p>cloc 代码行数统计命令行工具</p><p><strong>proxychains-ng</strong> 终端命令行下代理神器，可以让指定的命令走设置好的代理，内网渗透、科学上网必备工具 brew install proxychains-ng 配置文件: /usr/local/etc/proxychains.conf</p><ul><li>proxychains4 curl <a class=link href=https://www.google.com.hk target=_blank rel=noopener>https://www.google.com.hk</a> 通过代理访问</li><li>proxychains4 -q /bin/zsh 开启zsh全局代理</li><li>配置文件最后一行配置示例: http 127.0.0.1 7897</li><li>建议配置alias pc=’proxychains4’</li></ul><h2 id=shell>Shell</h2><p>使用当前MacOS下体验最佳终端Warp，搭配MacOS自带的zsh及其配置框架oh-my-zsh</p><p>先依次安装</p><ol><li>oh-my-zsh: zsh配置框架 sh -c &ldquo;$(curl -fsSL <a class=link href=https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh%29%22 target=_blank rel=noopener>https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</a></li><li>brew: 包管理工具</li></ol><h3 id=配置oh-my-zsh>配置oh-my-zsh</h3><p>修改～/.zshrc</p><p><strong>主题</strong></p><p>ZSH_THEME=”robbyrussell”默认</p><p>推荐主题：简洁 - cloud, af-magic;详细 - ys, dst</p><p><strong>zsh插件</strong></p><ul><li>自动跳转插件autojump</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone https://github.com/wting/autojump.git <span class=nv>$ZSH_CUSTOM</span>/plugins/autojump<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> <span class=nv>$ZSH_CUSTOM</span>/plugins/autojump<span class=p>;</span>
+</span></span><span class=line><span class=cl>python3 install.py<span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>只要访问过某个目录直接 j 目录 即可跳转到该目录</p><ul><li>extract (oh-my-zsh内置)一个命令解压所有文件 x &lt;文件名> 即可解压该文件</li><li>zsh-syntax-highlighting 语法高亮插件</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=nx>git</span> <span class=nx>clone</span> <span class=nx>https</span><span class=o>:</span><span class=c1>//github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting;
+</span></span></span></code></pre></td></tr></table></div></div><ul><li>zsh-autosuggestions 命令自动补全插件</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=nx>git</span> <span class=nx>clone</span> <span class=nx>https</span><span class=o>:</span><span class=c1>//github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions;
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>最终的参考.zshrc文件</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># If you come from bash you might have to change your $PATH.</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span><span class=nv>$HOME</span>/env/bin:<span class=nv>$HOME</span>/.local/bin:/usr/local/bin:/opt/homebrew/bin:<span class=nv>$PATH</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Homebrew mirror</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>HOMEBREW_BREW_GIT_REMOTE</span><span class=o>=</span><span class=s2>&#34;https://mirrors.ustc.edu.cn/brew.git&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>HOMEBREW_CORE_GIT_REMOTE</span><span class=o>=</span><span class=s2>&#34;https://mirrors.ustc.edu.cn/homebrew-core.git&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>HOMEBREW_BOTTLE_DOMAIN</span><span class=o>=</span><span class=s2>&#34;https://mirrors.ustc.edu.cn/homebrew-bottles&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>HOMEBREW_API_DOMAIN</span><span class=o>=</span><span class=s2>&#34;https://mirrors.ustc.edu.cn/homebrew-bottles/api&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Path to your oh-my-zsh installation.</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>ZSH</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$HOME</span><span class=s2>/.oh-my-zsh&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Set name of the theme to load --- if set to &#34;random&#34;, it will</span>
+</span></span><span class=line><span class=cl><span class=c1># load a random theme each time oh-my-zsh is loaded, in which case,</span>
+</span></span><span class=line><span class=cl><span class=c1># to know which specific one was loaded, run: echo $RANDOM_THEME</span>
+</span></span><span class=line><span class=cl><span class=c1># See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes</span>
+</span></span><span class=line><span class=cl><span class=nv>ZSH_THEME</span><span class=o>=</span><span class=s2>&#34;ys&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Set list of themes to pick from when loading at random</span>
+</span></span><span class=line><span class=cl><span class=c1># Setting this variable when ZSH_THEME=random will cause zsh to load</span>
+</span></span><span class=line><span class=cl><span class=c1># a theme from this variable instead of looking in $ZSH/themes/</span>
+</span></span><span class=line><span class=cl><span class=c1># If set to an empty array, this variable will have no effect.</span>
+</span></span><span class=line><span class=cl><span class=c1># ZSH_THEME_RANDOM_CANDIDATES=( &#34;robbyrussell&#34; &#34;agnoster&#34; )</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment the following line to use case-sensitive completion.</span>
+</span></span><span class=line><span class=cl><span class=c1># CASE_SENSITIVE=&#34;true&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment the following line to use hyphen-insensitive completion.</span>
+</span></span><span class=line><span class=cl><span class=c1># Case-sensitive completion must be off. _ and - will be interchangeable.</span>
+</span></span><span class=line><span class=cl><span class=c1># HYPHEN_INSENSITIVE=&#34;true&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment one of the following lines to change the auto-update behavior</span>
+</span></span><span class=line><span class=cl><span class=c1># zstyle &#39;:omz:update&#39; mode disabled  # disable automatic updates</span>
+</span></span><span class=line><span class=cl><span class=c1># zstyle &#39;:omz:update&#39; mode auto      # update automatically without asking</span>
+</span></span><span class=line><span class=cl><span class=c1># zstyle &#39;:omz:update&#39; mode reminder  # just remind me to update when it&#39;s time</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment the following line to change how often to auto-update (in days).</span>
+</span></span><span class=line><span class=cl><span class=c1># zstyle &#39;:omz:update&#39; frequency 13</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment the following line if pasting URLs and other text is messed up.</span>
+</span></span><span class=line><span class=cl><span class=c1># DISABLE_MAGIC_FUNCTIONS=&#34;true&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment the following line to disable colors in ls.</span>
+</span></span><span class=line><span class=cl><span class=c1># DISABLE_LS_COLORS=&#34;true&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment the following line to disable auto-setting terminal title.</span>
+</span></span><span class=line><span class=cl><span class=c1># DISABLE_AUTO_TITLE=&#34;true&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment the following line to enable command auto-correction.</span>
+</span></span><span class=line><span class=cl><span class=c1># ENABLE_CORRECTION=&#34;true&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment the following line to display red dots whilst waiting for completion.</span>
+</span></span><span class=line><span class=cl><span class=c1># You can also set it to another string to have that shown instead of the default red dots.</span>
+</span></span><span class=line><span class=cl><span class=c1># e.g. COMPLETION_WAITING_DOTS=&#34;%F{yellow}waiting...%f&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1># Caution: this setting can cause issues with multiline prompts in zsh &lt; 5.7.1 (see #5765)</span>
+</span></span><span class=line><span class=cl><span class=c1># COMPLETION_WAITING_DOTS=&#34;true&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment the following line if you want to disable marking untracked files</span>
+</span></span><span class=line><span class=cl><span class=c1># under VCS as dirty. This makes repository status check for large repositories</span>
+</span></span><span class=line><span class=cl><span class=c1># much, much faster.</span>
+</span></span><span class=line><span class=cl><span class=c1># DISABLE_UNTRACKED_FILES_DIRTY=&#34;true&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Uncomment the following line if you want to change the command execution time</span>
+</span></span><span class=line><span class=cl><span class=c1># stamp shown in the history command output.</span>
+</span></span><span class=line><span class=cl><span class=c1># You can set one of the optional three formats:</span>
+</span></span><span class=line><span class=cl><span class=c1># &#34;mm/dd/yyyy&#34;|&#34;dd.mm.yyyy&#34;|&#34;yyyy-mm-dd&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1># or set a custom format using the strftime function format specifications,</span>
+</span></span><span class=line><span class=cl><span class=c1># see &#39;man strftime&#39; for details.</span>
+</span></span><span class=line><span class=cl><span class=c1># HIST_STAMPS=&#34;mm/dd/yyyy&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Would you like to use another custom folder than $ZSH/custom?</span>
+</span></span><span class=line><span class=cl><span class=c1># ZSH_CUSTOM=/path/to/new-custom-folder</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Which plugins would you like to load?</span>
+</span></span><span class=line><span class=cl><span class=c1># Standard plugins can be found in $ZSH/plugins/</span>
+</span></span><span class=line><span class=cl><span class=c1># Custom plugins may be added to $ZSH_CUSTOM/plugins/</span>
+</span></span><span class=line><span class=cl><span class=c1># Example format: plugins=(rails git textmate ruby lighthouse)</span>
+</span></span><span class=line><span class=cl><span class=c1># Add wisely, as too many plugins slow down shell startup.</span>
+</span></span><span class=line><span class=cl><span class=nv>plugins</span><span class=o>=(</span>git extract textmate ruby mvn gradle autojump zsh-syntax-highlighting zsh-autosuggestions<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>source</span> <span class=nv>$ZSH</span>/oh-my-zsh.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># User configuration</span>
+</span></span><span class=line><span class=cl>autoload -U compinit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># export MANPATH=&#34;/usr/local/man:$MANPATH&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># You may need to manually set your language environment</span>
+</span></span><span class=line><span class=cl><span class=c1># export LANG=en_US.UTF-8</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Preferred editor for local and remote sessions</span>
+</span></span><span class=line><span class=cl><span class=c1># if [[ -n $SSH_CONNECTION ]]; then</span>
+</span></span><span class=line><span class=cl><span class=c1>#   export EDITOR=&#39;vim&#39;</span>
+</span></span><span class=line><span class=cl><span class=c1># else</span>
+</span></span><span class=line><span class=cl><span class=c1>#   export EDITOR=&#39;mvim&#39;</span>
+</span></span><span class=line><span class=cl><span class=c1># fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Compilation flags</span>
+</span></span><span class=line><span class=cl><span class=c1># export ARCHFLAGS=&#34;-arch x86_64&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Set personal aliases, overriding those provided by oh-my-zsh libs,</span>
+</span></span><span class=line><span class=cl><span class=c1># plugins, and themes. Aliases can be placed here, though oh-my-zsh</span>
+</span></span><span class=line><span class=cl><span class=c1># users are encouraged to define aliases within the ZSH_CUSTOM folder.</span>
+</span></span><span class=line><span class=cl><span class=c1># For a full list of active aliases, run `alias`.</span>
+</span></span><span class=line><span class=cl><span class=c1>#</span>
+</span></span><span class=line><span class=cl><span class=c1># Example aliases</span>
+</span></span><span class=line><span class=cl><span class=c1># alias zshconfig=&#34;mate ~/.zshrc&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1># alias ohmyzsh=&#34;mate ~/.oh-my-zsh&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>dk</span><span class=o>=</span><span class=s2>&#34;docker&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>python</span><span class=o>=</span><span class=s2>&#34;python3&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>cls</span><span class=o>=</span><span class=s1>&#39;clear&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>vi</span><span class=o>=</span><span class=s1>&#39;vim&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>pc</span><span class=o>=</span><span class=s1>&#39;proxychains4&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>javac</span><span class=o>=</span><span class=s2>&#34;javac -J-Dfile.encoding=utf8&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>grep</span><span class=o>=</span><span class=s2>&#34;grep --color=auto&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>html</span><span class=o>=</span>vi <span class=c1># 在命令行直接输入后缀为 html 的文件名，会在 TextMate 中打开</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>rb</span><span class=o>=</span>vi <span class=c1># 在命令行直接输入 ruby 文件，会在 TextMate 中打开</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>py</span><span class=o>=</span>vi <span class=c1># 在命令行直接输入 python 文件，会用 vim 中打开，以下类似</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>js</span><span class=o>=</span>vi
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>c</span><span class=o>=</span>vi
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>java</span><span class=o>=</span>vi
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>txt</span><span class=o>=</span>vi
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>gz</span><span class=o>=</span><span class=s1>&#39;tar -xzvf&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>tgz</span><span class=o>=</span><span class=s1>&#39;tar -xzvf&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>zip</span><span class=o>=</span><span class=s1>&#39;unzip&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>alias</span> -s <span class=nv>bz2</span><span class=o>=</span><span class=s1>&#39;tar -xjvf&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Source global definitions</span>
+</span></span><span class=line><span class=cl>s2c <span class=o>()</span> <span class=o>{</span> scp <span class=s2>&#34;</span><span class=nv>$@</span><span class=s2>&#34;</span> <span class=si>${</span><span class=nv>SSH_CLIENT</span><span class=p>%% *</span><span class=si>}</span>:~/<span class=p>;</span> <span class=o>}</span>
+</span></span><span class=line><span class=cl>c2s <span class=o>()</span> <span class=o>{</span> scp <span class=si>${</span><span class=nv>SSH_CLIENT</span><span class=p>%% *</span><span class=si>}</span>:<span class=s2>&#34;</span><span class=nv>$@</span><span class=s2>&#34;</span> .<span class=p>;</span> <span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/rd-efficiency/>R&amp;D Efficiency</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/p/%E8%AE%B0%E4%B8%80%E6%AC%A1cpu%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E9%97%AE%E9%A2%98%E5%AE%9A%E4%BD%8D/><div class=article-details><h2 class=article-title>记一次CPU占用过高问题定位</h2></div></a></article><article><a href=/p/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/><div class=article-details><h2 class=article-title>记一次文件系统性能测试</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//morsuning.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2018 -
+2026 morsuning's Blog</section><section class=powerby>Intelligence all rights reserved.<br>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.33.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

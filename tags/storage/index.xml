@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Storage on morsuning's Blog</title><link>https://morsuning.github.io/tags/storage/</link><description>Recent content in Storage on morsuning's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 21 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://morsuning.github.io/tags/storage/index.xml" rel="self" type="application/rss+xml"/><item><title>记一次CPU占用过高问题定位</title><link>https://morsuning.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1cpu%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E9%97%AE%E9%A2%98%E5%AE%9A%E4%BD%8D/</link><pubDate>Thu, 21 Dec 2023 00:00:00 +0000</pubDate><guid>https://morsuning.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1cpu%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%E9%97%AE%E9%A2%98%E5%AE%9A%E4%BD%8D/</guid><description>&lt;p&gt;记录一次对象存储在曙光服务器（Hygon CPU）上CPU占用异常问题的定位过程，相关信息已脱敏&lt;/p&gt;
+&lt;h2 id="环境说明"&gt;环境说明
+&lt;/h2&gt;&lt;p&gt;CPU规格：每个服务器2 * Hygon C86 7380 32-Core Processor，一共128个虚拟核，具体规格如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://morsuning.github.io/image/post/1717311210763.png"
+loading="lazy"
+alt="1717311210763"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://morsuning.github.io/image/post/1717333986748.png"
+loading="lazy"
+alt="1717333986748"
+&gt;&lt;/p&gt;
+&lt;p&gt;通过lstopo &amp;ndash;of png &amp;gt; out.png 命令可以看到服务器CPU（numa架构）的及其外设（内存、硬盘、网卡）的拓扑结构图&lt;/p&gt;
+&lt;h2 id="问题现象"&gt;问题现象
+&lt;/h2&gt;&lt;p&gt;3个节点的集群跑216并发的128M大对象，测试集群带宽，对象存储进程CPU占用上千，是正常节点CPU占用的数十倍，且CPU利用率高在三个节点中随机出现，最少1个节点出现，最多3个节点出现&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://morsuning.github.io/image/post/1717334582729.png"
+loading="lazy"
+alt="1717334582729"
+&gt;&lt;/p&gt;
+&lt;p&gt;通过perf命令抓取性能数据，发现CPU利用率与IPC负相关，与L1-dcache-loads负相关，与dTLB-loads负相关&lt;/p&gt;
+&lt;p&gt;下图最右边节点的CPU利用率最高&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://morsuning.github.io/image/post/1717334801193.png"
+loading="lazy"
+alt="1717334801193"
+&gt;&lt;/p&gt;
+&lt;h2 id="定位结论"&gt;定位结论
+&lt;/h2&gt;&lt;p&gt;是Hygon CPU本身的问题，CPU占用高是CPU内部调度的问题&lt;/p&gt;
+&lt;h2 id="定位过程"&gt;定位过程
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;确定硬盘和网络都不是瓶颈&lt;/li&gt;
+&lt;li&gt;屏蔽对象存储服务进程的后台任务，不改变该现象&lt;/li&gt;
+&lt;li&gt;使用go pprof工具排除程序本身的问题&lt;/li&gt;
+&lt;li&gt;通过perf工具确定CPU利用率高的节点上CPU流水线的效率很低，各节点CPU效率有数倍差距&lt;/li&gt;
+&lt;li&gt;经过绑核验证，使用128核/64核/32核/16核/8核都能支持1.5G的对象带宽，无论绑多少核CPU都能用满&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="调优建议"&gt;调优建议
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;建议在Hygon CPU上部署对象存储服务时使用16核的绑核方式（即numa中的一个node），例：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;taskset -apc 32-39, 96-103 &lt;span class="m"&gt;2638647&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;其中，32-29, 96-103是绑定的CPU核的变化，可以通过Iscpu获取，或者numactl-H获取；2638647 是需要绑核的进程ID&lt;/p&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;当限制核数以后，会导致prometheus获取metrics效据变慢，具体表现在对象存储服务和node_exporter向prometheus回写数据非常慢。绑16核的场景下，回写metrics最多要花37秒，因此建议作出如下调整：
+&lt;ol&gt;
+&lt;li&gt;﻿﻿延长prometheus的指标拉取周期，由15秒拉取一次调整为1分钟拉取一次&lt;/li&gt;
+&lt;li&gt;延长prometheus的指标拉取超时时长，由10秒超时调整为55秒超时&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>记一次文件系统性能测试</title><link>https://morsuning.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</link><pubDate>Mon, 27 Nov 2023 00:00:00 +0000</pubDate><guid>https://morsuning.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</guid><description>&lt;p&gt;记录一次视频监控场景下对文件系统进行性能测试及简单调优的过程及思路，相关内容已脱敏&lt;/p&gt;
+&lt;h2 id="1-性能分析方法"&gt;1 性能分析方法
+&lt;/h2&gt;&lt;p&gt;可通过日志和检测工具来监控基于fuse实现的用户态文件系统性能&lt;/p&gt;
+&lt;p&gt;以JuiceFS为例，它提供了访问日志和性能日志以及命令行工具监控文件系统性能，使用方式分别如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ cat /path/to/your/.accesslog
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ cat /path/to/your/.perfmetric
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ juicefs stats /path/to/your
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="2-性能分析思路"&gt;2 性能分析思路
+&lt;/h2&gt;&lt;p&gt;在视频监控场景下，文件为多路监源连续追加写入文件系统&lt;/p&gt;
+&lt;p&gt;假设网络无瓶颈，文件系统内所有存储介质写入速率一致，理想情况下最大带宽：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;单节点：服务端从本地写入JuiceFS速度为该节点的最大写入速度&lt;/li&gt;
+&lt;li&gt;3节点：期望最大写入速度为单节点最大写入速度 * 3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;测试得服务端单节点从本地写入JuiceFS速度如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;span class="lnt"&gt;38
+&lt;/span&gt;&lt;span class="lnt"&gt;39
+&lt;/span&gt;&lt;span class="lnt"&gt;40
+&lt;/span&gt;&lt;span class="lnt"&gt;41
+&lt;/span&gt;&lt;span class="lnt"&gt;42
+&lt;/span&gt;&lt;span class="lnt"&gt;43
+&lt;/span&gt;&lt;span class="lnt"&gt;44
+&lt;/span&gt;&lt;span class="lnt"&gt;45
+&lt;/span&gt;&lt;span class="lnt"&gt;46
+&lt;/span&gt;&lt;span class="lnt"&gt;47
+&lt;/span&gt;&lt;span class="lnt"&gt;48
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-plaintext" data-lang="plaintext"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fiotest: (g=0):rw=write,bs=(R)16.0MiB-16.0MiB, (W) 16.0MiB-16.0MiB, (T) 16.0MiB-16.0MiB,ioengine=libaio, iodepth=1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fio-3.29
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Starting 1 process
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fiotest: Laying out I0 file (1 file / 4096MiB)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Jobs: 1 (f=1): [W(1)][100.0%][w=256MiB/s][w=16 IOPS][eta 00m:00s]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fiotest: (groupid=0, jobs=1): err= 0: pid=528243: Sun Nov 26 02:26:37 2023
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;write: IOPS=16, BW=257MiB/s (269MB/s)(4096MiB/15937msec); 0 zone resets
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;slat (usec): min=8557, max=18135, avg=9782.97, stdev=718.53
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;clat (nsec) : min=2590, max=19341, avg=6322.75, stdev=2224.38
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lat (usec): min=8560, max=18145, avg=9791.82, stdev=719.24
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;clat percentiles (nsec):
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;1.00th=[ 2928].
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;5.00th=[ 3376], 10.00th=[ 3856], 20.00th=[ 4448],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;30.00th=[ 5152],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;40.00th=[ 5728], 50.00th=[ 6176], 60.00th=[ 6624],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;70.00th=[ 7264], 80.00th=[ 7776],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;90.00th=[ 8512], 95.00th=[ 8896],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;99.00th=[15936],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;99.50th=[18560], 99.90th=[19328], 99.95th=[19328],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;99.99th=[19328]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;bw ( KiB/s) : min=229376, max=294912, per=100.00%, avg=263201.03, stdev=15791.93, samples=31
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;iops: min= 14, max= 18, avg=16.06, stdev= 0.96, samples=31
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lat (usec)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 4=11.33%, 10=85.16%, 20=3.52%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fsync/fdatasync/sync_file_range:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sync (nsec) : min=220, max=2550, avg=1182.90, stdev=474.05
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sync percentiles (nsec):
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;1.00th[3301],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;5.00th[410], 10.00th[524], 20.00th[700],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;30.00th[900], 40.00th[1064], 50.00th[1176],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;60.00th[1336], 70. 00th[1432],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;80.00th[1608], 90.00th[1848], 95.00th[2008],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;99.00th[2192],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;99.50th[2352], 99.90th[2544], 99.95th[2544],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;99.99th[2544]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cpu
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;usr=1.26%, sys=0.51%, ctx=4608, majf=0, minf=11
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;IO depths
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 1=199.6%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, &amp;gt;64=0.0%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;submit
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &amp;gt;64=0.0%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;complete
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &amp;gt;64=0.0%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;issued rwts: total=0, 256, 0, 255 short=0, 0, 0, 0 dropped=0, 0, 0, 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;latency
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: target=0, window=0, percentile=100.00%, depth=1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Run status group 0 (all jobs):
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;WRITE: bw=257MiB/s (269MB/s), 257MiB/s-257MiB/s (269MB/s-269MB/s), io=4096MiB (4295MB), run=15937-15937msec
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;io路径分析&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;nfs → 通过前端网络 → JuiceFS → 通过后端网络 → 分布式持久层 → 磁盘&lt;/p&gt;
+&lt;p&gt;nfs向JuiceFS并发发送io请求，JuiceFS将收到的数据暂写入缓存，达到指定大小后写缓存分布式持久层，分布式持久层返回后该次落盘操作才算成功&lt;/p&gt;
+&lt;p&gt;因此上述过程中存在2个时延，第一个时延为JuiceFS等待io请求，直到io请求达到指定大小；第二个时延为JuiceFS等待分布式持久层返回&lt;/p&gt;
+&lt;p&gt;理论上这两个时延时间一致且周期一致，性能最优&lt;/p&gt;
+&lt;h2 id="3-性能分析环境配置及操作"&gt;3 性能分析环境配置及操作
+&lt;/h2&gt;&lt;h3 id="31-测试环境"&gt;3.1 测试环境
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;服务端配置：曙光Rack/R6440H0 * 3; 2U 32Core; RAM 128G&lt;/li&gt;
+&lt;li&gt;网络：fio和mdtest测试：3服务端，1客户端，均组bond6_front，网络最大带宽20G/s&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="32-测试配置"&gt;3.2 测试配置
+&lt;/h3&gt;&lt;p&gt;首先JuiceFS在块大小 &amp;gt;= 16m时会直接将数据写对象，因此测试块大小16M的文件写入时需要调大写对象块大小上限，同时打开文件元数据缓存和目录项缓存超时时间来提高连续写入效率&lt;/p&gt;
+&lt;p&gt;需修改的配置&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;juicefs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;cacheDir&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;/var/powercache&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;uploadDelay&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;10m&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;trashDays&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;logDir&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;/var/log/juicefs&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;xxxClientPackagePath&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;/opt/xxx/xxx_client.tar&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;xxxClientPort&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;33999&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;backupMeta&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;24h&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;attr-cache&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 修改项&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;entry-cache&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 修改项&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;dir-entry-cache&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 修改项&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;namespaceRootDir&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;/xxx&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;disable-lock&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;cache-type&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;free-ratio-raw&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0.15&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;free-ratio-staging&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;0.10&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;extendedParams &lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;--upload-block-size 32 max-uploads 32 --flush-by-no-write 100&amp;#34;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 修改项&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;bucketName&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;xxx-03e89688&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;测试前准备&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在服务端view上共享1个NFS文件夹nfstest&lt;/li&gt;
+&lt;li&gt;在客户端挂载该目录: &lt;code&gt;mount -t nfs -o vers=3 业务网:/xxx/nfstest /mnt/nfstest&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在客户端执行fio和mdtest进行测试&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="33-测试操作"&gt;3.3 测试操作
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;执行cp复制3.5G文件结果&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@node1&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# time cp openEuler-22.03-LTS-SP1-x86_64-dvd.iso /mnt/nfstest/testos&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;real 0m8.210s&lt;/li&gt;
+&lt;li&gt;user 0m0.000s&lt;/li&gt;
+&lt;li&gt;sys 0m2.236s&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@node1&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ls -1lh openEuler-22.03-LTS-SP1-x86_64-dvd.iso&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;root root 3.5G Nov 25 09:58 openEuler-22.03-LTS-SP1-x86_64-dvd.iso&lt;/p&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;
+&lt;p&gt;执行2个fio测试，参数及结果如下&lt;/p&gt;
+&lt;p&gt;(1)4K随机写入:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fio -directory&lt;span class="o"&gt;=&lt;/span&gt;/mnt/nfstest/test1 -ioengine&lt;span class="o"&gt;=&lt;/span&gt;libaio -iodepth&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; -direct&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; -fsync&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; -bs&lt;span class="o"&gt;=&lt;/span&gt;4K -flesize&lt;span class="o"&gt;=&lt;/span&gt;8M --rw&lt;span class="o"&gt;=&lt;/span&gt;write -numjobs&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;56&lt;/span&gt; -name&lt;span class="o"&gt;=&lt;/span&gt;fiotest -group_reporting -output&lt;span class="o"&gt;=&lt;/span&gt;4k_randw.data
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;结果：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;span class="lnt"&gt;38
+&lt;/span&gt;&lt;span class="lnt"&gt;39
+&lt;/span&gt;&lt;span class="lnt"&gt;40
+&lt;/span&gt;&lt;span class="lnt"&gt;41
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-plaintext" data-lang="plaintext"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fiotest: (groupid=0, jobs=56): err= 0: pid=1668325: Sat Nov 25 16:48:17 2023
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;write: I0PS=2444, BW=9778KiB/s (10.0MB/s)(448MiB/46919msec); 0 zone resets
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;slat (nsec): min=1551, max=q7180, avg=3033.72, stdev=2019.74
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;clat (msec): min=6, max=438, avg=21.69, stdev=22.42
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Lat (msec): min=6, max=438, avg=21.70, stdev=22.42
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;clat percentiles (msec):
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;1 1.00th=[q], 5.00th=[11], 10.00th=[12], 20.00th=[13],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;30.00th=[15], 40.00th=[16], 50.00th=[18], 60.00th=[20],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;70.00th=[22], 80.00th=[25], 90.00th=[34], 95.00th=[42],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;99.00th=[79], 99.50th=[220], 99.90th=[239], 99.95th=[251],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;99.99th=[430]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;bw ( KiB/s):
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;min= 1752, max=19184, per=100.00%, avg=10366.19, stdev=53.86,
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;samples=4947
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;iops
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;min= 438, max= 4796, avg=2591.49, stdev=13.46, samples=4947
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lat (msec)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 10=4.31%，20=60.64%，50=32.90%，100=1.18%，250=0.90%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lat (msec)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 500=0.05%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fsync/fdatasync/sync_file_range:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sync (nsec): min=16, max=4702, avg=40.81, stdev=30.54
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sync percentiles (nsec):
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;1.00th=[22]， 5.00th=[23], 10.00th=[26], 20.00th=[32],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;30.00th=[33], 40.00th=[34], 50.00th=[34], 60.00th=[39]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;70.00th=[43],80.00th=[47], 90.00th=[54], 95.00th=[64],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;99.00th=[145], 99.50th=[151], 99.90th=[193]，99.95th=[338],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;99.99th=[532]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cpu
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: usr=0.01%, sys=0.03%, ctx=114944, majf=0, minf=56
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;I0 depths
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 1=200.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, &amp;gt;=64=0.0%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;submit
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 0=0.0%， 4=100.0%， 8=0.0%， 16=0.0%， 32=0.0%， 64=0.0%， &amp;gt;=64=0.0%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;complete : 0=0.0%， 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &amp;gt;=64=0.0%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;issued rwts: total=0,114688,0,114632 short=0,0,0,0 dropped=0,0,0,0
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Latency
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; : target=0, window=0, percentile=100.00%, depth=1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Run status group 0 (all jobs):
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;WRITE: bw=9778KiB/s (10.0MB/s), 9778KiB/s-9778KiB/s (10.0MB/s-10.0MB/s), io=448MiB (470MB), run=46919-46919msec
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;(2)16M大文件连续写入：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fio -directory&lt;span class="o"&gt;=&lt;/span&gt;/mnt/nfstest/test2 -ioengine&lt;span class="o"&gt;=&lt;/span&gt;libaio -iodepth&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; -direct&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; -fsync&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; -bs&lt;span class="o"&gt;=&lt;/span&gt;16M -filesize&lt;span class="o"&gt;=&lt;/span&gt;1G --rw&lt;span class="o"&gt;=&lt;/span&gt;write -numjobs&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;16&lt;/span&gt; -name&lt;span class="o"&gt;=&lt;/span&gt;fiotest -group_reporting -output&lt;span class="o"&gt;=&lt;/span&gt;16_w.data
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;结果&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-plaintext" data-lang="plaintext"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fiotest2: (groupid=0, jobs=16): err= 0: pid=166q561: Sat Nov 25 16:49:02 2023
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;write: I0PS=38, BW=608MiB/s (638MB/s)(16.0GiB/26934msec); 0 zone resets
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;slat (usec): min=1144, max=3439, avg=1612.21, stdev=208.03
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;clat (msec): min=142, max=643, avg=414.0q, stdev=41.20
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lat (msec): min=144, max=644, avg=415.70, stdev=41.15
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;clat percentiles (msec):
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 1.00th=[284]， 5.00th=[355], 10.00th=[368], 20.00th=[384],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 30.00th=[397], 40.00th=[409], 50.00th=[418], 60.00th=[426],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 70.00th=[439], 80.00th=[447], 90.00th=[460], 95.00th=[468],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 99.00th=[489], 99.50th=[502], 99.90th=[542], 99.95th=[642],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 99.99th=[642]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;bw ( KiB/s): min=523436, max=1048576, per=100.00%, avg=624827.94, stdev=12902.57, samples=845
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;iops:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;min=25，max=64, avg=38.00, stdev=0.80, samples=845
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lat (msec)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 250=0.68%，500=98.83%, 750=0.49%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fsync/fdatasync/sync_file_range:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sync (nsec): min=16, max=604, avg=159.23, stdev=85.32
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sync percentiles (nsec):
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 1.00th=[35]， 5.00th=[56], 10.00th=[70], 20.00th=[129] ,
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 30.00th=[139], 40.00th=[147], 50.00th=[151], 60.00th=[157] ,
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 70.00th=[161], 80.00th=[169], 90.00th=[191], 95.00th=[342],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 99.00th=[540], 99.50th=[580], 99.90th=[604], 99.95th=[604],
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; 99.99th=[604]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cpu
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;usr=0.17%, sys=0.21%, ctx=1082, majf=0, minf=16
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;I0 depths
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 1=198.4%， 2=0.0%， 4=0.0%， 8=0.0%， 16=0.0%， 32=0.0%， &amp;gt;=64=0.0%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;submit
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;： 0=0.0%， 4=100.0%， 8=0.0%， 16=0.0%， 32=0.0%， 64=0.0%， &amp;gt;=64=0.0%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;complete
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;: 0=0.0%， 4=100.0%， 8=0.0%， 16=0.0%， 32=0.0%， 64=0.0%， &amp;gt;=64=0.0%
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;issued rwts: total=0,1024,0,1008 short=0,0,0,0 dropped=0,0,0,0
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Latency
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; : target=0, window=0, percentile=100.00%, depth=1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Run status group 0 (all jobs):
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;WRITE: bw=608MiB/s (638MB/s), 608MiB/s-608MiB/s (638MB/s-638MB/s)， io=16.0GiB (17.2GB), run=26934-26934msec
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start="3"&gt;
+&lt;li&gt;执行3次mtest元数据测试
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ mpirun --allow-run-as-root localhost:64 -np &lt;span class="m"&gt;64&lt;/span&gt; mdtest -I &lt;span class="m"&gt;20&lt;/span&gt; -z &lt;span class="m"&gt;2&lt;/span&gt; -b &lt;span class="m"&gt;10&lt;/span&gt; -w &lt;span class="m"&gt;131072&lt;/span&gt; -e &lt;span class="m"&gt;131072&lt;/span&gt; -d /mnt/nfstest/perf1 -t -u
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ mpirun --allow-run-as-root localhost:56 -np &lt;span class="m"&gt;56&lt;/span&gt; mdtest -I &lt;span class="m"&gt;50&lt;/span&gt; -z &lt;span class="m"&gt;2&lt;/span&gt; -b &lt;span class="m"&gt;10&lt;/span&gt; -w &lt;span class="m"&gt;524288&lt;/span&gt; -e &lt;span class="m"&gt;524288&lt;/span&gt; -d /mnt/nfstest/perf2 -t -u
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ mpirun --allow-run-as-root localhost:32 -np &lt;span class="m"&gt;32&lt;/span&gt; mdtest -I &lt;span class="m"&gt;20&lt;/span&gt; -z &lt;span class="m"&gt;2&lt;/span&gt; -b &lt;span class="m"&gt;10&lt;/span&gt; -w &lt;span class="m"&gt;1048576&lt;/span&gt; -e &lt;span class="m"&gt;1048576&lt;/span&gt; -d /mnt/nfstest/perf3 -t -u
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;结果略&lt;/p&gt;
+&lt;h2 id="4-测试中产生的部分数据"&gt;4 测试中产生的部分数据
+&lt;/h2&gt;&lt;p&gt;iostat - 每块磁盘IO情况&lt;/p&gt;
+&lt;p&gt;mpstat - 系统CPU资源占用情况&lt;/p&gt;
+&lt;p&gt;juicefs stat - JuiceFS实时性能指标&lt;/p&gt;
+&lt;p&gt;juicefs .perfmetric - JuiceFS单位时间内IO情况&lt;/p&gt;
+&lt;p&gt;juicefs .accesslog - JuiceFS访问日志&lt;/p&gt;
+&lt;p&gt;具体数据略&lt;/p&gt;
+&lt;h2 id="5-测试结果分析"&gt;5 测试结果分析
+&lt;/h2&gt;&lt;p&gt;观察到2个问题&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;从perfmetric看出，每次JuiceFS写分布式持久层大小(write_cache)不均，理论应该是统一大小&lt;/li&gt;
+&lt;li&gt;从accesslog看出，刷新时间不均衡，连续写文件理论上间隔应该统一&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;针对问题1，推测可能是NFS问题，尝试在服务器本地写JuiceFS，观察perfmetric日志，发现写入大小一致，证明推测成立，是NFS客户端单位时间内发出的IO大小不一致导致&lt;/p&gt;
+&lt;p&gt;针对问题2，推测有其他机制触发刷新，将强制刷新时间更改为100s，再次写入数据查看accesslog，发现还是有不均匀的刷新，支持推测成立&lt;/p&gt;</description></item><item><title>存储领域的概念</title><link>https://morsuning.github.io/p/%E5%AD%98%E5%82%A8%E9%A2%86%E5%9F%9F%E7%9A%84%E6%A6%82%E5%BF%B5/</link><pubDate>Fri, 15 Sep 2023 00:00:00 +0000</pubDate><guid>https://morsuning.github.io/p/%E5%AD%98%E5%82%A8%E9%A2%86%E5%9F%9F%E7%9A%84%E6%A6%82%E5%BF%B5/</guid><description>&lt;p&gt;本文的目标是以一篇文章的篇幅，介绍存储领域的各种概念以及他们是用来解决什么需求的&lt;/p&gt;
+&lt;p&gt;这次聊一聊存储相关的概念，就是计算机基础架构中的三个主要领域计算、存储和网络中的存储&lt;/p&gt;
+&lt;h1 id="存储架构"&gt;存储架构
+&lt;/h1&gt;&lt;p&gt;jbod san nas&lt;/p&gt;
+&lt;p&gt;数据冗余技术 ecc纠删码 多副本&lt;/p&gt;
+&lt;p&gt;SDS&lt;/p&gt;
+&lt;h1 id="存储方式"&gt;存储方式
+&lt;/h1&gt;&lt;p&gt;分布式存储类型 对象存储，块存储，文件存储&lt;/p&gt;
+&lt;p&gt;集中式存储，分布式存储https://www.zhihu.com/question/343713625&lt;/p&gt;
+&lt;h1 id="存储介质"&gt;存储介质
+&lt;/h1&gt;&lt;p&gt;存储介质 ssd hdd scm&lt;/p&gt;
+&lt;h1 id="硬件支持技术"&gt;硬件支持技术
+&lt;/h1&gt;&lt;p&gt;nvme-of fiber iSCSI&lt;/p&gt;
+&lt;p&gt;RDMA&lt;/p&gt;
+&lt;p&gt;SPDK&lt;/p&gt;
+&lt;h1 id="存储访问协议"&gt;存储访问协议
+&lt;/h1&gt;&lt;p&gt;网络文件系统及接口 NFS CIFS SMB HDFS Lustre POSIX&lt;/p&gt;
+&lt;p&gt;存储访问协议 Amazon S3协议 &lt;a class="link" href="https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html" target="_blank" rel="noopener"
+&gt;https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id="linux文件系统"&gt;Linux文件系统
+&lt;/h1&gt;&lt;p&gt;Linux文件系统类型 磁盘文件系统 内存文件系统 网络文件系统&lt;/p&gt;
+&lt;h1 id="存储系统监控和管理"&gt;存储系统监控和管理
+&lt;/h1&gt;&lt;p&gt;存储系统监控和管理&lt;/p&gt;
+&lt;h1 id="典型存储项目"&gt;典型存储项目
+&lt;/h1&gt;&lt;p&gt;存储项目 minIO Ceph daos JuiceFS&lt;/p&gt;
+&lt;p&gt;从一个通常的具有计算机使用经验的人展开，存储方式，存储介质，文件系统，访问协议sds&lt;/p&gt;</description></item></channel></rss>

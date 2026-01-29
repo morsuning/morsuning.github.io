@@ -1,0 +1,721 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="1 Kubernetes存储相关概念及实现原理 1.1 PV & PVC 概念\nKubernetes定义了PV（PersistentVolume）与PVC（PersistentVolumeClaim）这两个概念让用户使用持久化存储，是在用户与存储服务提供者之间添加的一个中间层。\n"><title>Kubernetes 存储实现原理及简单示例</title><link rel=canonical href=https://morsuning.github.io/p/kubernetes-%E5%AD%98%E5%82%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B/><link rel=stylesheet href=/scss/style.min.833d6eed45de56f48306bf57268d5b8cdfc8a60e8e7bdc99810464fcd033f7c6.css><meta property='og:title' content="Kubernetes 存储实现原理及简单示例"><meta property='og:description' content="1 Kubernetes存储相关概念及实现原理 1.1 PV & PVC 概念\nKubernetes定义了PV（PersistentVolume）与PVC（PersistentVolumeClaim）这两个概念让用户使用持久化存储，是在用户与存储服务提供者之间添加的一个中间层。\n"><meta property='og:url' content='https://morsuning.github.io/p/kubernetes-%E5%AD%98%E5%82%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B/'><meta property='og:site_name' content="morsuning's Blog"><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Cloud Native'><meta property='article:tag' content><meta property='article:published_time' content='2023-12-01T00:00:00+00:00'><meta property='article:modified_time' content='2023-12-01T00:00:00+00:00'><meta name=twitter:title content="Kubernetes 存储实现原理及简单示例"><meta name=twitter:description content="1 Kubernetes存储相关概念及实现原理 1.1 PV & PVC 概念\nKubernetes定义了PV（PersistentVolume）与PVC（PersistentVolumeClaim）这两个概念让用户使用持久化存储，是在用户与存储服务提供者之间添加的一个中间层。\n"><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu_40bcc3d697d2dcd2.png width=300 height=225 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🌟</span></figure><div class=site-meta><h1 class=site-name><a href=/>morsuning's Blog</a></h1><h2 class=site-description>Developer. Geeker. e/acc. Investing in the future.</h2></div></header><ol class=menu-social><li><a href=https://github.com/morsuning target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/morsuning target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Links</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#1-kubernetes存储相关概念及实现原理>1 Kubernetes存储相关概念及实现原理</a><ol><li><a href=#11-pv--pvc>1.1 PV & PVC</a></li><li><a href=#12-storageclass--plugin>1.2 StorageClass & Plugin</a></li><li><a href=#13-kubernetes存储相关组件及架构>1.3 Kubernetes存储相关组件及架构</a></li><li><a href=#14-kubernetes存储实现原理>1.4 Kubernetes存储实现原理</a></li><li><a href=#15-csi-介绍>1.5 CSI 介绍</a></li><li><a href=#16-csi插件实现>1.6 CSI插件实现</a></li><li><a href=#17-csi部署架构>1.7 CSI部署架构</a></li></ol></li><li><a href=#2-kubernetes接入nfs存储方式及配置示例>2 Kubernetes接入NFS存储方式及配置示例</a></li><li><a href=#3-reference>3 Reference</a></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/technology/>Technology</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/kubernetes-%E5%AD%98%E5%82%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B/>Kubernetes 存储实现原理及简单示例</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2023-12-01T00:00:00Z>Dec 01, 2023</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 18 分钟</time></div></footer></div></header><section class=article-content><h2 id=1-kubernetes存储相关概念及实现原理>1 Kubernetes存储相关概念及实现原理</h2><h3 id=11-pv--pvc>1.1 PV & PVC</h3><p><strong>概念</strong></p><p>Kubernetes定义了PV（PersistentVolume）与PVC（PersistentVolumeClaim）这两个概念让用户使用持久化存储，是在用户与存储服务提供者之间添加的一个中间层。</p><p><em>用户</em>指Kubernetes应用的开发者，<em>存储服务提供者</em>一般是Kubernetes集群的运维人员，或者是第三方存储服务提供商的服务人员</p><p>存储服务提供者事先根据PV支持的存储卷插件及适配的存储方案（目标存储系统）细节定义好可以支撑存储卷的底层存储空间</p><p>然后由用户通过PVC声明要使用的存储特性来绑定符合条件的最佳PV定义存储卷，实现存储系统的使用与管理职能的解耦，大大简化了用户使用存储的方式</p><p><strong>为什么这么设计</strong></p><p>解决2个问题</p><ul><li>卷对象的生命周期无法独立于Pod而存在</li><li>用户必须足够熟悉存储的使用和配置才能在Pod上配置和使用卷</li></ul><p><img src=/image/kubernetes-csi-introduce/1716810306328.png loading=lazy alt=1716810306328></p><p>PV是由集群管理员于<strong>全局级别</strong>配置的预挂载存储空间，它通过支持的存储卷插件及给定的配置参数关联至某个存储系统上可用数据存储的一段空间，这段存储空间可能是Ceph存储系统上的一个存储映像、一个文件系统（CephFS）或其子目录，也可能是NFS存储系统上的一个导出目录等。</p><p>PV将存储系统之上的存储空间抽象为Kubernetes系统全局级别的API资源，由集群管理员负责管理和维护。 将PV提供的存储空间用于Pod对象的存储卷时，用户需要事先使用PVC在<strong>名称空间级别</strong>声明所需要的存储空间大小及访问模式并提交给Kubernetes API Server，接下来由PV控制器负责查找与之匹配的PV资源并完成绑定。随后，用户在Pod资源中使用persistentVolumeClaim类型的存储卷插件指明要使用的PVC对象的名称即可使用其绑定到的PV所指向的存储空间，如图所示。</p><p>PV和PVC是一对一的关系：一个PVC仅能绑定一个PV，而一个PV在某一时刻也仅可被一个PVC所绑定。</p><p>为了能够让用户更精细地表达存储需求，PV资源对象的定义支持存储容量、存储类、卷模型和访问模式等属性维度的约束。相应地，PVC资源能够从访问模式、数据源、存储资源容量需求和限制、标签选择器、存储类名称、卷模型和卷名称等多个不同的维度向PV资源发起匹配请求并完成筛选。</p><p>PV与PVC示例 & 用户使用示例</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># PV</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>PersistentVolume</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>pv-nfs</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c># 存储类名称</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class=l>manual</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c># 存储资源</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>capacity</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>storage</span><span class=p>:</span><span class=w> </span><span class=l>10Gi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c># 访问模式</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>accessModes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>ReadWriteMany</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c># 数据源</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>nfs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/opt/nfs-volume</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class=m>172.26.204.144</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nn>---</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># PVC</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>PersistentVolumeClaim</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>pvc-nfs</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class=l>manual</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>accessModes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>ReadWriteMany</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>resources</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>requests</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>storage</span><span class=p>:</span><span class=w> </span><span class=l>10Gi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nn>---</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># 用户使用</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>apps/v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Deployment</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>test-nfs</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>test</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>selector</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>test</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>template</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>test</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>containers</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>busybox</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>busybox</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=c># 使用卷</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>volumeMounts</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>mountPath</span><span class=p>:</span><span class=w> </span><span class=l>/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c># 声明卷</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>persistentVolumeClaim</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>claimName</span><span class=p>:</span><span class=w> </span><span class=l>pvc-nfs</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>PV和PVC的生命周期如下表所示</p><div class=table-wrapper><table><thead><tr><th>操作</th><th>PV 状态</th><th>PVC 状态</th></tr></thead><tbody><tr><td>创建 PV</td><td>Available</td><td>-</td></tr><tr><td>创建 PVC</td><td>Available</td><td>Pending</td></tr><tr><td></td><td>Bound</td><td>Bound</td></tr><tr><td>删除 PV</td><td>-/Terminating</td><td>Lost/Bound</td></tr><tr><td>重新创建 PV</td><td>Bound</td><td>Bound</td></tr><tr><td>删除 PVC</td><td>Released</td><td>-</td></tr><tr><td>后端存储不可用</td><td>Failed</td><td>-</td></tr><tr><td>删除 PV 的 claimRef</td><td>Available</td><td>-</td></tr></tbody></table></div><p><strong>PV生命周期</strong></p><ol><li>创建后未能正确关联到存储设备的PV处于Pending状态，成功关联后转为Available</li><li>一个Available状态的PV与PVC关联后变为Bound状态</li><li>处于Bound状态的PV，其关联的PVC被删除后，变为Release状态</li><li>当PV的回收策略为recycle或手动删除PVC引用时，PV从Release状态变为Available状态</li></ol><p>可选的回收策略：</p><ul><li>Retain（保留）：删除PVC后将保留其绑定的PV及存储的数据，但会把该PV置为Released状态，它不可再被其他PVC所绑定，且需要由管理员手动进行后续的回收操作：首先删除PV，接着手动清理其关联的外部存储组件上的数据，最后手动删除该存储组件或者基于该组件重新创建PV</li><li>Delete（删除）：对于支持该回收策略的卷插件，删除一个PVC将同时删除其绑定的PV资源以及该PV关联的外部存储组件；动态的PV回收策略继承自StorageClass资源，默认为Delete。多数情况下，管理员都需要根据用户的期望修改此默认策略，以免导致数据非计划内的删除</li><li>Recycle（回收）：对于支持该回收策略的卷插件，删除PVC时，其绑定的PV所关联的外部存储组件上的数据会被清空，随后，该PV将转为Available状态，可再次接受其他PVC的绑定请求。不过，该策略已被废弃</li></ul><ol><li>recycle失败时，PV将从Released状态变为Failed状态</li><li>可通过手动删除PVC将PV状态变成Available</li></ol><p><strong>PVC生命周期</strong></p><ol><li>一个Pending状态PVC与PV绑定后变为Bound状态</li><li>处于Bound状态的PVC，与其关联的PV被删除后变为Lost状态</li><li>Lost状态的PVC再次与PV绑定后变成Bound状态</li></ol><p>PV和PVC的生命周期可概括为存储制备（Provision）、存储绑定、存储使用、存储回收四个阶段</p><p>这是使用Kubernetes存储最基本的模式，但会产生2个问题：</p><ol><li>存储服务提供者难以预测用户的真实需求，如果用户提交了一个PVC，但是PV控制器没有找到合适的PV与之绑定，容器创建就会失败</li><li>会造成资源浪费，如集群中创建的PV容量都是10G的，但是如果创建了一个声明使用5G的PVC，依然会绑定到10G的PV</li></ol><p>因此Kubernetes提供了一种动态自动创建PV的机制，被称为动态制备（dynamic provision），刚刚说的手动创建PV的方式又被称为静态制备（static provision）</p><h3 id=12-storageclass--plugin>1.2 StorageClass & Plugin</h3><p>Kubernetes使用一种API对象叫做存储类（StorageClass）提供动态预配、按需创建PV的机制。需要存储服务提供者事先借助存储类创建出一到多个“PV模板”，并在模板中定义好基于某个存储系统创建PV所依赖的存储组件（例如Ceph RBD存储映像或CephFS文件系统等）时需要用到的配置参数，包括PV的属性如存储类型、Volume大小等以及创建这种PV需要的存储插件</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># SC示例</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>storage.k8s.io/v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>StorageClass</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>nfs</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># 指定存储服务方（Provisioner，预配器），基于该字段判断使用的存储插件，内置插件以kubernetes.io/为前缀</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>provisioner</span><span class=p>:</span><span class=w> </span><span class=l>nfs.csi.k8s.io</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class=m>10.0.0.11</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>share</span><span class=p>:</span><span class=w> </span><span class=l>/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># 默认回收策略</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>reclaimPolicy</span><span class=p>:</span><span class=w> </span><span class=l>Delete</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># 定义如何为PVC完成预配和绑定</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>volumeBindingMode</span><span class=p>:</span><span class=w> </span><span class=l>Immediate</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># 当前类动态创建的PV资源的默认挂载选项</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>mountOptions</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>nfsvers=4.1</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>使用动态制备的方式创建PVC时，用户需要为其指定要使用PV模板（StorageClass资源），而后PV控制器会自动连接相应存储类上定义的 <strong>目标存储系统的管理接口</strong> ，请求创建匹配该PVC需求的存储组件，并将该存储组件创建为Kubernetes集群上可由该PVC绑定的PV资源。</p><p>Kubernetes通过卷插件（Volume Plugins）的机制接入目标存储系统，Kubernetes定义了一系列管理接口，插件即是在一个存储系统的基础上实现了这些管理接口的代码</p><p>卷插件分为In-Tree和Out-of-Tree两类</p><ul><li>In-Tree的代码是放在Kubernetes内部的，和Kubernetes一起发布、管理与迭代，优点是使用方便，缺点是迭代速度慢、灵活性差，目前除了少数通用存储如nfs，hostpath，正在逐渐被废弃</li><li>Out-of-Tree是由存储厂商提供的，有FlexVolume和CSI两种实现机制，目前FlexVolume已被废弃，Kubernetes官方目前提供了生产可用的NFS，SMB，NVMF、host-path四种CSI插件</li></ul><h3 id=13-kubernetes存储相关组件及架构>1.3 Kubernetes存储相关组件及架构</h3><p><img src=/image/kubernetes-csi-introduce/1716810484129.png loading=lazy alt=1716810484129></p><ul><li>PV控制器（集群维度）：负责PV及PVC的整个生命周期管理，主要监听PV/PVC/SC三类资源，当发现这些资源的CRU操作时，PV控制器会判断是否需要创建、删除、绑定和回收卷；并根据需求进行存储卷的预配和删除操作</li><li>AD控制器（集群维度）：专用于存储设备的附加和拆除操作的组件，能够将存储设备关联（attach）至目标节点或从目标节点之上剥离（detach）<ul><li>AD控制器监听Pod/Node时间，如有必要，调用Volume Plugin执行AD操作</li><li>存储卷管理器也能触发AD操作，但它只监听调度到本节点的Pod</li></ul></li><li>存储卷管理器（节点维度）：kubelet内置管理器组件之一，用于在当前节点上执行存储设备的挂载（mount）、卸载（unmount）和格式化（format）等操作；另外，存储卷管理器也可执行节点级别设备的附加（attach）及拆除（detach）操作</li><li>存储卷插件：Kubernetes存储卷功能的基础设施，是存储任务相关操作的执行方；它是存储相关的扩展接口，用于对接各类存储设备</li></ul><p>PV控制器、AD控制器和存储卷管理器均构建于存储卷插件之上，以提供不同维度管理功能的接口，具体的实现逻辑均由存储卷插件完成</p><p>最初，只有VolumeManager能够Attach/Detach，但是节点宕掉后，它已经挂载的卷需要在其它节点进行Detach，然后再Attach，这个必须依赖外部才能完成，AD控制器因此产生</p><p>现在，到底在何处进行Attach/Detach，取决于Volume Plugin，如果实现了Attach相关接口，则在AttachDetach中执行，否则，在Volume Manager上执行</p><h3 id=14-kubernetes存储实现原理>1.4 Kubernetes存储实现原理</h3><p>PV对象成为容器内的持久化存储过程，实际上就是将一个宿主机上的目录跟一个容器里的目录绑定挂载在了一起</p><p>如果使用远程存储服务实现容器数据的持久化，Kubernetes所做的就是将这个远程存储服务挂载到宿主机上的一个目录，以供将来进行绑定挂载时使用，这个准备宿主机目录的过程可以称为“两阶段处理”</p><p>1 第一阶段Attach，由AD控制器完成，类似于插入硬盘</p><p>当一个Pod调度到一个节点上后，kubelet要负责为这个pod创建它的volume目录，默认情况下，kubelet为volume创建的目录是一个宿主机上的路径，如</p><p><code>/var/lib/kubelet/pods/&lt;Pod ID>/volumes/kubernetes.io-&lt;volume type>/&lt;vulume name></code></p><p>接下来进行的操作取决于Volume类型，如使用远程块存储，会调用相应的API，将其提供的持久化盘挂载到宿主机上，如果使用CSI，则会调用相应的CSI接口</p><p>2 第二阶段mount，也由存储卷管理器完成，类似于格盘并挂载</p><p>完成Attach阶段后，kubelet需要格式化这个磁盘设备并将它挂载到宿主机指定的挂载点上，即之前提到的宿主机目录</p><p>mount完成后Volume的宿主机目录就是一个持久化目录了，容器写入的内容会被存储在存储服务中，如果Volume类型是远程文件存储服务（如NFS），kubelet会跳过attach阶段，因为使用NFS不需要经过“插盘”这个操作，直接mount即可</p><p>Kubernetes 通过在具体的插件实现接口上提供不同的参数列表，定义和区分这两个阶段</p><ul><li>第一阶段Kubernetes通过nodeName，即宿主机的名字区分</li><li>第二阶段通过dir，即Volume宿主机的目录区分</li></ul><p>完成两阶段处理后，kubelet只需将这个volume目录通过CRI里的Mounts参数传递给Docker，就可以为Pod里的容器挂载这个持久化的Volume了</p><h3 id=15-csi-介绍>1.5 CSI 介绍</h3><p>Kubernetes从1.8版本开始已经停止接受in-tree卷插件，并建议所有供应商实现out-of-tree卷插件，而2种out-of-tree卷扩展机制之一的flexvolume已经被废弃，所以目前CSI目前已成为接入自定义存储的唯一途径</p><p><strong>CSI架构</strong></p><p><img src=/image/kubernetes-csi-introduce/1716810511242.png loading=lazy alt=1716810511242></p><p>CSI，全称Container Storage Interface，是一种规范，在Kubernetes核心存储(即上文提到的PV控制器、AD控制器等)之外，CSI又引入了2组外部组件，方便存储提供者开发和使用CSI标准</p><p>一组由Kubernetes官方提供，一系列external组件负责注册CSI Driver（即第三方提供的存储插件）或监听Kubernetes对象资源，从而发起csi Driver调用，都作为CSI Controller的sidecar容器</p><ul><li>node-driver-register：一个sidecar容器，可从CSI driver获取驱动程序信息（使用NodeGetInfo），并使用kubelet插件注册机制在该节点上的kubelet中对其进行注册</li><li>External Provisioner：一个sidecar容器，用于监视Kubernetes PersistentVolumeClaim对象并针对驱动程序端点触发CSI CreateVolume和DeleteVolume操作。external-attacher还支持快照数据源。如果将快照CRD资源指定为PVC对象上的数据源，则此sidecar容器通过获取SnapshotContent对象获取有关快照的信息，并填充数据源字段，该字段向存储系统指示应使用指定的快照填充新卷</li><li>External Attacher：一个sidecar容器，用于监视Kubernetes VolumeAttachment对象并针对驱动程序端点触发CSI ControllerPublish和ControllerUnpublish操作</li><li>livenessprobe：一个sidecar容器，用于监视CSI驱动程序的运行状况，并通过Liveness Probe机制将其报告给Kubernetes。这使Kubernetes能够自动检测驱动程序问题并重新启动Pod以尝试解决问题</li><li>External Resizer：一个sidecar容器，监听PVC对象，如果用户在PVC对象请求更多存储，该组件会调用CSI Controller的NodeExpandVolume接口对volume进行扩容</li><li>External Snapshotter：一个Snapshot Controller的sidecar容器，Snapshot Controller会根据集群中创建的Snapshot对象创建对应的VolumeSnapshotContent，而External Snapshotter负责监听之，监听到其发生变化时，将其对应参数传递给CSI Controller，调用其CreateSnapshot接口</li></ul><p>另一组需要存储提供者实现，也是卷插件必须的组成部分，这组中包括3个服务，分别需要实现三组grpc接口</p><ul><li>CSI Identity： 提供插件信息、能力、探测插件状态</li><li>CSI Controller（Provision和Attach）：负责创建和管理卷</li><li>CSI Node（mount）：在节点上完成和卷相关的功能，如Publish/Unpublish，Stage/Unstage</li></ul><p>CSI中Capabilities会标识出来此插件提供哪些能力，如IdentityServer中的GetPluginCapabilities方法，ControllerServer中的ControllerGetCapabilities方法和NodeServer中的NodeGetCapabilities</p><p><strong>CSI交互模型</strong></p><p>Kubelet和CSI插件的交互方式：</p><ol><li>Kubelet直接通过UDS，向CSI发起NodeStageVolume、NodePublishVolume等调用</li><li>Kubelet通过插件注册机制来发现CSI插件及其UDS。这意味着CSI插件必须在任何节点上进行Kubelet插件注册</li></ol><p>Master和CSI插件的交互方式：</p><ol><li>K8S控制平面不直接和CSI插件交互</li><li>K8S控制平面组件仅仅通过K8S API进行相互交互</li><li>CSI插件必须监控相关K8S API资源，并触发对应的CSI操作，例如卷创建、Attach、快照生成等</li></ol><p><strong>CSI对象</strong></p><p>Kubernetes提供了2个CSI相关的API对象CSIDriver和CSINode，方便CSI插件集成到Kubernetes</p><p>CSIDriver提供的功能：</p><ul><li>简化CSI驱动的发现：在安装时附带一个CISDrive对象，就可以将存储提供者的插件注册到Kubernetes中</li><li>定制K8S的行为：Kubernetes具有一套和CSI驱动交互的默认规则，例如默认它会调用Attach/Detach操作。使用CSIDriver··对象可以定制这一行为</li></ul><p>CSIDriver示例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>storage.k8s.io/v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>CSIDriver</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 和CSI驱动的全名一致</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>mycsidriver.example.com</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 提示K8S，此驱动需要Attach操作（因为驱动实现了ControllerPublishVolume方法），</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 并且需要在Attach之后等待操作完成，然后再进行后续的Mount操作</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 默认值true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>attachRequired</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 提示K8S，在挂载阶段，此驱动需要Pod的信息（名称、Pod的UID等）</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># Pod信息会在NodePublishVolume调用中作为volume_context传递：</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>#   &#34;csi.storage.k8s.io/pod.name&#34;: pod.Name</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>#   &#34;csi.storage.k8s.io/pod.namespace&#34;: pod.Namespace</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>#   &#34;csi.storage.k8s.io/pod.uid&#34;: string(pod.UID)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>#   &#34;csi.storage.k8s.io/serviceAccount.name&#34;: pod.Spec.ServiceAccountName</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>podInfoOnMount</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 1.16中添加，到1.18为止beta</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 此驱动支持的Volume Mode</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>volumeLifecycleModes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>Persistent   </span><span class=w> </span><span class=c># 默认，常规PV/PVC机制</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>Ephemeral    </span><span class=w> </span><span class=c># 内联临时存储（inline ephemeral volumes）</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>由CSIDrive注册后就可以通过kubectl查看所有安装的CSI驱动</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl get csidrivers.storage.k8s.io
+</span></span></code></pre></td></tr></table></div></div><p>CSINode对象存放CSI驱动产生的、节点相关的信息，它的功能是：</p><ul><li>映射K8S节点名称到CSI节点名称：CSI的GetNodeInfo调用返回的name，是存储系统引用节点使用的名字。在后续的ControllerPublishVolume调用中K8S使用该名字引用节点</li><li>为kubelet提供和kube-controller-manager、kube-scheduler交互的机制，不管CSI插件是否可用（注册到节点）</li><li>卷拓扑：CSI的GetNodeInfo调用会返回一系列标签（键值对），来识别节点的拓扑信息。K8S使用这些信息进行拓扑感知的卷创建。这些键值对存放在Node对象中，Kubelet会把键存放在CSINode中，供后续引用</li></ul><p>CSINode示例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>storage.k8s.io/v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>CSINode</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>node1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>drivers</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>mycsidriver.example.com</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>nodeID</span><span class=p>:</span><span class=w> </span><span class=l>storageNodeID1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>topologyKeys</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s1>&#39;mycsidriver.example.com/regions&#39;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;mycsidriver.example.com/zones&#34;</span><span class=p>]</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=16-csi插件实现>1.6 CSI插件实现</h3><p>存储提供者需要实现三个服务，CSI Identity，CSI Controller和CSI Node，这是在CSI规范中定义的，即上文提到的外部组件，这三个服务必须实现一组grpc接口</p><p>CSI Identity</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-protobuf data-lang=protobuf><span class=line><span class=cl><span class=c1>// 让调用者（K8S组件、CSI Sidecar容器）能识别驱动，知晓它具有哪些可选特性
+</span></span></span><span class=line><span class=cl><span class=kd>service</span> <span class=n>Identity</span> <span class=p>{</span><span class=err>
+</span></span></span><span class=line><span class=cl>	<span class=c1>// 获取插件名称和版本
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>GetPluginInfo</span><span class=p>(</span><span class=n>GetPluginInfoRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>GetPluginInfoResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=c1>// 获取插件功能
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>GetPluginCapabilities</span><span class=p>(</span><span class=n>GetPluginCapabilitiesRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>GetPluginCapabilitiesResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl>	<span class=c1>// 检查插件是否运行
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>Probe</span> <span class=p>(</span><span class=n>ProbeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>ProbeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=err>
+</span></span></span></code></pre></td></tr></table></div></div><p>CSI Controller（Provision和Attach），可以运行在任何节点，实现创建卷、创建快照等功能，可选</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-protobuf data-lang=protobuf><span class=line><span class=cl><span class=kd>service</span> <span class=n>Controller</span> <span class=p>{</span><span class=err>
+</span></span></span><span class=line><span class=cl>	<span class=c1>// 必须实现
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>CreateVolume</span> <span class=p>(</span><span class=n>CreateVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>CreateVolumeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=c1>// 必须实现
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>DeleteVolume</span> <span class=p>(</span><span class=n>DeleteVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>DeleteVolumeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>ControllerPublishVolume</span> <span class=p>(</span><span class=n>ControllerPublishVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>ControllerPublishVolumeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>ControllerUnpublishVolume</span> <span class=p>(</span><span class=n>ControllerUnpublishVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>ControllerUnpublishVolumeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=c1>// 必须实现
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>ValidateVolumeCapabilities</span> <span class=p>(</span><span class=n>ValidateVolumeCapabilitiesRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>ValidateVolumeCapabilitiesResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>ListVolumes</span> <span class=p>(</span><span class=n>ListVolumesRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>ListVolumesResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>GetCapacity</span> <span class=p>(</span><span class=n>GetCapacityRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>GetCapacityResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=c1>// 必须实现
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>ControllerGetCapabilities</span> <span class=p>(</span><span class=n>ControllerGetCapabilitiesRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>ControllerGetCapabilitiesResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>	<span class=c1>// nfs-csi已实现
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>CreateSnapshot</span> <span class=p>(</span><span class=n>CreateSnapshotRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>CreateSnapshotResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl>	<span class=c1>// nfs-csi已实现
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>DeleteSnapshot</span> <span class=p>(</span><span class=n>DeleteSnapshotRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>DeleteSnapshotResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>ListSnapshots</span> <span class=p>(</span><span class=n>ListSnapshotsRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>ListSnapshotsResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>ControllerExpandVolume</span> <span class=p>(</span><span class=n>ControllerExpandVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>ControllerExpandVolumeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>ControllerGetVolume</span> <span class=p>(</span><span class=n>ControllerGetVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>ControllerGetVolumeResponse</span><span class=p>)</span> <span class=p>{</span><span class=err>
+</span></span></span><span class=line><span class=cl>        <span class=k>option</span> <span class=p>(</span><span class=n>alpha_method</span><span class=p>)</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=p>}</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>ControllerModifyVolume</span> <span class=p>(</span><span class=n>ControllerModifyVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>	  <span class=k>returns</span> <span class=p>(</span><span class=n>ControllerModifyVolumeResponse</span><span class=p>)</span> <span class=p>{</span><span class=err>
+</span></span></span><span class=line><span class=cl>	      <span class=k>option</span> <span class=p>(</span><span class=n>alpha_method</span><span class=p>)</span> <span class=o>=</span> <span class=kc>true</span><span class=p>;</span><span class=err>
+</span></span></span><span class=line><span class=cl>	  <span class=p>}</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=err>
+</span></span></span></code></pre></td></tr></table></div></div><p>CSI Node（mount），任何存储提供者的卷，想要Publish的节点都需要运行此插件</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-protobuf data-lang=protobuf><span class=line><span class=cl><span class=kd>service</span> <span class=n>Node</span> <span class=p>{</span><span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>NodeStageVolume</span> <span class=p>(</span><span class=n>NodeStageVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>NodeStageVolumeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>NodeUnstageVolume</span> <span class=p>(</span><span class=n>NodeUnstageVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>NodeUnstageVolumeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>	<span class=c1>// 将卷挂载到节点上
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>NodePublishVolume</span> <span class=p>(</span><span class=n>NodePublishVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>NodePublishVolumeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl>	<span class=c1>// 卸载卷
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>NodeUnpublishVolume</span> <span class=p>(</span><span class=n>NodeUnpublishVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>NodeUnpublishVolumeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=c1>// 获取卷状态
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>NodeGetVolumeStats</span> <span class=p>(</span><span class=n>NodeGetVolumeStatsRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>NodeGetVolumeStatsResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl> <span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>NodeExpandVolume</span><span class=p>(</span><span class=n>NodeExpandVolumeRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>NodeExpandVolumeResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl>  <span class=c1>// 必须实现
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>NodeGetCapabilities</span> <span class=p>(</span><span class=n>NodeGetCapabilitiesRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>NodeGetCapabilitiesResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl>	 <span class=err>
+</span></span></span><span class=line><span class=cl>	<span class=c1>// 必须实现，返回运行插件的节点的信息
+</span></span></span><span class=line><span class=cl>  <span class=k>rpc</span> <span class=n>NodeGetInfo</span> <span class=p>(</span><span class=n>NodeGetInfoRequest</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl>    <span class=k>returns</span> <span class=p>(</span><span class=n>NodeGetInfoResponse</span><span class=p>)</span> <span class=p>{}</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=err>
+</span></span></span></code></pre></td></tr></table></div></div><p>某些部署架构下，也可由一个服务（可以是一个二进制文件）同时提供CSI Controller和CSI Node两组接口</p><h3 id=17-csi部署架构>1.7 CSI部署架构</h3><p>CSI规范的主要关注点是Kubernetes和卷插件之间的协议。Kubernetes应该同时支持中心化部署、headless部署的Plugin。几种可能的部署架构：</p><p>注：headless指Kubernetes中的一种服务的配置方式，它允许您直接访问服务中的各个Pod而不是通过一个集群IP来访问整个服务。headless服务实现上是为与服务关联的每个 Pod 创建 DNS 记录。然后，可以使用这些 DNS 记录直接对每个 Pod 进行寻址</p><ol><li>插件运行在所有节点上，在Master上运行中心化的控制器，所有节点上运行Node Plugin：</li></ol><p><img src=/image/kubernetes-csi-introduce/1716810592096.png loading=lazy alt=1716810592096></p><p>注： CO即为容器编排系统（指Kubernetes），使用CSI的RPC接口和CSI插件交互</p><ol start=2><li>Headless部署，在所有节点上运行Plugin，Controller Plugin、Node Plugin分开部署：</li></ol><p><img src=/image/kubernetes-csi-introduce/1716810665824.png loading=lazy alt=1716810665824></p><ol start=3><li>Headless部署，在所有节点上运行Plugin，Controller Plugin、Node Plugin合并部署：</li></ol><p><img src=/image/kubernetes-csi-introduce/1716810672523.png loading=lazy alt=1716810672523></p><ol start=4><li>Headless部署，在所有节点上运行Plugin，只运行Node Plugin。GetPluginCapabilities调用不会报告CONTROLLER_SERVICE特性：</li></ol><p><img src=/image/kubernetes-csi-introduce/1716810678578.png loading=lazy alt=1716810678578></p><h2 id=2-kubernetes接入nfs存储方式及配置示例>2 Kubernetes接入NFS存储方式及配置示例</h2><ol><li>直接使用nfs卷，k8s内置支持(提前部署nfs-server：10.1.33.53)</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>apps/v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Deployment</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>nginx-deployment</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>nginx</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class=m>3</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>selector</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>nginx</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>template</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>nginx</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>containers</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>nginx</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>nginx:1.14.2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>containerPort</span><span class=p>:</span><span class=w> </span><span class=m>80</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>volumeMounts</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>mountPath</span><span class=p>:</span><span class=w> </span><span class=l>/usr/share/nginx/html</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>nfs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/opt/nfs-deployment</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class=m>10.1.33.53</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><ol start=2><li>将nfs创建为PV，并创建相应PVC，在容器中使用，静态绑定</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># PV</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>PersistentVolume</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>pv-nfs</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class=l>manual</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>capacity</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>storage</span><span class=p>:</span><span class=w> </span><span class=l>10Gi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>accessModes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>ReadWriteMany </span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>nfs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/opt/nfs-deployment</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class=m>172.26.204.144</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nn>---</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># PVC</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>PersistentVolumeClaim</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>pvc-nfs</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class=l>manual</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>accessModes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>ReadWriteMany</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>resources</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>requests</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>storage</span><span class=p>:</span><span class=w> </span><span class=l>10Gi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nn>---</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># 使用</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>apps/v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Deployment</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>busybox</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>busybox</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>selector</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>busybox</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>template</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>busybox</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>containers</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>busybox</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>busybox</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s1>&#39;sh&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;-c&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;echo &#34;Hello, Kubernetes!&#34; &amp;&amp; sleep 3600&#39;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>volumeMounts</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>mountPath</span><span class=p>:</span><span class=w> </span><span class=l>/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>persistentVolumeClaim</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>claimName</span><span class=p>:</span><span class=w> </span><span class=l>pvc-nfs</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><ol start=3><li>K8S官方CSI插件，本身只提供了集群中的资源和NFS服务器之间的通信层，Driver直接使用官方的安装即可，使用如下</li></ol><p>注：动态绑定需要注意权限问题，弄清楚是以什么账号权限访问的，配置读写权限是否具有读写权限</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># 静态绑定</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>PersistentVolume</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>pv-nfs-csi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>capacity</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>storage</span><span class=p>:</span><span class=w> </span><span class=l>10Gi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>accessModes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>ReadWriteMany</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>persistentVolumeReclaimPolicy</span><span class=p>:</span><span class=w> </span><span class=l>Retain</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>mountOptions</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>hard</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>nfsvers=4.1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>csi</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>driver</span><span class=p>:</span><span class=w> </span><span class=l>nfs.csi.k8s.io</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>readOnly</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumeHandle</span><span class=p>:</span><span class=w> </span><span class=l>unique-volumeid  #</span><span class=w> </span><span class=c>#确保它是集群中的唯一 ID</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumeAttributes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class=m>172.26.204.144</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>share</span><span class=p>:</span><span class=w> </span><span class=l>/opt/nfs-deployment</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nn>---</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>PersistentVolumeClaim</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>pvc-nfs-csi-static</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>accessModes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>ReadWriteMany</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>resources</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>requests</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>storage</span><span class=p>:</span><span class=w> </span><span class=l>10Gi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>volumeName</span><span class=p>:</span><span class=w> </span><span class=l>pv-nfs-csi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># 动态绑定</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>storage.k8s.io/v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>StorageClass</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>nfs-csi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>provisioner</span><span class=p>:</span><span class=w> </span><span class=l>nfs.csi.k8s.io</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>server</span><span class=p>:</span><span class=w> </span><span class=m>172.26.204.144</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>share</span><span class=p>:</span><span class=w> </span><span class=l>/opt/nfs-deployment</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>reclaimPolicy</span><span class=p>:</span><span class=w> </span><span class=l>Delete</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>volumeBindingMode</span><span class=p>:</span><span class=w> </span><span class=l>Immediate</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>mountOptions</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>hard</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>nfsvers=4.1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nn>---</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>PersistentVolumeClaim</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>pvc-nfs-csi-dynamic</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>accessModes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>ReadWriteMany</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>resources</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>requests</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>storage</span><span class=p>:</span><span class=w> </span><span class=l>10Gi</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>storageClassName</span><span class=p>:</span><span class=w> </span><span class=l>nfs-csi</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=3-reference>3 Reference</h2><p><a class=link href=https://github.com/container-storage-interface/spec/blob/master/spec.md target=_blank rel=noopener>https://github.com/container-storage-interface/spec/blob/master/spec.md</a></p><p><a class=link href=https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#api-overview target=_blank rel=noopener>https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.29/#api-overview</a></p><p><a class=link href=https://kubernetes-csi.github.io/docs/introduction.html target=_blank rel=noopener>https://kubernetes-csi.github.io/docs/introduction.html</a></p></section><footer class=article-footer><section class=article-tags><a href=/tags/cloud-native/>Cloud Native</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/p/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%9A%845w1h/><div class=article-details><h2 class=article-title>云原生的5W1H</h2></div></a></article><article><a href=/p/%E5%AD%98%E5%82%A8%E9%A2%86%E5%9F%9F%E7%9A%84%E6%A6%82%E5%BF%B5/><div class=article-details><h2 class=article-title>存储领域的概念</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//morsuning.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2018 -
+2026 morsuning's Blog</section><section class=powerby>Intelligence all rights reserved.<br>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.33.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

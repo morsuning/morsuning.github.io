@@ -1,0 +1,850 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="一 Golang错误处理机制panic和recover简要介绍 使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然后将panic抛向上一层，直至程序crash。但是也可以使用被defer的recover函数来捕获异常阻止程序的崩溃，recover只有被defer后才是有意义的 使用示例：\n"><title>Go错误处理最佳实践</title><link rel=canonical href=https://morsuning.github.io/p/go%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/><link rel=stylesheet href=/scss/style.min.833d6eed45de56f48306bf57268d5b8cdfc8a60e8e7bdc99810464fcd033f7c6.css><meta property='og:title' content="Go错误处理最佳实践"><meta property='og:description' content="一 Golang错误处理机制panic和recover简要介绍 使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然后将panic抛向上一层，直至程序crash。但是也可以使用被defer的recover函数来捕获异常阻止程序的崩溃，recover只有被defer后才是有意义的 使用示例：\n"><meta property='og:url' content='https://morsuning.github.io/p/go%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/'><meta property='og:site_name' content="morsuning's Blog"><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Golang'><meta property='article:tag' content='Best Practice'><meta property='article:published_time' content='2023-06-21T00:00:00+00:00'><meta property='article:modified_time' content='2023-06-21T00:00:00+00:00'><meta name=twitter:title content="Go错误处理最佳实践"><meta name=twitter:description content="一 Golang错误处理机制panic和recover简要介绍 使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然后将panic抛向上一层，直至程序crash。但是也可以使用被defer的recover函数来捕获异常阻止程序的崩溃，recover只有被defer后才是有意义的 使用示例：\n"><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu_40bcc3d697d2dcd2.png width=300 height=225 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🌟</span></figure><div class=site-meta><h1 class=site-name><a href=/>morsuning's Blog</a></h1><h2 class=site-description>Developer. Geeker. e/acc. Investing in the future.</h2></div></header><ol class=menu-social><li><a href=https://github.com/morsuning target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/morsuning target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Links</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#一-golang错误处理机制panic和recover简要介绍>一 Golang错误处理机制panic和recover简要介绍</a></li><li><a href=#二-推荐使用场景>二 推荐使用场景</a><ol><li><a href=#panic>panic</a></li><li><a href=#error>error</a></li><li><a href=#何时使用panic何时使用error>何时使用panic，何时使用error</a></li><li><a href=#返回错误时的抉择>返回错误时的抉择</a></li></ol></li><li><a href=#三-q--a>三 Q & A</a><ol><li><a href=#1-为什么标准库中-errorsnew-会返回一个指针>1. 为什么标准库中 errors.New 会返回一个指针？</a></li><li><a href=#2-如果字符串相等就返回-true-会导致什么问题呢>2. 如果字符串相等就返回 true 会导致什么问题呢？</a></li><li><a href=#3-error-type-错误定义与判断>3. error type: 错误定义与判断</a><ol><li><a href=#sentinel-error>Sentinel Error</a></li><li><a href=#error-types>error types</a></li><li><a href=#opaque-errors>Opaque errors</a></li></ol></li><li><a href=#4-error-handle-错误处理优化>4. error handle: 错误处理优化</a></li><li><a href=#5-wrap-error-错误包装>5. wrap error: 错误包装</a><ol><li><a href=#errorswrap-有何作用为什么不用标准库的-fmterrorfw>errors.wrap 有何作用，为什么不用标准库的 <code>fmt.Errorf("%w")</code></a></li></ol></li><li><a href=#6-为什么不允许处处使用-errorswrap>6. 为什么不允许处处使用 errors.Wrap</a></li><li><a href=#7-标准库-errorsis--as-怎么判断错误>7. 标准库 errors.Is / As 怎么判断错误</a><ol><li><a href=#errorsis>errors.Is</a></li><li><a href=#errorsas>errors.As</a></li></ol></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/programming/>Programming</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/go%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/>Go错误处理最佳实践</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2023-06-21T00:00:00Z>Jun 21, 2023</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 11 分钟</time></div></footer></div></header><section class=article-content><h2 id=一-golang错误处理机制panic和recover简要介绍>一 Golang错误处理机制panic和recover简要介绍</h2><ul><li>使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然后将panic抛向上一层，直至程序crash。但是也可以使用被defer的recover函数来捕获异常阻止程序的崩溃，recover只有被defer后才是有意义的</li></ul><p>使用示例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nb>print</span><span class=p>(</span><span class=mi>123</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>defer</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>recover</span><span class=p>();</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nb>print</span><span class=p>(</span><span class=s>&#34;recover it&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nb>print</span><span class=p>(</span><span class=mi>456</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nb>panic</span><span class=p>(</span><span class=s>&#34;throw an error&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nb>print</span><span class=p>(</span><span class=mi>678</span><span class=p>)</span><span class=w> </span><span class=cp>//IDE会有提示: Unreachable code</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>输出结果为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plaintext data-lang=plaintext><span class=line><span class=cl>123456recover it
+</span></span></code></pre></td></tr></table></div></div><ul><li>如果有两个recover，则捕获异常的是后一个（defer遵循栈规划，即后定义的优先触发）</li><li>panic之后的任何代码都不会继续执行，前提是panic不在if里面</li><li>使用panic抛出异常后, 将立即停止当前函数的执行并运行所有被defer的函数，然后将panic抛向上一层，直至程序crash，但是也可以使用被defer的recover函数来捕获异常阻止程序的崩溃，recover只有被defer后才是有意义的</li><li>对于goroutine中的panic，协程外面的recover是无法恢复的；goroutine中的recover，同样无法恢复协程外的panic；但协程中的recover可以恢复协程中的panic</li><li>主方法中的recover，也可以恢复子方法里的panic</li><li>因为panic发生的时候，panic函数后面的语句都不会执行了，所以recover函数不能放在panic语句后面执行，而要放在defer函数中执行</li><li>使用 panic 抛出异常后，函数执行将从调用 panic 的地方停止，如果函数内有 defer 调用，则执行 defer 后边的函数调用，如果 defer 调用的函数中没有捕获异常信息，这个异常会沿着函数调用栈往上传递，直到 main 函数仍然没有捕获异常，将会导致程序异常退出</li><li>recover不能捕获所有错误，以下是不能捕获的情形<ul><li>堆栈内存耗尽(如递归)</li><li>并发读写 map <code>fatal error: concurrent map read and map write</code></li><li>将 nil 函数作为 goroutine 启动 <code>fatal error: go of nil func value</code></li><li>goroutines 死锁 <code>fatal error: all goroutines are asleep - deadlock!</code></li><li>线程超过设置的最大限制 <code>fatal error: thread exhaustion</code></li><li>超出可用内存 <code>fatal error: runtime: out of memory</code></li></ul></li></ul><h2 id=二-推荐使用场景>二 推荐使用场景</h2><h3 id=panic>panic</h3><ol><li>在程序启动的时候，如果有强依赖的服务出现故障时 <code>panic</code> 退出</li><li>在程序启动的时候，如果发现有配置明显不符合要求， 可以 <code>panic</code> 退出（防御编程）</li><li>其他情况下只要不是不可恢复的程序错误，都不应该直接 <code>panic</code> 应该返回 <code>error</code></li><li>在程序入口处，例如 <code>gin</code> 中间件需要使用 <code>recover</code> 预防 <code>panic</code> 程序退出</li><li>在程序中应该避免使用野生的 <code>goroutine</code></li><li>如果是在请求中需要执行异步任务，应该使用异步 <code>worker</code> ，消息通知的方式进行处理，避免请求量大时大量 <code>goroutine</code> 创建</li><li>如果需要使用 <code>goroutine</code> 时，应该使用同一的 <code>Go</code> 函数进行创建，这个函数中会进行 <code>recover</code> ，避免因为野生 <code>goroutine</code> panic 导致主进程退出</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>Go</span><span class=p>(</span><span class=nx>f</span><span class=w> </span><span class=kd>func</span><span class=p>()){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>(){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>defer</span><span class=w> </span><span class=kd>func</span><span class=p>(){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>recover</span><span class=p>();</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=nx>log</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;panic: %+v&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nf>f</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=error>error</h3><ol><li>在应用程序中使用 <code>github.com/pkg/errors</code> 处理应用错误，<strong>注意在公共库当中，一般不使用这个</strong></li><li><code>error</code> 应该是函数的最后一个返回值，当 <code>error</code> 不为 <code>nil</code> 时，函数的其他返回值是不可用的状态，不应该对其他返回值做任何期待<ol><li><code>func f() (io.Reader, *S1, error)</code> 在这里，不知道 <code>io.Reader</code> 中是否有数据，可能有，也有可能有一部分</li></ol></li><li>错误处理的时候应该先判断错误， <code>if err != nil</code> 出现错误及时返回，使代码是一条流畅的直线，避免过多的嵌套</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// good case</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>f</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>a</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>A</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// ... 其他逻辑</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// bad case</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>f</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>a</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>A</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    	</span><span class=c1>// 其他逻辑</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><ol start=4><li>在<strong>应用程序</strong>中出现错误时，使用 <code>errors.New</code> 或者 <code>errors.Errorf</code> 返回错误</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=p>(</span><span class=nx>u</span><span class=w> </span><span class=o>*</span><span class=nx>usecese</span><span class=p>)</span><span class=w> </span><span class=nf>usecase1</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>money</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>u</span><span class=p>.</span><span class=nx>repo</span><span class=p>.</span><span class=nf>getMoney</span><span class=p>(</span><span class=nx>uid</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>money</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>10</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>errors</span><span class=p>.</span><span class=nf>Errorf</span><span class=p>(</span><span class=s>&#34;用户余额不足, uid: %d, money: %d&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>uid</span><span class=p>,</span><span class=w> </span><span class=nx>money</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 其他逻辑</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><ol start=5><li>如果是调用<strong>应用程序的</strong>其他函数出现错误，请直接返回，如果需要携带信息，请使用 <code>errors.WithMessage</code></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=p>(</span><span class=nx>u</span><span class=w> </span><span class=o>*</span><span class=nx>usecese</span><span class=p>)</span><span class=w> </span><span class=nf>usecase2</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>name</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>u</span><span class=p>.</span><span class=nx>repo</span><span class=p>.</span><span class=nf>getUserName</span><span class=p>(</span><span class=nx>uid</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>WithMessage</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span><span class=w> </span><span class=s>&#34;其他附加信息&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 其他逻辑</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><ol start=6><li><p>如果是调用其他库（标准库、企业公共库、开源第三方库等）获取到错误时，请使用 <code>errors.Wrap</code> 添加堆栈信息</p><ol><li>切记，不要每个地方都是用 <code>errors.Wrap</code> 只需要在错误第一次出现时进行 <code>errors.Wrap</code> 即可</li><li>根据场景进行判断是否需要将其他库的原始错误吞掉，例如可以把 <code>repository</code> 层的数据库相关错误吞掉，返回业务错误码，避免后续分割微服务或者更换 <code>ORM</code> 库时需要去修改上层代码</li><li>注意在基础库，被大量引入的第三方库编写时一般不使用 <code>errors.Wrap</code> 避免堆栈信息重复<div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>f</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>json</span><span class=p>.</span><span class=nf>Unmashal</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>a</span><span class=p>,</span><span class=w> </span><span class=nx>data</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>Wrap</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span><span class=w> </span><span class=s>&#34;其他附加信息&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 其他逻辑</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div></li></ol></li><li><p><strong>禁止</strong>每个出错的地方都打日志，<strong>只需要</strong>在进程的最开始的地方使用 <code>%+v</code> 进行统一打印，例如 http/rpc 服务的中间件</p></li><li><p>错误判断使用 <code>errors.Is</code> 进行比较</p></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>f</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>A</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span><span class=w> </span><span class=nx>io</span><span class=p>.</span><span class=nx>EOF</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    	</span><span class=k>return</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 其他逻辑</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><ol start=9><li>错误类型判断，使用 <code>errors.As</code> 进行赋值</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>f</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>A</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>var</span><span class=w> </span><span class=nx>errA</span><span class=w> </span><span class=nx>errorA</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>As</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span><span class=w> </span><span class=o>&amp;</span><span class=nx>errA</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    	</span><span class=c1>// ...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 其他逻辑</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><ol start=10><li>如何判定错误的信息是否足够，想一想当你的代码出现问题需要排查的时候你的错误信息是否可以帮助你快速的定位问题，例如在请求中一般会输出参数信息，用于辅助判断错误</li><li>对于业务错误，推荐在一个统一的地方创建一个错误字典，错误字典里面应该包含错误的 code，并且在日志中作为独立字段打印，方便做业务告警的判断，错误必须有清晰的错误文档</li><li>不需要返回，被忽略的错误<strong>必须</strong>输出日志信息</li><li>同一个地方不停的报错，最好不要不停输出错误日志，这样可能会导致被大量的错误日志信息淹没，无法排查问题，比较好的做法是打印一次错误详情，然后打印出错误出现的次数</li><li>对同一个类型的错误，采用相同的模式，例如参数错误，不要有的返回 404 有的返回 200</li><li>处理错误的时候，需要处理已分配的资源，使用 <code>defer</code> 进行清理，例如文件句柄</li></ol><h3 id=何时使用panic何时使用error>何时使用panic，何时使用error</h3><ol><li>在 Go 中 panic 会导致程序直接退出，是一个致命的错误，如果使用 <code>panic</code> <code>recover</code> 进行处理的话，会存在很多问题<ol><li>性能问题，频繁 panic recover 性能不好</li><li>容易导致程序异常退出，只要有一个地方没有处理到就会导致程序进程整个退出</li><li>不可控，一旦 panic 就将处理逻辑移交给了外部，我们并不能预设外部包一定会进行处理</li></ol></li><li>什么时候使用 panic 呢？<ol><li>对于真正意外的情况，那些表示不可恢复的程序错误，例如索引越界、不可恢复的环境问题、栈溢出，才使用 panic</li></ol></li><li>使用 error 处理有哪些好处？<ol><li>简单</li><li>考虑失败，而不是成功(Plan for failure, not success)</li><li>没有隐藏的控制流</li><li>完全交给你来控制 error</li><li>Error are values</li></ol></li></ol><h3 id=返回错误时的抉择>返回错误时的抉择</h3><ol><li>这是一个不需要额外信息的简单错误吗？如果是，errors.New即可</li><li>客户需要检测并处理此错误吗？如果是，则应该使用自定义类型并实现该Error()方法，可添加更多信息</li><li>是否正在传播下游函数返回的错误而且需要添加上下文信息？如果是，则应该包装此错误</li><li>否则fmt.Errorf就可以</li><li>如果要将错误发送到另一个系统，就应该明确是错误消息及来源</li></ol><h2 id=三-q--a>三 Q & A</h2><h3 id=1-为什么标准库中-errorsnew-会返回一个指针>1. 为什么标准库中 errors.New 会返回一个指针？</h3><p>翻看标准库的源代码可以发现， <code>errors</code> 库中的 <code>errorString</code> 结构体实现了 <code>error</code> 接口，为什么在 <code>New</code> 一个 error 的时候会返回一个结构体的指针呢？</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// New returns an error that formats as the given text.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// Each call to New returns a distinct error value even if the text is identical.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>New</span><span class=p>(</span><span class=nx>text</span><span class=w> </span><span class=kt>string</span><span class=p>)</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>errorString</span><span class=p>{</span><span class=nx>text</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// errorString is a trivial implementation of error.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>errorString</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>s</span><span class=w> </span><span class=kt>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=p>(</span><span class=nx>e</span><span class=w> </span><span class=o>*</span><span class=nx>errorString</span><span class=p>)</span><span class=w> </span><span class=nf>Error</span><span class=p>()</span><span class=w> </span><span class=kt>string</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>e</span><span class=p>.</span><span class=nx>s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>先来看一个例子，同样创建了 errorString 的结构体，自定义的和标准库中的唯一不同就是，自建的这个返回的是值，而不是指针。</p><p>在 <code>main</code> 函数的对比中就可以发现，自定义的 <code>errorString</code> 在对比的时候只要对应的字符串相同就会返回 true，但是标准库的包不会。</p><p>这是因为，在对比两个 struct 是否相同的时候，会去对比，这两个 struct 里面的各个字段是否是相同的，如果相同就返回 true，但是对比指针的时候会去判断两个指针的地址是否一致。</p><h3 id=2-如果字符串相等就返回-true-会导致什么问题呢>2. 如果字符串相等就返回 true 会导致什么问题呢？</h3><p>如果有两个包，定义了两个错误，他们其实是两个相同的字符串，在其他库调用对比的时候，可能会由于不同的书写顺序，走进不同的分支导致一些奇奇怪怪的错误</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>errorString</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>text</span><span class=w> </span><span class=kt>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=p>(</span><span class=nx>e</span><span class=w> </span><span class=nx>errorString</span><span class=p>)</span><span class=w> </span><span class=nf>Error</span><span class=p>()</span><span class=w> </span><span class=kt>string</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>e</span><span class=p>.</span><span class=nx>text</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// New 创建一个自定义错误</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>New</span><span class=p>(</span><span class=nx>s</span><span class=w> </span><span class=kt>string</span><span class=p>)</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>errorString</span><span class=p>{</span><span class=nx>text</span><span class=p>:</span><span class=w> </span><span class=nx>s</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>errorString1</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nf>New</span><span class=p>(</span><span class=s>&#34;test a&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>err1</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=s>&#34;test b&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>errorString1</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nf>New</span><span class=p>(</span><span class=s>&#34;test a&#34;</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;err string a&#34;</span><span class=p>)</span><span class=w> </span><span class=c1>// 会输出</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>err1</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=s>&#34;test b&#34;</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;err b&#34;</span><span class=p>)</span><span class=w> </span><span class=c1>// 不会输出</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=3-error-type-错误定义与判断>3. error type: 错误定义与判断</h3><h4 id=sentinel-error>Sentinel Error</h4><p>哨兵错误，就是定义一些包级别的错误变量，然后在调用的时候外部包可以直接对比变量进行判定，在标准库当中大量的使用了这种方式</p><p>例如下方 <code>io</code> 库中定义的错误</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// EOF is the error returned by Read when no more input is available.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// Functions should return EOF only to signal a graceful end of input.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// If the EOF occurs unexpectedly in a structured data stream,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// the appropriate error is either ErrUnexpectedEOF or some other error</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// giving more detail.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>EOF</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=s>&#34;EOF&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// ErrUnexpectedEOF means that EOF was encountered in the</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// middle of reading a fixed-size block or data structure.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>ErrUnexpectedEOF</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=s>&#34;unexpected EOF&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// ErrNoProgress is returned by some clients of an io.Reader when</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// many calls to Read have failed to return any data or error,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// usually the sign of a broken io.Reader implementation.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>ErrNoProgress</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=s>&#34;multiple Read calls return no data or error&#34;</span><span class=p>)</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>在外部判定的时候一般使用等值判定或者使用 <code>errors.Is</code> 进行判断</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>io</span><span class=p>.</span><span class=nx>EOF</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=cp>//...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=k>if</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span><span class=w> </span><span class=nx>io</span><span class=p>.</span><span class=nx>EOF</span><span class=p>){</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=cp>//...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>这种错误处理方式有一个问题是，将 error 当做包的 API 暴露给了第三方，这样会导致在做重构或者升级的时候很麻烦，并且这种方式包含的错误信息会十分的有限</p><h4 id=error-types>error types</h4><p>这个就类似前面定义的 <code>errorString</code> 一样实现了 <code>error</code> 的接口，然后在外部是否类型断言来判断是否是这种错误类型</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>MyStruct</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>s</span><span class=w> </span><span class=kt>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>name</span><span class=w> </span><span class=kt>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>path</span><span class=w> </span><span class=kt>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// 使用的时候</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>f</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>switch</span><span class=w> </span><span class=nx>err</span><span class=p>.(</span><span class=kd>type</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>case</span><span class=w> </span><span class=o>*</span><span class=nx>MyStruct</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// ...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>case</span><span class=w> </span><span class=nx>others</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// ...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>这种方式相对于哨兵来说，可以包含更加丰富的信息，但是同样也将错误的类型暴露给了外部，例如标准库中的 <code>os.PathError</code></p><h4 id=opaque-errors>Opaque errors</h4><p>不透明的错误处理，这种方式最大的特点就是只返回错误，暴露错误判定接口，不返回类型，这样可以减少 API 的暴露，后续的处理会比较灵活，这个一般用在公共库会比较好</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>temporary</span><span class=w> </span><span class=kd>interface</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nf>Temporary</span><span class=p>()</span><span class=w> </span><span class=kt>bool</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>IsTemporary</span><span class=p>(</span><span class=nx>err</span><span class=w> </span><span class=kt>error</span><span class=p>)</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>te</span><span class=p>,</span><span class=w> </span><span class=nx>ok</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>err</span><span class=p>.(</span><span class=nx>temporary</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>ok</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>te</span><span class=p>.</span><span class=nf>Temporary</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>这种方式可以断言错误实现了特定的行为，而不是断言错误是特定的类型或值</p><h3 id=4-error-handle-错误处理优化>4. error handle: 错误处理优化</h3><p>在 go 中常常会存在大量的 <code>if err</code> 代码，下面介绍两种常见的减少这种代码的方式</p><p><strong>bufio.scan</strong></p><p>对比下面两个函数的处理可以发现， <code>count2</code> 使用 <code>sc.Scan</code> 之后一个 <code>if err</code> 的判断都没有，极大的简化了代码，这是因为在 <code>sc.Scan</code> 做了很多处理，像很多类似的，需要循环读取的都可以考虑像这样包装之后进行处理，这样外部包调用的时候就会非常简洁</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 统计文件行数</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>count</span><span class=p>(</span><span class=nx>r</span><span class=w> </span><span class=nx>io</span><span class=p>.</span><span class=nx>Reader</span><span class=p>)</span><span class=w> </span><span class=p>(</span><span class=kt>int</span><span class=p>,</span><span class=w> </span><span class=kt>error</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>var</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>br</span><span class=w>    </span><span class=p>=</span><span class=w> </span><span class=nx>bufio</span><span class=p>.</span><span class=nf>NewReader</span><span class=p>(</span><span class=nx>r</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>lines</span><span class=w> </span><span class=kt>int</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>err</span><span class=w>   </span><span class=kt>error</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 读取到换行符就说明是一行</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>_</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>br</span><span class=p>.</span><span class=nf>ReadString</span><span class=p>(</span><span class=sc>&#39;\n&#39;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>lines</span><span class=o>++</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>break</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// 当错误是 EOF 的时候说明文件读取完毕了</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=nx>io</span><span class=p>.</span><span class=nx>EOF</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>lines</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>count2</span><span class=p>(</span><span class=nx>r</span><span class=w> </span><span class=nx>io</span><span class=p>.</span><span class=nx>Reader</span><span class=p>)</span><span class=w> </span><span class=p>(</span><span class=kt>int</span><span class=p>,</span><span class=w> </span><span class=kt>error</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>var</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>sc</span><span class=w>    </span><span class=p>=</span><span class=w> </span><span class=nx>bufio</span><span class=p>.</span><span class=nf>NewScanner</span><span class=p>(</span><span class=nx>r</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>lines</span><span class=w> </span><span class=kt>int</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>sc</span><span class=p>.</span><span class=nf>Scan</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>lines</span><span class=o>++</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>lines</span><span class=p>,</span><span class=w> </span><span class=nx>sc</span><span class=p>.</span><span class=nf>Err</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p><strong>error writer</strong></p><p>看一个来自 go blog 的例子：<a class=link href=https://blog.golang.org/errors-are-values target=_blank rel=noopener>https://blog.golang.org/errors-are-values</a></p><p>一般代码</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>_</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>fd</span><span class=p>.</span><span class=nf>Write</span><span class=p>(</span><span class=nx>p0</span><span class=p>[</span><span class=nx>a</span><span class=p>:</span><span class=nx>b</span><span class=p>])</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>_</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>fd</span><span class=p>.</span><span class=nf>Write</span><span class=p>(</span><span class=nx>p1</span><span class=p>[</span><span class=nx>c</span><span class=p>:</span><span class=nx>d</span><span class=p>])</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>_</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>fd</span><span class=p>.</span><span class=nf>Write</span><span class=p>(</span><span class=nx>p2</span><span class=p>[</span><span class=nx>e</span><span class=p>:</span><span class=nx>f</span><span class=p>])</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// and so on</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>errWriter</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>errWriter</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>w</span><span class=w>   </span><span class=nx>io</span><span class=p>.</span><span class=nx>Writer</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>err</span><span class=w> </span><span class=kt>error</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=p>(</span><span class=nx>ew</span><span class=w> </span><span class=o>*</span><span class=nx>errWriter</span><span class=p>)</span><span class=w> </span><span class=nf>write</span><span class=p>(</span><span class=nx>buf</span><span class=w> </span><span class=p>[]</span><span class=kt>byte</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>ew</span><span class=p>.</span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>_</span><span class=p>,</span><span class=w> </span><span class=nx>ew</span><span class=p>.</span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>ew</span><span class=p>.</span><span class=nx>w</span><span class=p>.</span><span class=nf>Write</span><span class=p>(</span><span class=nx>buf</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// 使用时</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>ew</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=o>&amp;</span><span class=nx>errWriter</span><span class=p>{</span><span class=nx>w</span><span class=p>:</span><span class=w> </span><span class=nx>fd</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>ew</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=nx>p0</span><span class=p>[</span><span class=nx>a</span><span class=p>:</span><span class=nx>b</span><span class=p>])</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>ew</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=nx>p1</span><span class=p>[</span><span class=nx>c</span><span class=p>:</span><span class=nx>d</span><span class=p>])</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>ew</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=nx>p2</span><span class=p>[</span><span class=nx>e</span><span class=p>:</span><span class=nx>f</span><span class=p>])</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// and so on</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=k>if</span><span class=w> </span><span class=nx>ew</span><span class=p>.</span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=nx>ew</span><span class=p>.</span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>如果去翻 标准库中 bufio.Writer 的源代码，你会发现也有这种用法，这种就是将重复的逻辑进行了封装，然后把 error 暂存，然后就只需要在最后判断一下 error 就行了</p><h3 id=5-wrap-error-错误包装>5. wrap error: 错误包装</h3><h4 id=errorswrap-有何作用为什么不用标准库的-fmterrorfw>errors.wrap 有何作用，为什么不用标准库的 <code>fmt.Errorf("%w")</code></h4><p>先看一下标准库的源码，我们可以发现当 <code>p.wrappedErr != nil</code> 的时候（也就是有 %w）的时候，会使用一个 <code>wrapError</code> 将错误包装，看 <code>wrapError</code> 的源码可以发现，这个方法只是包装了一下原始错误，并且可以做到附加一些文本信息，但是没有堆栈信息</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>Errorf</span><span class=p>(</span><span class=nx>format</span><span class=w> </span><span class=kt>string</span><span class=p>,</span><span class=w> </span><span class=nx>a</span><span class=w> </span><span class=o>...</span><span class=kd>interface</span><span class=p>{})</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>p</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>newPrinter</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>p</span><span class=p>.</span><span class=nx>wrapErrs</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>p</span><span class=p>.</span><span class=nf>doPrintf</span><span class=p>(</span><span class=nx>format</span><span class=p>,</span><span class=w> </span><span class=nx>a</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>s</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>string</span><span class=p>(</span><span class=nx>p</span><span class=p>.</span><span class=nx>buf</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>var</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=kt>error</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>p</span><span class=p>.</span><span class=nx>wrappedErr</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=nx>s</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=o>&amp;</span><span class=nx>wrapError</span><span class=p>{</span><span class=nx>s</span><span class=p>,</span><span class=w> </span><span class=nx>p</span><span class=p>.</span><span class=nx>wrappedErr</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>p</span><span class=p>.</span><span class=nf>free</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>wrapError</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>msg</span><span class=w> </span><span class=kt>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>err</span><span class=w> </span><span class=kt>error</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=p>(</span><span class=nx>e</span><span class=w> </span><span class=o>*</span><span class=nx>wrapError</span><span class=p>)</span><span class=w> </span><span class=nf>Error</span><span class=p>()</span><span class=w> </span><span class=kt>string</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>e</span><span class=p>.</span><span class=nx>msg</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=p>(</span><span class=nx>e</span><span class=w> </span><span class=o>*</span><span class=nx>wrapError</span><span class=p>)</span><span class=w> </span><span class=nf>Unwrap</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>e</span><span class=p>.</span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>在看一下 pkg/errors 的源码，我肯可以发现除了使用 <code>withMessage</code> 附加了错误信息之外还使用 <code>withStack</code> 附加了堆栈信息，这样在程序入口处打印日志信息的时候就可以将堆栈信息一并打出了</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Wrap returns an error annotating err with a stack trace</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// at the point Wrap is called, and the supplied message.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// If err is nil, Wrap returns nil.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>Wrap</span><span class=p>(</span><span class=nx>err</span><span class=w> </span><span class=kt>error</span><span class=p>,</span><span class=w> </span><span class=nx>message</span><span class=w> </span><span class=kt>string</span><span class=p>)</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=o>&amp;</span><span class=nx>withMessage</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>cause</span><span class=p>:</span><span class=w> </span><span class=nx>err</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>msg</span><span class=p>:</span><span class=w>   </span><span class=nx>message</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>withStack</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>err</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nf>callers</span><span class=p>(),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=6-为什么不允许处处使用-errorswrap>6. 为什么不允许处处使用 errors.Wrap</h3><p>因为每一次 <code>errors.Wrap</code>的调用都会为错误添加堆栈信息，如果处处调用那会有大量的无用堆栈</p><p>先看一下只有一处 wrap</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;err: %+v&#34;</span><span class=p>,</span><span class=w> </span><span class=nf>c</span><span class=p>())</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>a</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>Wrap</span><span class=p>(</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Errorf</span><span class=p>(</span><span class=s>&#34;xxx&#34;</span><span class=p>),</span><span class=w> </span><span class=s>&#34;test&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>b</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nf>a</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>c</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nf>b</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>看结果可以发现已经可以打印出全部的堆栈信息了</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>err: xxx
+</span></span><span class=line><span class=cl><span class=nb>test</span>
+</span></span><span class=line><span class=cl>main.a
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:14
+</span></span><span class=line><span class=cl>main.b
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:18
+</span></span><span class=line><span class=cl>main.c
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:22
+</span></span><span class=line><span class=cl>main.main
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:10
+</span></span><span class=line><span class=cl>runtime.main
+</span></span><span class=line><span class=cl>        /usr/local/go/src/runtime/proc.go:204
+</span></span><span class=line><span class=cl>runtime.goexit
+</span></span><span class=line><span class=cl>        /usr/local/go/src/runtime/asm_amd64.s:1374
+</span></span></code></pre></td></tr></table></div></div><p>再看多处 wrap 的现象</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;err: %+v&#34;</span><span class=p>,</span><span class=w> </span><span class=nf>c</span><span class=p>())</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>a</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>Wrap</span><span class=p>(</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Errorf</span><span class=p>(</span><span class=s>&#34;xxx&#34;</span><span class=p>),</span><span class=w> </span><span class=s>&#34;a&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>b</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>Wrap</span><span class=p>(</span><span class=nf>a</span><span class=p>(),</span><span class=w> </span><span class=s>&#34;b&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>c</span><span class=p>()</span><span class=w> </span><span class=kt>error</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>Wrap</span><span class=p>(</span><span class=nf>b</span><span class=p>(),</span><span class=w> </span><span class=s>&#34;c&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>可以看到每一处 wrap 都添加了一次堆栈信息</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>err: xxx
+</span></span><span class=line><span class=cl>a
+</span></span><span class=line><span class=cl>main.a
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:14
+</span></span><span class=line><span class=cl>main.b
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:18
+</span></span><span class=line><span class=cl>main.c
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:22
+</span></span><span class=line><span class=cl>main.main
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:10
+</span></span><span class=line><span class=cl>runtime.main
+</span></span><span class=line><span class=cl>        /usr/local/go/src/runtime/proc.go:204
+</span></span><span class=line><span class=cl>runtime.goexit
+</span></span><span class=line><span class=cl>        /usr/local/go/src/runtime/asm_amd64.s:1374
+</span></span><span class=line><span class=cl>b
+</span></span><span class=line><span class=cl>main.b
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:18
+</span></span><span class=line><span class=cl>main.c
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:22
+</span></span><span class=line><span class=cl>main.main
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:10
+</span></span><span class=line><span class=cl>runtime.main
+</span></span><span class=line><span class=cl>        /usr/local/go/src/runtime/proc.go:204
+</span></span><span class=line><span class=cl>runtime.goexit
+</span></span><span class=line><span class=cl>        /usr/local/go/src/runtime/asm_amd64.s:1374
+</span></span><span class=line><span class=cl>c
+</span></span><span class=line><span class=cl>main.c
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:22
+</span></span><span class=line><span class=cl>main.main
+</span></span><span class=line><span class=cl>        /home/ll/project/Go-000/Week02/blog/wrap.go:10
+</span></span><span class=line><span class=cl>runtime.main
+</span></span><span class=line><span class=cl>        /usr/local/go/src/runtime/proc.go:204
+</span></span><span class=line><span class=cl>runtime.goexit
+</span></span><span class=line><span class=cl>        /usr/local/go/src/runtime/asm_amd64.s:1374
+</span></span></code></pre></td></tr></table></div></div><h3 id=7-标准库-errorsis--as-怎么判断错误>7. 标准库 errors.Is / As 怎么判断错误</h3><h4 id=errorsis>errors.Is</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=kt>error</span><span class=p>)</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>target</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// 通过反射判读 target 是否可以被比较</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>isComparable</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflectlite</span><span class=p>.</span><span class=nf>TypeOf</span><span class=p>(</span><span class=nx>target</span><span class=p>).</span><span class=nf>Comparable</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// 循环判断是否相等</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nx>isComparable</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// 判断是否实现了 is 接口，如果有实现就直接判断</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nx>x</span><span class=p>,</span><span class=w> </span><span class=nx>ok</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>err</span><span class=p>.(</span><span class=kd>interface</span><span class=p>{</span><span class=w> </span><span class=nf>Is</span><span class=p>(</span><span class=kt>error</span><span class=p>)</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>});</span><span class=w> </span><span class=nx>ok</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>x</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>target</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 去判断是否实现了 unwrap 的接口，如果实现了就进行 unwrap</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nf>Unwrap</span><span class=p>(</span><span class=nx>err</span><span class=p>);</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=errorsas>errors.As</h4><p>和 is 的逻辑类似，就是不断的进行 unwrap 进行比较，只要有一个相同就返回，如果一直到底都不行就返回 false</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>As</span><span class=p>(</span><span class=nx>err</span><span class=w> </span><span class=kt>error</span><span class=p>,</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=kd>interface</span><span class=p>{})</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nb>panic</span><span class=p>(</span><span class=s>&#34;errors: target cannot be nil&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>val</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>reflectlite</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=nx>target</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>typ</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>val</span><span class=p>.</span><span class=nf>Type</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>typ</span><span class=p>.</span><span class=nf>Kind</span><span class=p>()</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=nx>reflectlite</span><span class=p>.</span><span class=nx>Ptr</span><span class=w> </span><span class=o>||</span><span class=w> </span><span class=nx>val</span><span class=p>.</span><span class=nf>IsNil</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nb>panic</span><span class=p>(</span><span class=s>&#34;errors: target must be a non-nil pointer&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>e</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>typ</span><span class=p>.</span><span class=nf>Elem</span><span class=p>();</span><span class=w> </span><span class=nx>e</span><span class=p>.</span><span class=nf>Kind</span><span class=p>()</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=nx>reflectlite</span><span class=p>.</span><span class=nx>Interface</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=p>!</span><span class=nx>e</span><span class=p>.</span><span class=nf>Implements</span><span class=p>(</span><span class=nx>errorType</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nb>panic</span><span class=p>(</span><span class=s>&#34;errors: *target must be interface or implement error&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>targetType</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>typ</span><span class=p>.</span><span class=nf>Elem</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nx>reflectlite</span><span class=p>.</span><span class=nf>TypeOf</span><span class=p>(</span><span class=nx>err</span><span class=p>).</span><span class=nf>AssignableTo</span><span class=p>(</span><span class=nx>targetType</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>val</span><span class=p>.</span><span class=nf>Elem</span><span class=p>().</span><span class=nf>Set</span><span class=p>(</span><span class=nx>reflectlite</span><span class=p>.</span><span class=nf>ValueOf</span><span class=p>(</span><span class=nx>err</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nx>x</span><span class=p>,</span><span class=w> </span><span class=nx>ok</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>err</span><span class=p>.(</span><span class=kd>interface</span><span class=p>{</span><span class=w> </span><span class=nf>As</span><span class=p>(</span><span class=kd>interface</span><span class=p>{})</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>});</span><span class=w> </span><span class=nx>ok</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>x</span><span class=p>.</span><span class=nf>As</span><span class=p>(</span><span class=nx>target</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nf>Unwrap</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/golang/>Golang</a>
+<a href=/tags/best-practice/>Best Practice</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/p/%E7%BF%BB%E8%AF%91claude-code%E4%BB%A3%E7%90%86%E5%BC%8F%E7%BC%96%E7%A0%81%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/><div class=article-details><h2 class=article-title>【翻译】Claude Code：代理式编码的最佳实践</h2></div></a></article><article><a href=/p/%E8%BD%AF%E4%BB%B6%E8%BF%87%E7%A8%8B%E6%94%B9%E8%BF%9B%E7%AE%80%E8%BF%B0%E5%9C%A8cmmi%E4%B8%AD%E5%BC%95%E5%85%A5%E6%95%8F%E6%8D%B7/><div class=article-details><h2 class=article-title>软件过程改进简述——在CMMI中引入敏捷</h2></div></a></article><article><a href=/p/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%9A%84%E5%8E%86%E5%8F%B2%E6%BC%94%E5%8F%98%E7%AE%80%E8%BF%B0/><div class=article-details><h2 class=article-title>软件工程的历史演变简述</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//morsuning.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2018 -
+2026 morsuning's Blog</section><section class=powerby>Intelligence all rights reserved.<br>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.33.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
